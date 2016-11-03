@@ -32,6 +32,7 @@
 		05144B271DCBC9530074B01E /* DCE.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DCE.hpp; sourceTree = "<group>"; };
 		05144B281DCBCC200074B01E /* Arguments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arguments.cpp; sourceTree = "<group>"; };
 		05144B291DCBCC200074B01E /* Arguments.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Arguments.hpp; sourceTree = "<group>"; };
+		05144B2B1DCBCCEE0074B01E /* DCE.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCE.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +69,7 @@
 				05144B241DCBC91F0074B01E /* DCE */,
 				05144B251DCBC9370074B01E /* DCE.cpp */,
 				05144B271DCBC9530074B01E /* DCE.hpp */,
+				05144B2B1DCBCCEE0074B01E /* DCE.pch */,
 				05144B201DCBBF3E0074B01E /* main.cpp */,
 			);
 			path = dyld_cache_extract;
@@ -367,6 +369,12 @@
 		05144B1E1DCBBDF40074B01E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dyld_cache_extract/DCE.pch;
+				HEADER_SEARCH_PATHS = (
+					Submodules/PIMPL/PIMPL/include,
+					Submodules/SeriousCode,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -374,6 +382,12 @@
 		05144B1F1DCBBDF40074B01E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dyld_cache_extract/DCE.pch;
+				HEADER_SEARCH_PATHS = (
+					Submodules/PIMPL/PIMPL/include,
+					Submodules/SeriousCode,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
