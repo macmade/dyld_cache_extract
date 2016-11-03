@@ -30,9 +30,27 @@
 #ifndef DCE_ARGUMENTS_H
 #define DCE_ARGUMENTS_H
 
+#include <string>
+#include <XS/PIMPL/Object.hpp>
+
 namespace DCE
 {
-    
+    class Arguments: public XS::PIMPL::Object< Arguments >
+    {
+        public:
+            
+            using XS::PIMPL::Object< Arguments >::impl;
+            
+            Arguments( void );
+            Arguments( int argc, const char ** argv );
+            
+            bool        ShowUsage( void )           const;
+            bool        PrintInfo( void )           const;
+            bool        Extract( void )             const;
+            std::string GetCacheFile( void )        const;
+            std::string GetOutputDirectory( void )  const;
+            std::string GetLibraryName( void )      const;
+    };
 }
 
 #endif /* DCE_ARGUMENTS_H */

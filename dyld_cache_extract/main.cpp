@@ -28,13 +28,16 @@
  */
 
 #include "DCE.hpp"
+#include "DCE/Arguments.hpp"
 
 int main( int argc, const char * argv[] )
 {
-    ( void )argc;
-    ( void )argv;
+    DCE::Arguments args( argc, argv );
     
-    DCE::PrintUsage();
+    if( args.ShowUsage() )
+    {
+        DCE::PrintUsage();
+    }
     
     return 0;
 }
