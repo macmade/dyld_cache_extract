@@ -23,16 +23,16 @@
  ******************************************************************************/
 
 /*!
- * @header      DCE.hpp
+ * @header      Arguments.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef DCE_H
-#define DCE_H
+#ifndef DCE_ARGUMENTS_H
+#define DCE_ARGUMENTS_H
 
 namespace DCE
 {
-    void PrintUsage( void );
+    
 }
 
-#endif /* DCE_H */
+#endif /* DCE_ARGUMENTS_H */
