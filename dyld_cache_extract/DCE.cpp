@@ -23,18 +23,31 @@
  ******************************************************************************/
 
 /*!
- * @header      main.cpp
+ * @header      DCE.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
 #include "DCE.hpp"
+#include <iostream>
 
-int main( int argc, const char * argv[] )
+namespace DCE
 {
-    ( void )argc;
-    ( void )argv;
-    
-    DCE::PrintUsage();
-    
-    return 0;
+    void PrintUsage( void )
+    {
+        std::cout << "dyld_cache_extract - Extractor for DYLD shared cache"
+                  << std::endl
+                  << std::endl
+                  << "Available options:"
+                  << std::endl
+                  << std::endl
+                  << "    --help                            Shows this help dialog."
+                  << std::endl
+                  << "    --info [PATH]                     Displays informations about a dyld_shared_cache file."
+                  << std::endl
+                  << "    --extract-all [PATH] [OUT_DIR]    Extracts all libraries from a dyld_shared_cache file."
+                  << std::endl
+                  << "    --extract [LIB] [PATH] [OUT_DIR]  Extracts a specific library from a dyld_shared_cache file."
+                  << std::endl
+                  << std::endl;
+    }
 }

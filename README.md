@@ -13,7 +13,14 @@ A macOS command line tool to extract dynamic libraries from the `dyld_shared_cac
 
 ### Usage
 
-...
+    dyld_cache_extract - Extractor utility for DYLD shared cache
+    
+    Available options:
+        
+        --help                            Shows this help dialog.
+        --info [PATH]                     Displays informations about a dyld_shared_cache file.
+        --extract-all [PATH] [OUT_DIR]    Extracts all libraries from a dyld_shared_cache file.
+        --extract [LIB] [PATH] [OUT_DIR]  Extracts a specific library from a dyld_shared_cache file.
 
 License
 -------

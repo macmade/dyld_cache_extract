@@ -23,18 +23,16 @@
  ******************************************************************************/
 
 /*!
- * @header      main.cpp
+ * @header      DCE.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "DCE.hpp"
+#ifndef DCE_H
+#define DCE_H
 
-int main( int argc, const char * argv[] )
+namespace DCE
 {
-    ( void )argc;
-    ( void )argv;
-    
-    DCE::PrintUsage();
-    
-    return 0;
+    void PrintUsage( void );
 }
+
+#endif

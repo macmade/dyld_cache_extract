@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05144B211DCBBF3E0074B01E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B201DCBBF3E0074B01E /* main.cpp */; };
+		05144B261DCBC9370074B01E /* DCE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B251DCBC9370074B01E /* DCE.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,8 @@
 		05144B161DCBBDF40074B01E /* dyld_cache_extract */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dyld_cache_extract; sourceTree = BUILT_PRODUCTS_DIR; };
 		05144B201DCBBF3E0074B01E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05144B221DCBC78D0074B01E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		05144B251DCBC9370074B01E /* DCE.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DCE.cpp; sourceTree = "<group>"; };
+		05144B271DCBC9530074B01E /* DCE.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DCE.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +62,19 @@
 		05144B181DCBBDF40074B01E /* dyld_cache_extract */ = {
 			isa = PBXGroup;
 			children = (
+				05144B241DCBC91F0074B01E /* DCE */,
+				05144B251DCBC9370074B01E /* DCE.cpp */,
+				05144B271DCBC9530074B01E /* DCE.hpp */,
 				05144B201DCBBF3E0074B01E /* main.cpp */,
 			);
 			path = dyld_cache_extract;
+			sourceTree = "<group>";
+		};
+		05144B241DCBC91F0074B01E /* DCE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DCE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,6 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05144B261DCBC9370074B01E /* DCE.cpp in Sources */,
 				05144B211DCBBF3E0074B01E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
