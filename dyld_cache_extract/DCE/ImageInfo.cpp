@@ -81,6 +81,20 @@ namespace DCE
         return this->impl->_path;
     }
     
+    std::string ImageInfo::GetModificationDate( void ) const
+    {
+        char        dbuf[ 256 ];
+        time_t      t;
+        struct tm * now;
+        
+        t   = static_cast< time_t >( this->impl->_mTime );
+        now = localtime( &t );
+        
+        strftime( static_cast< char * >( dbuf ), sizeof( dbuf ), "%Y-%m-%d %H:%M:%S", now );
+        
+        return std::string( dbuf );
+    }
+    
     void ImageInfo::SetAddress( uint64_t value )
     {
         this->impl->_address = value;

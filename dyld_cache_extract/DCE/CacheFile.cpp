@@ -28,6 +28,7 @@
  */
 
 #include <ios>
+#include <iomanip>
 #include "CacheFile.hpp"
 #include "BinaryStream.hpp"
 
@@ -156,7 +157,20 @@ namespace DCE
         
         for( const auto & i: f.GetImages() )
         {
-            os << "    - " << i.GetPath() << std::endl;
+            os << "    "
+               << i.GetModificationDate()
+               << " - 0x"
+               << std::hex
+               << std::uppercase
+               << std::setfill( '0' )
+               << std::setw( 16 )
+               << i.GetAddress()
+               << std::endl;
+               
+            os << "    "
+               << i.GetPath()
+               << std::endl
+               << std::endl;
         }
         
         return os;

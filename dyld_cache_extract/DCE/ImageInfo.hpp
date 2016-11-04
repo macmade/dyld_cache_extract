@@ -48,6 +48,7 @@ namespace DCE
             uint64_t    GetModificationTime( void ) const;
             uint64_t    GetInode( void )            const;
             std::string GetPath( void )             const;
+            std::string GetModificationDate( void ) const;
             
             void SetAddress( uint64_t value );
             void SetModificationTime( uint64_t value );
