@@ -33,6 +33,8 @@
 #include <string>
 #include <iostream>
 #include <cstdint>
+#include <vector>
+#include "ImageInfo.hpp"
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE
@@ -46,16 +48,17 @@ namespace DCE
             CacheFile( void );
             CacheFile( const std::string & path );
             
-            bool        Exists( void )              const;
-            bool        IsValid( void )             const;
-            std::string GetPath( void )             const;
-            std::string GetVersion( void )          const;
-            std::string GetArchitecture( void )     const;
-            uint32_t    GetMappingOffset( void )    const;
-            uint32_t    GetMappingCount( void )     const;
-            uint32_t    GetImagesOffset( void )     const;
-            uint32_t    GetImagesCount( void )      const;
-            uint64_t    GetDYLDBaseAddress( void )  const;
+            bool                            Exists( void )              const;
+            bool                            IsValid( void )             const;
+            std::string                     GetPath( void )             const;
+            std::string                     GetVersion( void )          const;
+            std::string                     GetArchitecture( void )     const;
+            uint32_t                        GetMappingOffset( void )    const;
+            uint32_t                        GetMappingCount( void )     const;
+            uint32_t                        GetImagesOffset( void )     const;
+            uint32_t                        GetImagesCount( void )      const;
+            uint64_t                        GetDYLDBaseAddress( void )  const;
+            std::vector< DCE::ImageInfo >   GetImages( void )           const;
             
             friend std::ostream & operator <<( std::ostream & os, const CacheFile & e );
     };

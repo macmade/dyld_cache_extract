@@ -69,8 +69,6 @@ namespace DCE
             
             std::string ReadBigEndianISO639Code( void );
             std::string ReadNULLTerminatedString( void );
-            std::string ReadUTF8String( void );
-            std::string ReadLongUTF8String( void );
             
             bool IsGood( void ) const;
             bool IsEOF( void ) const;

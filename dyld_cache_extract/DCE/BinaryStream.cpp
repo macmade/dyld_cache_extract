@@ -421,49 +421,13 @@ namespace DCE
         
         while( 1 )
         {
-            this->Get( &c, 1 );
+            this->Read( &c, 1 );
             
             if( c == 0 )
             {
                 break;
             }
             
-            s.append( 1, c );
-        }
-        
-        return s;
-    }
-    
-    std::string BinaryStream::ReadUTF8String( void )
-    {
-        char        c;
-        uint16_t    length;
-        uint16_t    i;
-        std::string s;
-        
-        length = this->ReadBigEndianUnsignedShort();
-        
-        for( i = 0; i < length; i++ )
-        {
-            this->Get( &c, 1 );
-            s.append( 1, c );
-        }
-        
-        return s;
-    }
-    
-    std::string BinaryStream::ReadLongUTF8String( void )
-    {
-        char        c;
-        uint32_t    length;
-        uint32_t    i;
-        std::string s;
-        
-        length = this->ReadBigEndianUnsignedInteger();
-        
-        for( i = 0; i < length; i++ )
-        {
-            this->Get( &c, 1 );
             s.append( 1, c );
         }
         

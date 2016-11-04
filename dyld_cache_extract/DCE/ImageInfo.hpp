@@ -31,6 +31,7 @@
 #define DCE_IMAGE_INFO_H
 
 #include <cstdint>
+#include <string>
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE
@@ -43,15 +44,15 @@ namespace DCE
             
             ImageInfo( void );
             
-            uint64_t GetAddress( void )          const;
-            uint64_t GetModificationTime( void ) const;
-            uint64_t GetInode( void )            const;
-            uint32_t GetPathFileOffset( void )   const;
+            uint64_t    GetAddress( void )          const;
+            uint64_t    GetModificationTime( void ) const;
+            uint64_t    GetInode( void )            const;
+            std::string GetPath( void )             const;
             
             void SetAddress( uint64_t value );
             void SetModificationTime( uint64_t value );
             void SetInode( uint64_t value );
-            void SetPathFileOffset( uint32_t value );
+            void SetPath( const std::string & value );
     };
 }
 

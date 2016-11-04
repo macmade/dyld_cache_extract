@@ -43,10 +43,10 @@ class XS::PIMPL::Object< DCE::ImageInfo >::IMPL
         IMPL( const IMPL & o );
         ~IMPL( void );
         
-        uint64_t _address;
-        uint64_t _mTime;
-        uint64_t _inode;
-        uint32_t _pathFileOffset;
+        uint64_t    _address;
+        uint64_t    _mTime;
+        uint64_t    _inode;
+        std::string _path;
 };
 
 #ifdef __clang__
@@ -76,9 +76,9 @@ namespace DCE
         return this->impl->_inode;
     }
     
-    uint32_t ImageInfo::GetPathFileOffset( void ) const
+    std::string ImageInfo::GetPath( void ) const
     {
-        return this->impl->_pathFileOffset;
+        return this->impl->_path;
     }
     
     void ImageInfo::SetAddress( uint64_t value )
@@ -96,24 +96,23 @@ namespace DCE
         this->impl->_inode = value;
     }
     
-    void ImageInfo::SetPathFileOffset( uint32_t value )
+    void ImageInfo::SetPath( const std::string & value )
     {
-        this->impl->_pathFileOffset = value;
+        this->impl->_path = value;
     }
 }
 
 XS::PIMPL::Object< DCE::ImageInfo >::IMPL::IMPL( void ):
     _address( 0 ),
     _mTime( 0 ),
-    _inode( 0 ),
-    _pathFileOffset( 0 )
+    _inode( 0 )
 {}
 
 XS::PIMPL::Object< DCE::ImageInfo >::IMPL::IMPL( const IMPL & o ):
     _address( o._address ),
     _mTime( o._mTime ),
     _inode( o._inode ),
-    _pathFileOffset( o._pathFileOffset )
+    _path( o._path )
 {}
 
 XS::PIMPL::Object< DCE::ImageInfo >::IMPL::~IMPL( void )
