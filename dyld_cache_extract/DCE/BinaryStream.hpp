@@ -67,7 +67,6 @@ namespace DCE
             float ReadBigEndianFixedPoint( unsigned int integerLength, unsigned int fractionalLength );
             float ReadLittleEndianFixedPoint( unsigned int integerLength, unsigned int fractionalLength );
             
-            std::string ReadBigEndianISO639Code( void );
             std::string ReadNULLTerminatedString( void );
             
             bool IsGood( void ) const;

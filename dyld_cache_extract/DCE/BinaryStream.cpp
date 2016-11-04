@@ -389,31 +389,6 @@ namespace DCE
         return integer + fractional;
     }
     
-    std::string BinaryStream::ReadBigEndianISO639Code( void )
-    {
-        unsigned char c1;
-        unsigned char c2;
-        unsigned char c3;
-        uint16_t      n;
-        std::string   s;
-        
-        n = this->ReadBigEndianUnsignedShort();
-        
-        c1 = ( n & 0x7C00 ) >> 10;  // Mask is 0111 1100 0000 0000
-        c2 = ( n & 0x03E0 ) >> 5;   // Mask is 0000 0011 1110 0000
-        c3 = ( n & 0x001F );        // Mask is 0000 0000 0001 1111
-        
-        c1 += 0x60;
-        c2 += 0x60;
-        c3 += 0x60;
-        
-        s.append( reinterpret_cast< char * >( &c1 ), 1 );
-        s.append( reinterpret_cast< char * >( &c2 ), 1 );
-        s.append( reinterpret_cast< char * >( &c3 ), 1 );
-        
-        return s;
-    }
-    
     std::string BinaryStream::ReadNULLTerminatedString( void )
     {
         char        c;
@@ -421,6 +396,8 @@ namespace DCE
         
         while( 1 )
         {
+            c = 0;
+            
             this->Read( &c, 1 );
             
             if( c == 0 )
