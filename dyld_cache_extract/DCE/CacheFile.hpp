@@ -45,6 +45,7 @@ namespace DCE
             CacheFile( void );
             CacheFile( const std::string & path );
             
+            bool        Exists( void ) const;
             bool        IsValid( void ) const;
             std::string GetPath( void ) const;
             

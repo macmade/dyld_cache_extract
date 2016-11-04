@@ -11,6 +11,7 @@
 		05144B261DCBC9370074B01E /* DCE.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B251DCBC9370074B01E /* DCE.cpp */; };
 		05144B2A1DCBCC200074B01E /* Arguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B281DCBCC200074B01E /* Arguments.cpp */; };
 		05144B581DCCC88E0074B01E /* CacheFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B561DCCC88E0074B01E /* CacheFile.cpp */; };
+		05144B6C1DCCCD120074B01E /* BinaryStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B6A1DCCCD120074B01E /* BinaryStream.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,8 @@
 		05144B2B1DCBCCEE0074B01E /* DCE.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCE.pch; sourceTree = "<group>"; };
 		05144B561DCCC88E0074B01E /* CacheFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CacheFile.cpp; sourceTree = "<group>"; };
 		05144B571DCCC88E0074B01E /* CacheFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CacheFile.hpp; sourceTree = "<group>"; };
+		05144B6A1DCCCD120074B01E /* BinaryStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BinaryStream.cpp; sourceTree = "<group>"; };
+		05144B6B1DCCCD120074B01E /* BinaryStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryStream.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 			children = (
 				05144B281DCBCC200074B01E /* Arguments.cpp */,
 				05144B291DCBCC200074B01E /* Arguments.hpp */,
+				05144B6A1DCCCD120074B01E /* BinaryStream.cpp */,
+				05144B6B1DCCCD120074B01E /* BinaryStream.hpp */,
 				05144B561DCCC88E0074B01E /* CacheFile.cpp */,
 				05144B571DCCC88E0074B01E /* CacheFile.hpp */,
 			);
@@ -149,6 +154,7 @@
 				05144B261DCBC9370074B01E /* DCE.cpp in Sources */,
 				05144B2A1DCBCC200074B01E /* Arguments.cpp in Sources */,
 				05144B581DCCC88E0074B01E /* CacheFile.cpp in Sources */,
+				05144B6C1DCCCD120074B01E /* BinaryStream.cpp in Sources */,
 				05144B211DCBBF3E0074B01E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

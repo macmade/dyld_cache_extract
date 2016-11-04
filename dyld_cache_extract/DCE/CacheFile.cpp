@@ -44,6 +44,7 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         IMPL( const IMPL & o );
         ~IMPL( void );
         
+        bool        _exists;
         bool        _valid;
         std::string _path;
 };
@@ -62,6 +63,11 @@ namespace DCE
     
     CacheFile::CacheFile( const std::string & path ): XS::PIMPL::Object< CacheFile >( path )
     {}
+    
+    bool CacheFile::Exists( void ) const
+    {
+        return this->impl->_exists;
+    }
     
     bool CacheFile::IsValid( void ) const
     {
@@ -82,10 +88,12 @@ namespace DCE
 }
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( void ):
+    _exists( false ),
     _valid( false )
 {}
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const std::string & path ):
+    _exists( false ),
     _valid( false ),
     _path( path )
 {
@@ -93,6 +101,7 @@ XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const std::string & path ):
 }
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const IMPL & o ):
+    _exists( o._exists ),
     _valid( o._valid ),
     _path( o._path )
 {}

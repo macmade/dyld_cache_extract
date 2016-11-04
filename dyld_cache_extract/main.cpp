@@ -45,9 +45,16 @@ int main( int argc, const char * argv[] )
     
     file = DCE::CacheFile( args.GetCacheFile() );
     
-    if( file.IsValid() == false )
+    if( file.Exists() == false )
     {
         std::cerr << "Error - cannot open DYLD cache file: " << file.GetPath() << std::endl;
+        
+        return -1;
+    }
+    
+    if( file.IsValid() == false )
+    {
+        std::cerr << "Error - invalid DYLD cache file: " << file.GetPath() << std::endl;
         
         return -1;
     }
