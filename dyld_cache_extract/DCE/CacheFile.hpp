@@ -23,43 +23,33 @@
  ******************************************************************************/
 
 /*!
- * @header      main.cpp
+ * @header      CacheFile.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "DCE.hpp"
-#include "DCE/Arguments.hpp"
-#include "DCE/CacheFile.hpp"
+#ifndef DCE_CACHE_FILE_H
+#define DCE_CACHE_FILE_H
 
-int main( int argc, const char * argv[] )
+#include <string>
+#include <iostream>
+#include <XS/PIMPL/Object.hpp>
+
+namespace DCE
 {
-    DCE::Arguments args( argc, argv );
-    DCE::CacheFile file;
-    
-    if( args.ShowUsage() )
+    class CacheFile: public XS::PIMPL::Object< CacheFile >
     {
-        DCE::PrintUsage();
-        
-        return 0;
-    }
-    
-    file = DCE::CacheFile( args.GetCacheFile() );
-    
-    if( file.IsValid() == false )
-    {
-        std::cerr << "Error - cannot open DYLD cache file: " << file.GetPath() << std::endl;
-        
-        return -1;
-    }
-    
-    if( args.PrintInfo() )
-    {
-        std::cout << file << std::endl;
-    }
-    else
-    {
-        
-    }
-    
-    return 0;
+        public:
+            
+            using XS::PIMPL::Object< CacheFile >::impl;
+            
+            CacheFile( void );
+            CacheFile( const std::string & path );
+            
+            bool        IsValid( void ) const;
+            std::string GetPath( void ) const;
+            
+            friend std::ostream & operator <<( std::ostream & os, const CacheFile & e );
+    };
 }
+
+#endif /* DCE_CACHE_FILE_H */

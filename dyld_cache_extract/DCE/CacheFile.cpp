@@ -23,43 +23,79 @@
  ******************************************************************************/
 
 /*!
- * @header      main.cpp
+ * @header      CacheFile.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "DCE.hpp"
-#include "DCE/Arguments.hpp"
-#include "DCE/CacheFile.hpp"
+#include "CacheFile.hpp"
 
-int main( int argc, const char * argv[] )
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+template<>
+class XS::PIMPL::Object< DCE::CacheFile >::IMPL
 {
-    DCE::Arguments args( argc, argv );
-    DCE::CacheFile file;
-    
-    if( args.ShowUsage() )
-    {
-        DCE::PrintUsage();
+    public:
         
-        return 0;
-    }
-    
-    file = DCE::CacheFile( args.GetCacheFile() );
-    
-    if( file.IsValid() == false )
-    {
-        std::cerr << "Error - cannot open DYLD cache file: " << file.GetPath() << std::endl;
+        IMPL( void );
+        IMPL( const std::string & path );
+        IMPL( const IMPL & o );
+        ~IMPL( void );
         
-        return -1;
+        bool        _valid;
+        std::string _path;
+};
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#define XS_PIMPL_CLASS DCE::CacheFile
+#include <XS/PIMPL/Object-IMPL.hpp>
+
+namespace DCE
+{
+    CacheFile::CacheFile( void ): XS::PIMPL::Object< CacheFile >()
+    {}
+    
+    CacheFile::CacheFile( const std::string & path ): XS::PIMPL::Object< CacheFile >( path )
+    {}
+    
+    bool CacheFile::IsValid( void ) const
+    {
+        return this->impl->_valid;
     }
     
-    if( args.PrintInfo() )
+    std::string CacheFile::GetPath( void ) const
     {
-        std::cout << file << std::endl;
+        return this->impl->_path;
     }
-    else
+    
+    std::ostream & operator <<( std::ostream & os, const CacheFile & f )
     {
+        ( void )f;
         
+        return os;
     }
-    
-    return 0;
 }
+
+XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( void ):
+    _valid( false )
+{}
+
+XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const std::string & path ):
+    _valid( false ),
+    _path( path )
+{
+    
+}
+
+XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const IMPL & o ):
+    _valid( o._valid ),
+    _path( o._path )
+{}
+
+XS::PIMPL::Object< DCE::CacheFile >::IMPL::~IMPL( void )
+{}
