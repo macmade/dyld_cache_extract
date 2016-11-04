@@ -368,6 +368,11 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImages( DCE::BinaryStream &
     {
         s.SeekG( offsets[ i ], std::ios::beg );
         
+        if( s.IsEOF() )
+        {
+            return false;
+        }
+        
         infos[ i ].SetPath( s.ReadNULLTerminatedString() );
     }
     
