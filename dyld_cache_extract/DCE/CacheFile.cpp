@@ -27,7 +27,9 @@
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
+#include <ios>
 #include "CacheFile.hpp"
+#include "BinaryStream.hpp"
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -44,9 +46,20 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         IMPL( const IMPL & o );
         ~IMPL( void );
         
+        void Parse( void );
+        bool ParseHeader( DCE::BinaryStream & s );
+        bool ParseImages( DCE::BinaryStream & s );
+        
         bool        _exists;
         bool        _valid;
         std::string _path;
+        std::string _version;
+        std::string _arch;
+        uint32_t    _mappingOffset;
+        uint32_t    _mappingCount;
+        uint32_t    _imagesOffset;
+        uint32_t    _imagesCount;
+        uint64_t    _dyldBaseAddress;
 };
 
 #ifdef __clang__
@@ -79,9 +92,56 @@ namespace DCE
         return this->impl->_path;
     }
     
+    std::string CacheFile::GetVersion( void ) const
+    {
+        return this->impl->_version;
+    }
+    
+    std::string CacheFile::GetArchitecture( void ) const
+    {
+        return this->impl->_arch;
+    }
+    
+    uint32_t CacheFile::GetMappingOffset( void ) const
+    {
+        return this->impl->_mappingOffset;
+    }
+    
+    uint32_t CacheFile::GetMappingCount( void ) const
+    {
+        return this->impl->_mappingCount;
+    }
+    
+    uint32_t CacheFile::GetImagesOffset( void ) const
+    {
+        return this->impl->_imagesOffset;
+    }
+    
+    uint32_t CacheFile::GetImagesCount( void ) const
+    {
+        return this->impl->_imagesCount;
+    }
+    
+    uint64_t CacheFile::GetDYLDBaseAddress( void ) const
+    {
+        return this->impl->_dyldBaseAddress;
+    }
+    
     std::ostream & operator <<( std::ostream & os, const CacheFile & f )
     {
-        ( void )f;
+        if( f.Exists() == false || f.IsValid() == false )
+        {
+            return os;
+        }
+        
+        os << "File:                "   << std::dec << std::uppercase << f.GetPath()            << std::endl;
+        os << "Version:             "   << std::dec << std::uppercase << f.GetVersion()         << std::endl;
+        os << "Architecture:        "   << std::dec << std::uppercase << f.GetArchitecture()    << std::endl;
+        os << "Mapping Offset:      0x" << std::hex << std::uppercase << f.GetMappingOffset()   << std::endl;
+        os << "Mapping Count:       "   << std::dec << std::uppercase << f.GetMappingCount()    << std::endl;
+        os << "Images Offset:       0x" << std::hex << std::uppercase << f.GetImagesOffset()    << std::endl;
+        os << "Images Count:        "   << std::dec << std::uppercase << f.GetImagesCount()     << std::endl;
+        os << "DYLD Base Address:   0x" << std::hex << std::uppercase << f.GetDYLDBaseAddress() << std::endl;
         
         return os;
     }
@@ -89,22 +149,149 @@ namespace DCE
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( void ):
     _exists( false ),
-    _valid( false )
+    _valid( false ),
+    _mappingOffset( 0 ),
+    _mappingCount( 0 ),
+    _imagesOffset( 0 ),
+    _imagesCount( 0 ),
+    _dyldBaseAddress( 0 )
 {}
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const std::string & path ):
     _exists( false ),
     _valid( false ),
-    _path( path )
+    _path( path ),
+    _mappingOffset( 0 ),
+    _mappingCount( 0 ),
+    _imagesOffset( 0 ),
+    _imagesCount( 0 ),
+    _dyldBaseAddress( 0 )
 {
-    
+    this->Parse();
 }
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const IMPL & o ):
     _exists( o._exists ),
     _valid( o._valid ),
-    _path( o._path )
+    _path( o._path ),
+    _version( o._version ),
+    _arch( o._arch ),
+    _mappingOffset( o._mappingOffset ),
+    _mappingCount( o._mappingCount ),
+    _imagesOffset( o._imagesOffset ),
+    _imagesCount( o._imagesCount ),
+    _dyldBaseAddress( o._dyldBaseAddress )
 {}
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::~IMPL( void )
 {}
+
+void XS::PIMPL::Object< DCE::CacheFile >::IMPL::Parse( void )
+{
+    DCE::BinaryStream s( this->_path );
+    
+    if( s.IsGood() == false )
+    {
+        return;
+    }
+    
+    this->_exists = true;
+    
+    if( this->ParseHeader( s ) == false )
+    {
+        return;
+    }
+    
+    if( this->ParseImages( s ) == false )
+    {
+        return;
+    }
+    
+    this->_valid = true;
+}
+
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseHeader( DCE::BinaryStream & s )
+{
+    char        header[ 16 ];
+    std::string magic;
+    std::string version;
+    std::string arch;
+    
+    if( s.IsGood() == false || s.IsEOF() )
+    {
+        return false;
+    }
+    
+    memset( header, 0, sizeof( header ) );
+    s.Read( header, sizeof( header ) );
+    
+    magic = header;
+    
+    if( magic.find( " " ) == std::string::npos )
+    {
+        return false;
+    }
+    
+    version = magic.substr( 0, magic.find( " " ) );
+    arch    = magic.substr( magic.find_last_of( " " ) + 1 );
+    
+    if( version.find( "dyld_" ) == std::string::npos )
+    {
+        return false;
+    }
+    
+    if( arch.length() == 0 )
+    {
+        return false;
+    }
+    
+    this->_version = version;
+    this->_arch    = arch;
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    this->_mappingOffset = s.ReadUnsignedInteger();
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    this->_mappingCount = s.ReadUnsignedInteger();
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    this->_imagesOffset = s.ReadUnsignedInteger();
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    this->_imagesCount = s.ReadUnsignedInteger();
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    this->_dyldBaseAddress = s.ReadUnsignedLong();
+    
+    return true;
+}
+
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImages( DCE::BinaryStream & s )
+{
+    if( s.IsGood() == false || s.IsEOF() )
+    {
+        return false;
+    }
+    
+    return true;
+}

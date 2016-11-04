@@ -23,42 +23,36 @@
  ******************************************************************************/
 
 /*!
- * @header      CacheFile.hpp
+ * @header      ImageInfo.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef DCE_CACHE_FILE_H
-#define DCE_CACHE_FILE_H
+#ifndef DCE_IMAGE_INFO_H
+#define DCE_IMAGE_INFO_H
 
-#include <string>
-#include <iostream>
 #include <cstdint>
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE
 {
-    class CacheFile: public XS::PIMPL::Object< CacheFile >
+    class ImageInfo: public XS::PIMPL::Object< ImageInfo >
     {
         public:
             
-            using XS::PIMPL::Object< CacheFile >::impl;
+            using XS::PIMPL::Object< ImageInfo >::impl;
             
-            CacheFile( void );
-            CacheFile( const std::string & path );
+            ImageInfo( void );
             
-            bool        Exists( void )              const;
-            bool        IsValid( void )             const;
-            std::string GetPath( void )             const;
-            std::string GetVersion( void )          const;
-            std::string GetArchitecture( void )     const;
-            uint32_t    GetMappingOffset( void )    const;
-            uint32_t    GetMappingCount( void )     const;
-            uint32_t    GetImagesOffset( void )     const;
-            uint32_t    GetImagesCount( void )      const;
-            uint64_t    GetDYLDBaseAddress( void )  const;
+            uint64_t GetAddress( void )          const;
+            uint64_t GetModificationTime( void ) const;
+            uint64_t GetInode( void )            const;
+            uint32_t GetPathFileOffset( void )   const;
             
-            friend std::ostream & operator <<( std::ostream & os, const CacheFile & e );
+            void SetAddress( uint64_t value );
+            void SetModificationTime( uint64_t value );
+            void SetInode( uint64_t value );
+            void SetPathFileOffset( uint32_t value );
     };
 }
 
-#endif /* DCE_CACHE_FILE_H */
+#endif /* DCE_IMAGE_INFO_H */
