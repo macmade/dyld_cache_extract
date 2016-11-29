@@ -486,12 +486,12 @@ namespace DCE
         return this->impl->_stream.get( sb, delim );
     }
     
-    std::istream & BinaryStream::GetLine(char * s, std::streamsize n )
+    std::istream & BinaryStream::GetLine( char * s, std::streamsize n )
     {
         return this->impl->_stream.getline( s, n );
     }
     
-    std::istream & BinaryStream::GetLine(char * s, std::streamsize n, char delim )
+    std::istream & BinaryStream::GetLine( char * s, std::streamsize n, char delim )
     {
         return this->impl->_stream.getline( s, n, delim );
     }
