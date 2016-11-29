@@ -13,6 +13,8 @@
 		05144B581DCCC88E0074B01E /* CacheFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B561DCCC88E0074B01E /* CacheFile.cpp */; };
 		05144B6C1DCCCD120074B01E /* BinaryStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B6A1DCCCD120074B01E /* BinaryStream.cpp */; };
 		05144B6F1DCCD8A90074B01E /* ImageInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B6D1DCCD8A90074B01E /* ImageInfo.cpp */; };
+		05144B721DCE1D220074B01E /* MappingInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B701DCE1D220074B01E /* MappingInfo.cpp */; };
+		05BBE1EA1DEDF5D0007B3BA6 /* MachOFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05BBE1E81DEDF5D0007B3BA6 /* MachOFile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,6 +44,10 @@
 		05144B6B1DCCCD120074B01E /* BinaryStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryStream.hpp; sourceTree = "<group>"; };
 		05144B6D1DCCD8A90074B01E /* ImageInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageInfo.cpp; sourceTree = "<group>"; };
 		05144B6E1DCCD8A90074B01E /* ImageInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageInfo.hpp; sourceTree = "<group>"; };
+		05144B701DCE1D220074B01E /* MappingInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MappingInfo.cpp; sourceTree = "<group>"; };
+		05144B711DCE1D220074B01E /* MappingInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MappingInfo.hpp; sourceTree = "<group>"; };
+		05BBE1E81DEDF5D0007B3BA6 /* MachOFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MachOFile.cpp; sourceTree = "<group>"; };
+		05BBE1E91DEDF5D0007B3BA6 /* MachOFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MachOFile.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,10 @@
 				05144B571DCCC88E0074B01E /* CacheFile.hpp */,
 				05144B6D1DCCD8A90074B01E /* ImageInfo.cpp */,
 				05144B6E1DCCD8A90074B01E /* ImageInfo.hpp */,
+				05144B701DCE1D220074B01E /* MappingInfo.cpp */,
+				05144B711DCE1D220074B01E /* MappingInfo.hpp */,
+				05BBE1E81DEDF5D0007B3BA6 /* MachOFile.cpp */,
+				05BBE1E91DEDF5D0007B3BA6 /* MachOFile.hpp */,
 			);
 			path = DCE;
 			sourceTree = "<group>";
@@ -156,6 +166,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05BBE1EA1DEDF5D0007B3BA6 /* MachOFile.cpp in Sources */,
+				05144B721DCE1D220074B01E /* MappingInfo.cpp in Sources */,
 				05144B6F1DCCD8A90074B01E /* ImageInfo.cpp in Sources */,
 				05144B261DCBC9370074B01E /* DCE.cpp in Sources */,
 				05144B2A1DCBCC200074B01E /* Arguments.cpp in Sources */,
