@@ -29,6 +29,7 @@
 
 #include <ios>
 #include <iomanip>
+#include <memory>
 #include "CacheFile.hpp"
 #include "BinaryStream.hpp"
 
@@ -49,7 +50,9 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         
         void Parse( void );
         bool ParseHeader( DCE::BinaryStream & s );
-        bool ParseImages( DCE::BinaryStream & s );
+        bool ParseMappingInfos( DCE::BinaryStream & s );
+        bool ParseImageInfos( DCE::BinaryStream & s );
+        bool ParseMachOFiles( DCE::BinaryStream & s );
         
         bool                            _exists;
         bool                            _valid;
@@ -61,7 +64,9 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         uint32_t                        _imagesOffset;
         uint32_t                        _imagesCount;
         uint64_t                        _dyldBaseAddress;
-        std::vector< DCE::ImageInfo >   _images;
+        std::vector< DCE::ImageInfo >   _imageInfos;
+        std::vector< DCE::MappingInfo > _mappingInfos;
+        std::vector< DCE::MachOFile >   _machOFiles;
 };
 
 #ifdef __clang__
@@ -129,9 +134,19 @@ namespace DCE
         return this->impl->_dyldBaseAddress;
     }
     
-    std::vector< DCE::ImageInfo > CacheFile::GetImages( void ) const
+    std::vector< DCE::ImageInfo > CacheFile::GetImageInfos( void ) const
     {
-        return this->impl->_images;
+        return this->impl->_imageInfos;
+    }
+    
+    std::vector< DCE::MappingInfo > CacheFile::GetMappingInfos( void ) const
+    {
+        return this->impl->_mappingInfos;
+    }
+    
+    std::vector< DCE::MachOFile > CacheFile::GetMachOFiles( void ) const
+    {
+        return this->impl->_machOFiles;
     }
     
     std::ostream & operator <<( std::ostream & os, const CacheFile & f )
@@ -141,37 +156,88 @@ namespace DCE
             return os;
         }
         
-        os << "File:                "   << std::dec << std::uppercase << f.GetPath()            << std::endl;
-        os << "Version:             "   << std::dec << std::uppercase << f.GetVersion()         << std::endl;
-        os << "Architecture:        "   << std::dec << std::uppercase << f.GetArchitecture()    << std::endl;
-        os << "Mapping Offset:      0x" << std::hex << std::uppercase << f.GetMappingOffset()   << std::endl;
-        os << "Mapping Count:       "   << std::dec << std::uppercase << f.GetMappingCount()    << std::endl;
-        os << "Images Offset:       0x" << std::hex << std::uppercase << f.GetImagesOffset()    << std::endl;
-        os << "Images Count:        "   << std::dec << std::uppercase << f.GetImagesCount()     << std::endl;
-        os << "DYLD Base Address:   0x" << std::hex << std::uppercase << f.GetDYLDBaseAddress() << std::endl;
+        os << "{"                                                                                   << std::endl;
+        os << "    File:                "   << std::dec << std::uppercase << f.GetPath()            << std::endl;
+        os << "    Version:             "   << std::dec << std::uppercase << f.GetVersion()         << std::endl;
+        os << "    Architecture:        "   << std::dec << std::uppercase << f.GetArchitecture()    << std::endl;
+        os << "    Mapping Offset:      0x" << std::hex << std::uppercase << f.GetMappingOffset()   << std::endl;
+        os << "    Mapping Count:       "   << std::dec << std::uppercase << f.GetMappingCount()    << std::endl;
+        os << "    Images Offset:       0x" << std::hex << std::uppercase << f.GetImagesOffset()    << std::endl;
+        os << "    Images Count:        "   << std::dec << std::uppercase << f.GetImagesCount()     << std::endl;
+        os << "    DYLD Base Address:   0x" << std::hex << std::uppercase << f.GetDYLDBaseAddress() << std::endl;
         
-        os << std::endl;
-        os << "Images:";
-        os << std::endl;
-        os << std::endl;
+        os                   << std::endl;
+        os << "    Mapping:" << std::endl;
+        os << "    {"        << std::endl;
         
-        for( const auto & i: f.GetImages() )
+        for( const auto & m: f.GetMappingInfos() )
         {
-            os << "    "
-               << i.GetModificationDate()
-               << " - 0x"
+            os << "        {"
+               << std::endl
                << std::hex
                << std::uppercase
                << std::setfill( '0' )
                << std::setw( 16 )
-               << i.GetAddress()
-               << std::endl;
-               
-            os << "    "
-               << i.GetPath()
+               << "            Address:     0x"
+               << m.GetAddress()
                << std::endl
+               << std::dec
+               << std::setw( 0 )
+               << "            Size:        "
+               << m.GetSize()
+               << std::endl
+               << std::hex
+               << std::uppercase
+               << std::setfill( '0' )
+               << std::setw( 16 )
+               << "            File Offset: 0x"
+               << m.GetFileOffset()
+               << std::endl
+               << std::dec
+               << std::setw( 0 )
+               << "            Max Prot:    "
+               << m.GetMaxProt()
+               << std::endl
+               << "            Init Prot:   "
+               << m.GetInitProt()
+               << std::endl
+               << "        }"
                << std::endl;
         }
+        
+        os << "    }"       << std::endl;
+        os                  << std::endl;
+        os << "    Images:" << std::endl;
+        os << "    {"       << std::endl;
+        
+        for( const auto & i: f.GetImageInfos() )
+        {
+            os << "        {"
+               << std::endl
+               << "            Path:          "
+               << i.GetPath()
+               << std::endl
+               << std::hex
+               << std::uppercase
+               << std::setfill( '0' )
+               << std::setw( 16 )
+               << "            Address:       0x"
+               << i.GetAddress()
+               << std::endl
+               << "            Last modified: "
+               << i.GetModificationDate()
+               << std::endl
+               << std::dec
+               << std::setw( 0 )
+               << "            Inode:         " 
+               << i.GetInode()
+               << std::endl
+               << "        }"
+               << std::endl;
+        }
+        
+        os << "    }" << std::endl;
+        os << "}"     << std::endl;
         
         return os;
     }
@@ -211,7 +277,9 @@ XS::PIMPL::Object< DCE::CacheFile >::IMPL::IMPL( const IMPL & o ):
     _imagesOffset( o._imagesOffset ),
     _imagesCount( o._imagesCount ),
     _dyldBaseAddress( o._dyldBaseAddress ),
-    _images( o._images )
+    _imageInfos( o._imageInfos ),
+    _mappingInfos( o._mappingInfos ),
+    _machOFiles( o._machOFiles )
 {}
 
 XS::PIMPL::Object< DCE::CacheFile >::IMPL::~IMPL( void )
@@ -233,7 +301,17 @@ void XS::PIMPL::Object< DCE::CacheFile >::IMPL::Parse( void )
         return;
     }
     
-    if( this->ParseImages( s ) == false )
+    if( this->ParseMappingInfos( s ) == false )
+    {
+        return;
+    }
+    
+    if( this->ParseImageInfos( s ) == false )
+    {
+        return;
+    }
+    
+    if( this->ParseMachOFiles( s ) == false )
     {
         return;
     }
@@ -317,7 +395,49 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseHeader( DCE::BinaryStream &
     return true;
 }
 
-bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImages( DCE::BinaryStream & s )
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMappingInfos( DCE::BinaryStream & s )
+{
+    uint32_t                        i;
+    std::vector< DCE::MappingInfo > infos;
+    
+    if( s.IsGood() == false || s.IsEOF() )
+    {
+        return false;
+    }
+    
+    s.SeekG( this->_mappingOffset, std::ios::beg );
+    
+    if( s.IsEOF() )
+    {
+        return false;
+    }
+    
+    for( i = 0; i < this->_mappingCount; i++ )
+    {
+        {
+            DCE::MappingInfo info;
+            
+            info.SetAddress( s.ReadUnsignedLong() );
+            info.SetSize( s.ReadUnsignedLong() );
+            info.SetFileOffset( s.ReadUnsignedLong() );
+            info.SetMaxProt( s.ReadUnsignedInteger() );
+            info.SetInitProt( s.ReadUnsignedInteger() );
+            
+            if( s.IsEOF() )
+            {
+                return false;
+            }
+            
+            infos.push_back( info );
+        }
+    }
+    
+    this->_mappingInfos = infos;
+    
+    return true;
+}
+
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImageInfos( DCE::BinaryStream & s )
 {
     uint32_t                      i;
     std::vector< DCE::ImageInfo > infos;
@@ -376,7 +496,31 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImages( DCE::BinaryStream &
         infos[ i ].SetPath( s.ReadNULLTerminatedString() );
     }
     
-    this->_images = infos;
+    this->_imageInfos = infos;
+    
+    return true;
+}
+
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStream & s )
+{
+    if( s.IsGood() == false || s.IsEOF() )
+    {
+        return false;
+    }
+    
+    if( this->_mappingInfos.size() == 0 )
+    {
+        return false;
+    }
+    
+    for( const auto & i: this->_imageInfos )
+    {
+        for( const auto & m: this->_mappingInfos )
+        {
+            ( void )i;
+            ( void )m;
+        }
+    }
     
     return true;
 }
