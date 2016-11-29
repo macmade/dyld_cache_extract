@@ -71,7 +71,13 @@ namespace DCE
                 return false;
             }
             
-            this->impl->_magic          = stream.ReadUnsignedInteger();
+            this->impl->_magic = stream.ReadUnsignedInteger();
+            
+            if( this->Is32Bits() == false && this->Is64Bits() == false )
+            {
+                return false;
+            }
+            
             this->impl->_cpuType        = stream.ReadUnsignedInteger();
             this->impl->_cpuSubType     = stream.ReadUnsignedInteger();
             this->impl->_fileType       = stream.ReadUnsignedInteger();
@@ -79,12 +85,27 @@ namespace DCE
             this->impl->_commandsSize   = stream.ReadUnsignedInteger();
             this->impl->_flags          = stream.ReadUnsignedInteger();
             
+            if( this->Is64Bits() )
+            {
+                stream.ReadUnsignedInteger(); /* Reserved */
+            }
+            
             if( stream.IsEOF() )
             {
                 return false;
             }
             
             return true;
+        }
+        
+        bool Header::Is32Bits( void ) const
+        {
+            return this->impl->_magic == 0xFEEDFACE;
+        }
+        
+        bool Header::Is64Bits( void ) const
+        {
+            return this->impl->_magic == 0xFEEDFACF;
         }
         
         uint32_t Header::GetMagic( void ) const
@@ -124,7 +145,14 @@ namespace DCE
     }
 }
 
-XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( void )
+XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( void ):
+    _magic( 0 ),
+    _cpuType( 0 ),
+    _cpuSubType( 0 ),
+    _fileType( 0 ),
+    _commandsCount( 0 ),
+    _commandsSize( 0 ),
+    _flags( 0 )
 {}
 
 XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( const IMPL & o ):

@@ -48,6 +48,9 @@ namespace DCE
                 
                 bool Read( BinaryStream & stream );
                 
+                bool Is32Bits( void ) const;
+                bool Is64Bits( void ) const;
+                
                 uint32_t GetMagic( void )         const;
                 uint32_t GetCPUType( void )       const;
                 uint32_t GetCPUSubType( void )    const;

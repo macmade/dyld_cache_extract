@@ -80,7 +80,7 @@ namespace DCE
                 {
                     Segment seg;
                     
-                    if( seg.Read( stream ) == false )
+                    if( seg.Read( header, stream ) == false )
                     {
                         return false;
                     }

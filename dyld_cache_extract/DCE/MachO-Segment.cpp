@@ -28,6 +28,7 @@
  */
 
 #include "MachO-Segment.hpp"
+#include "MachO-Header.hpp"
 #include "BinaryStream.hpp"
 
 #ifdef __clang__
@@ -49,10 +50,10 @@ class XS::PIMPL::Object< DCE::MachO::Segment >::IMPL
         uint32_t _command;
         uint32_t _commandSize;
         char     _name[ DCE_MACH_O_SEGMENT_NAME_SIZE ];
-        uint32_t _vmAddress;
-        uint32_t _vmSize;
-        uint32_t _fileOffset;
-        uint32_t _fileSize;
+        uint64_t _vmAddress;
+        uint64_t _vmSize;
+        uint64_t _fileOffset;
+        uint64_t _fileSize;
         uint32_t _maxProt;
         uint32_t _initProt;
         uint32_t _sectionsCount;
@@ -70,7 +71,7 @@ namespace DCE
 {
     namespace MachO
     {
-        bool Segment::Read( BinaryStream & stream )
+        bool Segment::Read( const Header & header, BinaryStream & stream )
         {
             if( stream.IsGood() == false || stream.IsEOF() )
             {
@@ -82,10 +83,32 @@ namespace DCE
             
             stream.Read( this->impl->_name, DCE_MACH_O_SEGMENT_NAME_SIZE );
             
-            this->impl->_vmAddress     = stream.ReadUnsignedInteger();
-            this->impl->_vmSize        = stream.ReadUnsignedInteger();
-            this->impl->_fileOffset    = stream.ReadUnsignedInteger();
-            this->impl->_fileSize      = stream.ReadUnsignedInteger();
+            if( stream.IsEOF() )
+            {
+                return false;
+            }
+            
+            std::cerr << this->GetName() << std::endl;
+            
+            if( header.Is64Bits() )
+            {
+                this->impl->_vmAddress  = stream.ReadUnsignedLong();
+                this->impl->_vmSize     = stream.ReadUnsignedLong();
+                this->impl->_fileOffset = stream.ReadUnsignedLong();
+                this->impl->_fileSize   = stream.ReadUnsignedLong();
+            }
+            else if( header.Is32Bits() )
+            {
+                this->impl->_vmAddress  = stream.ReadUnsignedInteger();
+                this->impl->_vmSize     = stream.ReadUnsignedInteger();
+                this->impl->_fileOffset = stream.ReadUnsignedInteger();
+                this->impl->_fileSize   = stream.ReadUnsignedInteger();
+            }
+            else
+            {
+                return false;
+            }
+            
             this->impl->_maxProt       = stream.ReadUnsignedInteger();
             this->impl->_initProt      = stream.ReadUnsignedInteger();
             this->impl->_sectionsCount = stream.ReadUnsignedInteger();
@@ -115,22 +138,22 @@ namespace DCE
             return std::string( this->impl->_name, DCE_MACH_O_SEGMENT_NAME_SIZE );
         }
         
-        uint32_t Segment::GetVMAddress( void ) const
+        uint64_t Segment::GetVMAddress( void ) const
         {
             return this->impl->_vmAddress;
         }
         
-        uint32_t Segment::GetVMSize( void ) const
+        uint64_t Segment::GetVMSize( void ) const
         {
             return this->impl->_vmSize;
         }
         
-        uint32_t Segment::GetFileOffset( void ) const
+        uint64_t Segment::GetFileOffset( void ) const
         {
             return this->impl->_fileOffset;
         }
         
-        uint32_t Segment::GetFileSize( void ) const
+        uint64_t Segment::GetFileSize( void ) const
         {
             return this->impl->_fileSize;
         }
@@ -157,8 +180,20 @@ namespace DCE
     }
 }
 
-XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( void )
-{}
+XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( void ):
+    _command( 0 ),
+    _commandSize( 0 ),
+    _vmAddress( 0 ),
+    _vmSize( 0 ),
+    _fileOffset( 0 ),
+    _fileSize( 0 ),
+    _maxProt( 0 ),
+    _initProt( 0 ),
+    _sectionsCount( 0 ),
+    _flags( 0 )
+{
+    memset( this->_name, 0, DCE_MACH_O_SEGMENT_NAME_SIZE );
+}
 
 XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( const IMPL & o ):
     _command( o._command ),

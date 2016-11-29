@@ -40,21 +40,23 @@ namespace DCE
     
     namespace MachO
     {
+        class Header;
+        
         class Segment: public XS::PIMPL::Object< Segment >
         {
             public:
                 
                 using XS::PIMPL::Object< Segment >::impl;
                 
-                bool Read( BinaryStream & stream );
+                bool Read( const Header & header, BinaryStream & stream );
                 
                 uint32_t    GetCommand( void )       const;
                 uint32_t    GetCommandSize( void )   const;
                 std::string GetName( void )          const;
-                uint32_t    GetVMAddress( void )     const;
-                uint32_t    GetVMSize( void )        const;
-                uint32_t    GetFileOffset( void )    const;
-                uint32_t    GetFileSize( void )      const;
+                uint64_t    GetVMAddress( void )     const;
+                uint64_t    GetVMSize( void )        const;
+                uint64_t    GetFileOffset( void )    const;
+                uint64_t    GetFileSize( void )      const;
                 uint32_t    GetMaxProt( void )       const;
                 uint32_t    GetInitProt( void )      const;
                 uint32_t    GetSectionsCount( void ) const;
