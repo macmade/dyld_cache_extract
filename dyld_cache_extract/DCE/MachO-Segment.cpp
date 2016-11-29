@@ -43,6 +43,18 @@ class XS::PIMPL::Object< DCE::MachO::Segment >::IMPL
         IMPL( void );
         IMPL( const IMPL & o );
         ~IMPL( void );
+        
+        uint32_t _command;
+        uint32_t _commandSize;
+        char     _name[ 16 ];
+        uint32_t _vmAddress;
+        uint32_t _vmSize;
+        uint32_t _fileOffset;
+        uint32_t _fileSize;
+        uint32_t _maxProt;
+        uint32_t _initProt;
+        uint32_t _sectionsCount;
+        uint32_t _flags;
 };
 
 #ifdef __clang__
@@ -58,7 +70,30 @@ namespace DCE
     {
         bool Segment::Read( BinaryStream & stream )
         {
-            ( void )stream;
+            if( stream.IsGood() == false || stream.IsEOF() )
+            {
+                return false;
+            }
+            
+            this->impl->_command     = stream.ReadUnsignedInteger();
+            this->impl->_commandSize = stream.ReadUnsignedInteger();
+            
+            stream.Read( this->impl->_name, 16 );
+            
+            this->impl->_vmAddress     = stream.ReadUnsignedInteger();
+            this->impl->_vmSize        = stream.ReadUnsignedInteger();
+            this->impl->_fileOffset    = stream.ReadUnsignedInteger();
+            this->impl->_fileSize      = stream.ReadUnsignedInteger();
+            this->impl->_maxProt       = stream.ReadUnsignedInteger();
+            this->impl->_initProt      = stream.ReadUnsignedInteger();
+            this->impl->_sectionsCount = stream.ReadUnsignedInteger();
+            
+            if( stream.IsEOF() )
+            {
+                return false;
+            }
+            
+            this->impl->_flags = stream.ReadUnsignedInteger();
             
             return true;
         }
@@ -68,9 +103,19 @@ namespace DCE
 XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( void )
 {}
 
-XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( const IMPL & o )
+XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( const IMPL & o ):
+    _command( o._command ),
+    _commandSize( o._commandSize ),
+    _vmAddress( o._vmAddress ),
+    _vmSize( o._vmSize ),
+    _fileOffset( o._fileOffset ),
+    _fileSize( o._fileSize ),
+    _maxProt( o._maxProt ),
+    _initProt( o._initProt ),
+    _sectionsCount( o._sectionsCount ),
+    _flags( o._flags )
 {
-    ( void )o;
+    memcpy( this->_name, o._name, 16 );
 }
 
 XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::~IMPL( void )
