@@ -29,7 +29,6 @@
 
 #include "MachO-Header.hpp"
 #include "BinaryStream.hpp"
-#include <mach/mach.h>
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -44,6 +43,14 @@ class XS::PIMPL::Object< DCE::MachO::Header >::IMPL
         IMPL( void );
         IMPL( const IMPL & o );
         ~IMPL( void );
+        
+        uint32_t _magic;
+        uint32_t _cpuType;
+        uint32_t _cpuSubType;
+        uint32_t _fileType;
+        uint32_t _commandsCount;
+        uint32_t _commandsSize;
+        uint32_t _flags;
 };
 
 #ifdef __clang__
@@ -59,9 +66,60 @@ namespace DCE
     {
         bool Header::Read( BinaryStream & stream )
         {
-            ( void )stream;
+            if( stream.IsGood() == false || stream.IsEOF() )
+            {
+                return false;
+            }
+            
+            this->impl->_magic          = stream.ReadUnsignedInteger();
+            this->impl->_cpuType        = stream.ReadUnsignedInteger();
+            this->impl->_cpuSubType     = stream.ReadUnsignedInteger();
+            this->impl->_fileType       = stream.ReadUnsignedInteger();
+            this->impl->_commandsCount  = stream.ReadUnsignedInteger();
+            this->impl->_commandsSize   = stream.ReadUnsignedInteger();
+            this->impl->_flags          = stream.ReadUnsignedInteger();
+            
+            if( stream.IsEOF() )
+            {
+                return false;
+            }
             
             return true;
+        }
+        
+        uint32_t Header::GetMagic( void )
+        {
+            return this->impl->_magic;
+        }
+        
+        uint32_t Header::GetCPUType( void )
+        {
+            return this->impl->_cpuType;
+        }
+        
+        uint32_t Header::GetCPUSubType( void )
+        {
+            return this->impl->_cpuSubType;
+        }
+        
+        uint32_t Header::GetFileType( void )
+        {
+            return this->impl->_fileType;
+        }
+        
+        uint32_t Header::GetCommandsCount( void )
+        {
+            return this->impl->_commandsCount;
+        }
+        
+        uint32_t Header::GetCommandsSize( void )
+        {
+            return this->impl->_commandsSize;
+        }
+        
+        uint32_t Header::GetFlags( void )
+        {
+            return this->impl->_flags;
         }
     }
 }
@@ -69,10 +127,15 @@ namespace DCE
 XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( void )
 {}
 
-XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( const IMPL & o )
-{
-    ( void )o;
-}
+XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( const IMPL & o ):
+    _magic( o._magic ),
+    _cpuType( o._cpuType ),
+    _cpuSubType( o._cpuSubType ),
+    _fileType( o._fileType ),
+    _commandsCount( o._commandsCount ),
+    _commandsSize( o._commandsSize ),
+    _flags( o._flags )
+{}
 
 XS::PIMPL::Object< DCE::MachO::Header >::IMPL::~IMPL( void )
 {}

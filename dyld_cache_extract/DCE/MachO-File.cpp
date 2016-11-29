@@ -29,7 +29,6 @@
 
 #include "MachO-File.hpp"
 #include "BinaryStream.hpp"
-#include <mach/mach.h>
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -44,6 +43,9 @@ class XS::PIMPL::Object< DCE::MachO::File >::IMPL
         IMPL( void );
         IMPL( const IMPL & o );
         ~IMPL( void );
+        
+        DCE::MachO::Header                 _header;
+        std::vector< DCE::MachO::Segment > _segments;
 };
 
 #ifdef __clang__
@@ -59,9 +61,31 @@ namespace DCE
     {
         bool File::Read( BinaryStream & stream )
         {
-            ( void )stream;
+            Header header;
+            
+            if( stream.IsGood() == false || stream.IsEOF() )
+            {
+                return false;
+            }
+            
+            if( header.Read( stream ) == false )
+            {
+                return false;
+            }
+            
+            this->impl->_header = header;
             
             return true;
+        }
+        
+        Header File::GetHeader( void ) const
+        {
+            return {};
+        }
+        
+        std::vector< Segment > File::GetSegments( void ) const
+        {
+            return {};
         }
     }
 }
@@ -69,10 +93,10 @@ namespace DCE
 XS::PIMPL::Object< DCE::MachO::File >::IMPL::IMPL( void )
 {}
 
-XS::PIMPL::Object< DCE::MachO::File >::IMPL::IMPL( const IMPL & o )
-{
-    ( void )o;
-}
+XS::PIMPL::Object< DCE::MachO::File >::IMPL::IMPL( const IMPL & o ):
+    _header( o._header ),
+    _segments( o._segments )
+{}
 
 XS::PIMPL::Object< DCE::MachO::File >::IMPL::~IMPL( void )
 {}

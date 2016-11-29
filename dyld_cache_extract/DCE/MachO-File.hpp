@@ -32,7 +32,10 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 #include <XS/PIMPL/Object.hpp>
+#include "MachO-Header.hpp"
+#include "MachO-Segment.hpp"
 
 namespace DCE
 {
@@ -47,6 +50,9 @@ namespace DCE
                 using XS::PIMPL::Object< File >::impl;
                 
                 bool Read( BinaryStream & stream );
+                
+                Header                 GetHeader( void )   const;
+                std::vector< Segment > GetSegments( void ) const;
         };
     }
 }

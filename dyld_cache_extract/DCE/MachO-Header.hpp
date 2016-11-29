@@ -47,6 +47,14 @@ namespace DCE
                 using XS::PIMPL::Object< Header >::impl;
                 
                 bool Read( BinaryStream & stream );
+                
+                uint32_t GetMagic( void );
+                uint32_t GetCPUType( void );
+                uint32_t GetCPUSubType( void );
+                uint32_t GetFileType( void );
+                uint32_t GetCommandsCount( void );
+                uint32_t GetCommandsSize( void );
+                uint32_t GetFlags( void );
         };
     }
 }

@@ -29,7 +29,6 @@
 
 #include "MachO-Segment.hpp"
 #include "BinaryStream.hpp"
-#include <mach/mach.h>
 
 #ifdef __clang__
 #pragma clang diagnostic push
