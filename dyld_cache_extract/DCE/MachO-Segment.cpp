@@ -99,6 +99,61 @@ namespace DCE
             
             return true;
         }
+        
+        uint32_t Segment::GetCommand( void ) const
+        {
+            return this->impl->_command;
+        }
+        
+        uint32_t Segment::GetCommandSize( void ) const
+        {
+            return this->impl->_commandSize;
+        }
+        
+        std::string Segment::GetName( void ) const
+        {
+            return std::string( this->impl->_name, DCE_MACH_O_SEGMENT_NAME_SIZE );
+        }
+        
+        uint32_t Segment::GetVMAddress( void ) const
+        {
+            return this->impl->_vmAddress;
+        }
+        
+        uint32_t Segment::GetVMSize( void ) const
+        {
+            return this->impl->_vmSize;
+        }
+        
+        uint32_t Segment::GetFileOffset( void ) const
+        {
+            return this->impl->_fileOffset;
+        }
+        
+        uint32_t Segment::GetFileSize( void ) const
+        {
+            return this->impl->_fileSize;
+        }
+        
+        uint32_t Segment::GetMaxProt( void ) const
+        {
+            return this->impl->_maxProt;
+        }
+        
+        uint32_t Segment::GetInitProt( void ) const
+        {
+            return this->impl->_initProt;
+        }
+        
+        uint32_t Segment::GetSectionsCount( void ) const
+        {
+            return this->impl->_sectionsCount;
+        }
+        
+        uint32_t Segment::GetFlags( void ) const
+        {
+            return this->impl->_flags;
+        }
     }
 }
 

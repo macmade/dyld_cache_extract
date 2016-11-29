@@ -48,13 +48,13 @@ namespace DCE
                 
                 bool Read( BinaryStream & stream );
                 
-                uint32_t GetMagic( void );
-                uint32_t GetCPUType( void );
-                uint32_t GetCPUSubType( void );
-                uint32_t GetFileType( void );
-                uint32_t GetCommandsCount( void );
-                uint32_t GetCommandsSize( void );
-                uint32_t GetFlags( void );
+                uint32_t GetMagic( void )         const;
+                uint32_t GetCPUType( void )       const;
+                uint32_t GetCPUSubType( void )    const;
+                uint32_t GetFileType( void )      const;
+                uint32_t GetCommandsCount( void ) const;
+                uint32_t GetCommandsSize( void )  const;
+                uint32_t GetFlags( void )         const;
         };
     }
 }

@@ -87,37 +87,37 @@ namespace DCE
             return true;
         }
         
-        uint32_t Header::GetMagic( void )
+        uint32_t Header::GetMagic( void ) const
         {
             return this->impl->_magic;
         }
         
-        uint32_t Header::GetCPUType( void )
+        uint32_t Header::GetCPUType( void ) const
         {
             return this->impl->_cpuType;
         }
         
-        uint32_t Header::GetCPUSubType( void )
+        uint32_t Header::GetCPUSubType( void ) const
         {
             return this->impl->_cpuSubType;
         }
         
-        uint32_t Header::GetFileType( void )
+        uint32_t Header::GetFileType( void ) const
         {
             return this->impl->_fileType;
         }
         
-        uint32_t Header::GetCommandsCount( void )
+        uint32_t Header::GetCommandsCount( void ) const
         {
             return this->impl->_commandsCount;
         }
         
-        uint32_t Header::GetCommandsSize( void )
+        uint32_t Header::GetCommandsSize( void ) const
         {
             return this->impl->_commandsSize;
         }
         
-        uint32_t Header::GetFlags( void )
+        uint32_t Header::GetFlags( void ) const
         {
             return this->impl->_flags;
         }
