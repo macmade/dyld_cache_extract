@@ -36,7 +36,7 @@
 #include <vector>
 #include "ImageInfo.hpp"
 #include "MappingInfo.hpp"
-#include "MachOFile.hpp"
+#include "MachO-File.hpp"
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE
@@ -62,7 +62,7 @@ namespace DCE
             uint64_t                        GetDYLDBaseAddress( void )  const;
             std::vector< DCE::ImageInfo >   GetImageInfos( void )       const;
             std::vector< DCE::MappingInfo > GetMappingInfos( void )     const;
-            std::vector< DCE::MachOFile >   GetMachOFiles( void )       const;
+            std::vector< DCE::MachO::File > GetMachOFiles( void )       const;
             
             friend std::ostream & operator <<( std::ostream & os, const CacheFile & e );
     };

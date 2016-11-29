@@ -23,12 +23,13 @@
  ******************************************************************************/
 
 /*!
- * @header      MachOFile.cpp
+ * @header      MachO-Header.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "MachOFile.hpp"
+#include "MachO-Header.hpp"
 #include "BinaryStream.hpp"
+#include <mach/mach.h>
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -36,7 +37,7 @@
 #endif
 
 template<>
-class XS::PIMPL::Object< DCE::MachOFile >::IMPL
+class XS::PIMPL::Object< DCE::MachO::Header >::IMPL
 {
     public:
         
@@ -49,26 +50,29 @@ class XS::PIMPL::Object< DCE::MachOFile >::IMPL
 #pragma clang diagnostic pop
 #endif
 
-#define XS_PIMPL_CLASS DCE::MachOFile
+#define XS_PIMPL_CLASS DCE::MachO::Header
 #include <XS/PIMPL/Object-IMPL.hpp>
 
 namespace DCE
 {
-    bool MachOFile::Parse( BinaryStream & stream )
+    namespace MachO
     {
-        ( void )stream;
-        
-        return true;
+        bool Header::Read( BinaryStream & stream )
+        {
+            ( void )stream;
+            
+            return true;
+        }
     }
 }
 
-XS::PIMPL::Object< DCE::MachOFile >::IMPL::IMPL( void )
+XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( void )
 {}
 
-XS::PIMPL::Object< DCE::MachOFile >::IMPL::IMPL( const IMPL & o )
+XS::PIMPL::Object< DCE::MachO::Header >::IMPL::IMPL( const IMPL & o )
 {
     ( void )o;
 }
 
-XS::PIMPL::Object< DCE::MachOFile >::IMPL::~IMPL( void )
+XS::PIMPL::Object< DCE::MachO::Header >::IMPL::~IMPL( void )
 {}

@@ -66,7 +66,7 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         uint64_t                        _dyldBaseAddress;
         std::vector< DCE::ImageInfo >   _imageInfos;
         std::vector< DCE::MappingInfo > _mappingInfos;
-        std::vector< DCE::MachOFile >   _machOFiles;
+        std::vector< DCE::MachO::File > _machOFiles;
 };
 
 #ifdef __clang__
@@ -144,7 +144,7 @@ namespace DCE
         return this->impl->_mappingInfos;
     }
     
-    std::vector< DCE::MachOFile > CacheFile::GetMachOFiles( void ) const
+    std::vector< DCE::MachO::File > CacheFile::GetMachOFiles( void ) const
     {
         return this->impl->_machOFiles;
     }
@@ -520,14 +520,14 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStre
             if( m.GetAddress() <= i.GetAddress() && i.GetAddress() < m.GetAddress() + m.GetSize() )
             {
                 {
-                    uint64_t       offset;
-                    DCE::MachOFile file;
+                    uint64_t         offset;
+                    DCE::MachO::File file;
                     
                     offset = i.GetAddress() - ( m.GetAddress() + m.GetFileOffset() );
                     
                     s.SeekG( static_cast< std::streamoff >( offset ), std::ios::beg );
                     
-                    if( file.Parse( s ) == false )
+                    if( file.Read( s ) == false )
                     {
                         return false;
                     }

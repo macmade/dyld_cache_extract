@@ -23,12 +23,12 @@
  ******************************************************************************/
 
 /*!
- * @header      MachOFile.hpp
+ * @header      MachO-Segment.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef DCE_MACH_O_FILE_H
-#define DCE_MACH_O_FILE_H
+#ifndef DCE_MACH_O_SEGMENT_H
+#define DCE_MACH_O_SEGMENT_H
 
 #include <cstdint>
 #include <string>
@@ -38,14 +38,17 @@ namespace DCE
 {
     class BinaryStream;
     
-    class MachOFile: public XS::PIMPL::Object< MachOFile >
+    namespace MachO
     {
-        public:
-            
-            using XS::PIMPL::Object< MachOFile >::impl;
-            
-            bool Parse( BinaryStream & stream );
-    };
+        class Segment: public XS::PIMPL::Object< Segment >
+        {
+            public:
+                
+                using XS::PIMPL::Object< Segment >::impl;
+                
+                bool Read( BinaryStream & stream );
+        };
+    }
 }
 
-#endif /* DCE_MACH_O_FILE_H */
+#endif /* DCE_MACH_O_SEGMENT_H */
