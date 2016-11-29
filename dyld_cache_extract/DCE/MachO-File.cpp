@@ -61,7 +61,9 @@ namespace DCE
     {
         bool File::Read( BinaryStream & stream )
         {
-            Header header;
+            Header                 header;
+            std::vector< Segment > segments;
+            uint32_t               i;
             
             if( stream.IsGood() == false || stream.IsEOF() )
             {
@@ -73,19 +75,34 @@ namespace DCE
                 return false;
             }
             
-            this->impl->_header = header;
+            for( i = 0; i < header.GetCommandsCount(); i++ )
+            {
+                {
+                    Segment seg;
+                    
+                    if( seg.Read( stream ) == false )
+                    {
+                        return false;
+                    }
+                    
+                    segments.push_back( seg );
+                }
+            }
+            
+            this->impl->_header   = header;
+            this->impl->_segments = segments;
             
             return true;
         }
         
         Header File::GetHeader( void ) const
         {
-            return {};
+            return this->impl->_header;
         }
         
         std::vector< Segment > File::GetSegments( void ) const
         {
-            return {};
+            return this->impl->_segments;
         }
     }
 }
