@@ -517,8 +517,24 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStre
     {
         for( const auto & m: this->_mappingInfos )
         {
-            ( void )i;
-            ( void )m;
+            if( m.GetAddress() <= i.GetAddress() && i.GetAddress() < m.GetAddress() + m.GetSize() )
+            {
+                {
+                    uint64_t       offset;
+                    DCE::MachOFile file;
+                    
+                    offset = i.GetAddress() - ( m.GetAddress() + m.GetFileOffset() );
+                    
+                    s.SeekG( static_cast< std::streamoff >( offset ), std::ios::beg );
+                    
+                    if( file.Parse( s ) == false )
+                    {
+                        return false;
+                    }
+                    
+                    this->_machOFiles.push_back( file );
+                }
+            }
         }
     }
     

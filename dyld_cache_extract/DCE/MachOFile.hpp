@@ -36,11 +36,15 @@
 
 namespace DCE
 {
+    class BinaryStream;
+    
     class MachOFile: public XS::PIMPL::Object< MachOFile >
     {
         public:
             
             using XS::PIMPL::Object< MachOFile >::impl;
+            
+            bool Parse( BinaryStream & stream );
     };
 }
 

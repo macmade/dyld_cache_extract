@@ -28,6 +28,7 @@
  */
 
 #include "MachOFile.hpp"
+#include "BinaryStream.hpp"
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -52,7 +53,14 @@ class XS::PIMPL::Object< DCE::MachOFile >::IMPL
 #include <XS/PIMPL/Object-IMPL.hpp>
 
 namespace DCE
-{}
+{
+    bool MachOFile::Parse( BinaryStream & stream )
+    {
+        ( void )stream;
+        
+        return true;
+    }
+}
 
 XS::PIMPL::Object< DCE::MachOFile >::IMPL::IMPL( void )
 {}
