@@ -35,6 +35,8 @@
 #pragma clang diagnostic ignored "-Wpadded"
 #endif
 
+#define DCE_MACH_O_SEGMENT_NAME_SIZE    16
+
 template<>
 class XS::PIMPL::Object< DCE::MachO::Segment >::IMPL
 {
@@ -46,7 +48,7 @@ class XS::PIMPL::Object< DCE::MachO::Segment >::IMPL
         
         uint32_t _command;
         uint32_t _commandSize;
-        char     _name[ 16 ];
+        char     _name[ DCE_MACH_O_SEGMENT_NAME_SIZE ];
         uint32_t _vmAddress;
         uint32_t _vmSize;
         uint32_t _fileOffset;
@@ -78,7 +80,7 @@ namespace DCE
             this->impl->_command     = stream.ReadUnsignedInteger();
             this->impl->_commandSize = stream.ReadUnsignedInteger();
             
-            stream.Read( this->impl->_name, 16 );
+            stream.Read( this->impl->_name, DCE_MACH_O_SEGMENT_NAME_SIZE );
             
             this->impl->_vmAddress     = stream.ReadUnsignedInteger();
             this->impl->_vmSize        = stream.ReadUnsignedInteger();
@@ -115,7 +117,7 @@ XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::IMPL( const IMPL & o ):
     _sectionsCount( o._sectionsCount ),
     _flags( o._flags )
 {
-    memcpy( this->_name, o._name, 16 );
+    memcpy( this->_name, o._name, DCE_MACH_O_SEGMENT_NAME_SIZE );
 }
 
 XS::PIMPL::Object< DCE::MachO::Segment >::IMPL::~IMPL( void )
