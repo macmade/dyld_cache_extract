@@ -23,20 +23,24 @@
  ******************************************************************************/
 
 /*!
- * @file        FileItem.m
+ * @header      Preferences.h
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#import "FileItem.h"
+@import Cocoa;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FileItem()
+NSString * const PreferencesNotificationDefaultsChanged;
+NSString * const PreferencesKeyRecentFiles;
+
+@interface Preferences: NSObject
+
+@property( atomic, readwrite, strong ) NSArray< NSString * > * recentFiles;
+
++ ( instancetype )sharedInstance;
+- ( void )addRecentFile: ( NSString * )path;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
-@implementation FileItem
-
-@end
