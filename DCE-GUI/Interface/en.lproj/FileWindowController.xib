@@ -47,6 +47,10 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="exportSelection:" target="-2" id="UQD-ut-0a0"/>
+                            <binding destination="-2" name="enabled" keyPath="hasSelection" id="VjY-Bc-MzZ"/>
+                        </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="rKJ-n6-Rat">
                         <rect key="frame" x="760" y="22" width="20" height="20"/>

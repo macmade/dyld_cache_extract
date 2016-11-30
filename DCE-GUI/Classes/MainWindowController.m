@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MainWindowController()
 
-@property( atomic, readwrite, assign ) BOOL                             hasSelection;
+@property( atomic, readwrite, assign )          BOOL                    hasSelection;
 @property( atomic, readwrite, strong )          NSArray< FileItem * > * items;
 @property( atomic, readwrite, strong ) IBOutlet NSArrayController     * arrayController;
 

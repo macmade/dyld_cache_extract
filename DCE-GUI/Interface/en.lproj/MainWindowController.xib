@@ -109,6 +109,7 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
+                                        <action trigger="doubleAction" selector="openSelectedFile:" target="-2" id="gll-I3-OEg"/>
                                         <binding destination="P62-k2-dKj" name="content" keyPath="arrangedObjects" id="PKQ-Op-sHc"/>
                                         <binding destination="P62-k2-dKj" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="PKQ-Op-sHc" id="TqP-No-sP4"/>
                                         <binding destination="P62-k2-dKj" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="TqP-No-sP4" id="64y-PC-mF9"/>

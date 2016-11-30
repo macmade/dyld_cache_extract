@@ -35,10 +35,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileWindowController()
 
+@property( atomic, readwrite, assign )          BOOL                     hasSelection;
 @property( atomic, readwrite, strong )          NSURL                  * url;
 @property( atomic, readwrite, strong )          DCECacheFile           * file;
 @property( atomic, readwrite, strong )          NSArray< ImageItem * > * items;
 @property( atomic, readwrite, strong ) IBOutlet NSArrayController      * arrayController;
+
+- ( IBAction )exportSelection: ( nullable id )sender;
 
 @end
 
@@ -63,12 +66,19 @@ NS_ASSUME_NONNULL_END
     return self;
 }
 
+- ( void )dealloc
+{
+    [ self.arrayController removeObserver: self forKeyPath: @"selectionIndexes" ];
+}
+
 - ( void )windowDidLoad
 {
     ImageItem    * item;
     DCEImageInfo * info;
     
     [ super windowDidLoad ];
+    
+    [ self.arrayController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
     
     self.window.title = self.url.path.lastPathComponent;
     
@@ -103,6 +113,23 @@ NS_ASSUME_NONNULL_END
     }
     
     self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
+}
+
+- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
+{
+    if( object == self.arrayController && [ keyPath isEqualToString: @"selectionIndexes" ] )
+    {
+        self.hasSelection = self.arrayController.selectedObjects.count > 0;
+    }
+    else
+    {
+        [ super observeValueForKeyPath: keyPath ofObject: object change: change context: context ];
+    }
+}
+
+- ( IBAction )exportSelection: ( nullable id )sender
+{
+    ( void )sender;
 }
 
 @end
