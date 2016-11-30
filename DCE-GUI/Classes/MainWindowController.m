@@ -28,12 +28,17 @@
  */
 
 #import "MainWindowController.h"
+#import "ImageItem.h"
+#import <DCE/Objective-C/DCECacheFile.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainWindowController()
 
-@property( atomic, readwrite, strong ) NSURL * url;
+@property( atomic, readwrite, strong )          NSURL                  * url;
+@property( atomic, readwrite, strong )          DCECacheFile           * file;
+@property( atomic, readwrite, strong )          NSArray< ImageItem * > * items;
+@property( atomic, readwrite, strong ) IBOutlet NSArrayController      * arrayController;
 
 @end
 
@@ -50,10 +55,47 @@ NS_ASSUME_NONNULL_END
 {
     if( ( self = [ self init ] ) )
     {
-        self.url = url;
+        self.url   = url;
+        self.file  = [ [ DCECacheFile alloc ] initWithURL: url ];
+        self.items = @[];
     }
     
     return self;
+}
+
+- ( void )windowDidLoad
+{
+    ImageItem    * item;
+    DCEImageInfo * info;
+    
+    self.window.title = self.url.path.lastPathComponent;
+    
+    if( self.file.exists == NO || self.file.isValid == NO )
+    {
+        dispatch_after
+        (
+            dispatch_time( DISPATCH_TIME_NOW, ( int64_t )( 200 * NSEC_PER_MSEC ) ),
+            dispatch_get_main_queue(),
+            ^( void )
+            {
+                [ self close ];
+            }
+        );
+        
+        return;
+    }
+    
+    for( info in self.file.imageInfos )
+    {
+        item = [ [ ImageItem alloc ] initWithImageInfo: info ];
+        
+        if( item )
+        {
+            [ self.arrayController addObject: item ];
+        }
+    }
+    
+    self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
 }
 
 @end
