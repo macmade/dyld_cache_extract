@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @header      MainWindowController.h
+ * @header      FileWindowController.h
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
@@ -31,7 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainWindowController: NSWindowController
+@interface FileWindowController: NSWindowController
 
 - ( instancetype )initWithURL: ( NSURL * )url;
 

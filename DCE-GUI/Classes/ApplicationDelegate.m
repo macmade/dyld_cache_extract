@@ -28,13 +28,13 @@
  */
 
 #import "ApplicationDelegate.h"
-#import "MainWindowController.h"
+#import "FileWindowController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate()
 
-@property( atomic, readwrite, strong ) NSMutableArray< MainWindowController * > * windowControllers;
+@property( atomic, readwrite, strong ) NSMutableArray< FileWindowController * > * windowControllers;
 
 - ( void )windowWillClose: ( NSNotification * )notification;
 - ( IBAction )openDocument: ( nullable id )sender;
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_END
 - ( IBAction )openDocument: ( nullable id )sender
 {
     NSOpenPanel          * panel;
-    MainWindowController * controller;
+    FileWindowController * controller;
     NSPoint                origin;
     
     ( void )sender;
@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_END
         return;
     }
     
-    controller = [ [ MainWindowController alloc ] initWithURL: panel.URL ];
+    controller = [ [ FileWindowController alloc ] initWithURL: panel.URL ];
     
     if( self.windowControllers.count == 0 )
     {

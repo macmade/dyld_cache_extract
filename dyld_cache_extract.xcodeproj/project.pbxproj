@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		05144B211DCBBF3E0074B01E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B201DCBBF3E0074B01E /* main.cpp */; };
-		054829611DEF1C060076C9E4 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054829601DEF1C060076C9E4 /* MainWindowController.m */; };
-		054829641DEF1CD30076C9E4 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054829621DEF1CD30076C9E4 /* MainWindowController.xib */; };
+		054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054829601DEF1C060076C9E4 /* FileWindowController.m */; };
+		054829641DEF1CD30076C9E4 /* FileWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054829621DEF1CD30076C9E4 /* FileWindowController.xib */; };
 		054829681DEF24A10076C9E4 /* DCECacheFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 054829671DEF24A10076C9E4 /* DCECacheFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0548296A1DEF24B40076C9E4 /* DCECacheFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 054829691DEF24B40076C9E4 /* DCECacheFile.mm */; };
 		0548296D1DEF25D00076C9E4 /* DCEImageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 0548296B1DEF25D00076C9E4 /* DCEImageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -141,9 +141,9 @@
 		05144B201DCBBF3E0074B01E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05144B221DCBC78D0074B01E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		05144B2B1DCBCCEE0074B01E /* DCE.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCE.pch; sourceTree = "<group>"; };
-		0548295F1DEF1C060076C9E4 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
-		054829601DEF1C060076C9E4 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
-		054829631DEF1CD30076C9E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
+		0548295F1DEF1C060076C9E4 /* FileWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWindowController.h; sourceTree = "<group>"; };
+		054829601DEF1C060076C9E4 /* FileWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileWindowController.m; sourceTree = "<group>"; };
+		054829631DEF1CD30076C9E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FileWindowController.xib; sourceTree = "<group>"; };
 		054829671DEF24A10076C9E4 /* DCECacheFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCECacheFile.h; sourceTree = "<group>"; };
 		054829691DEF24B40076C9E4 /* DCECacheFile.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DCECacheFile.mm; sourceTree = "<group>"; };
 		0548296B1DEF25D00076C9E4 /* DCEImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCEImageInfo.h; sourceTree = "<group>"; };
@@ -515,8 +515,8 @@
 				05C33B861DEF4510000AC35E /* HexNumberFormatter.m */,
 				0548297A1DEF2C040076C9E4 /* ImageItem.h */,
 				0548297B1DEF2C040076C9E4 /* ImageItem.m */,
-				0548295F1DEF1C060076C9E4 /* MainWindowController.h */,
-				054829601DEF1C060076C9E4 /* MainWindowController.m */,
+				0548295F1DEF1C060076C9E4 /* FileWindowController.h */,
+				054829601DEF1C060076C9E4 /* FileWindowController.m */,
 				05C33B9A1DEF49B1000AC35E /* UnsignedNumberFormatter.h */,
 				05C33B9B1DEF49B1000AC35E /* UnsignedNumberFormatter.m */,
 			);
@@ -528,7 +528,7 @@
 			children = (
 				05C33B7E1DEF38A4000AC35E /* Images */,
 				05CC18CF1DEF15A80044BCED /* MainMenu.xib */,
-				054829621DEF1CD30076C9E4 /* MainWindowController.xib */,
+				054829621DEF1CD30076C9E4 /* FileWindowController.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -689,7 +689,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				054829641DEF1CD30076C9E4 /* MainWindowController.xib in Resources */,
+				054829641DEF1CD30076C9E4 /* FileWindowController.xib in Resources */,
 				05C33B841DEF38A4000AC35E /* Library.png in Resources */,
 				05CC18D21DEF15A80044BCED /* MainMenu.xib in Resources */,
 				05C33B831DEF38A4000AC35E /* Framework.png in Resources */,
@@ -762,7 +762,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0548297C1DEF2C040076C9E4 /* ImageItem.m in Sources */,
-				054829611DEF1C060076C9E4 /* MainWindowController.m in Sources */,
+				054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */,
 				05C33B9C1DEF49B1000AC35E /* UnsignedNumberFormatter.m in Sources */,
 				05CC18BD1DEF14FC0044BCED /* main.m in Sources */,
 				05CC18D11DEF15A80044BCED /* ApplicationDelegate.m in Sources */,
@@ -786,12 +786,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		054829621DEF1CD30076C9E4 /* MainWindowController.xib */ = {
+		054829621DEF1CD30076C9E4 /* FileWindowController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				054829631DEF1CD30076C9E4 /* en */,
 			);
-			name = MainWindowController.xib;
+			name = FileWindowController.xib;
 			sourceTree = "<group>";
 		};
 		05CC18CF1DEF15A80044BCED /* MainMenu.xib */ = {

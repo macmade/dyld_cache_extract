@@ -7,7 +7,7 @@
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="FileWindowController">
             <connections>
                 <outlet property="arrayController" destination="q7A-n8-AVB" id="goy-yr-kaP"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="wir-9t-lLg"/>
@@ -26,7 +26,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <searchField wantsLayer="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oxF-H1-vK6">
-                        <rect key="frame" x="20" y="20" width="627" height="22"/>
+                        <rect key="frame" x="20" y="20" width="599" height="22"/>
                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="z0f-J2-D6W">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -42,8 +42,19 @@
                         </connections>
                     </searchField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fM8-Sj-vDY">
-                        <rect key="frame" x="649" y="14" width="137" height="32"/>
+                        <rect key="frame" x="621" y="14" width="137" height="32"/>
                         <buttonCell key="cell" type="push" title="Export Selected" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mBu-69-7NQ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="rKJ-n6-Rat">
+                        <rect key="frame" x="760" y="22" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="44t-U4-nUm"/>
+                            <constraint firstAttribute="width" constant="20" id="BOJ-7m-pYn"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hha-TH-qSn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -100,8 +111,8 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="w8S-hW-6RF" name="value" keyPath="objectValue.title" id="gwE-AT-mHf"/>
                                                                 <binding destination="w8S-hW-6RF" name="toolTip" keyPath="objectValue.info.path" id="Umq-5b-Nep"/>
+                                                                <binding destination="w8S-hW-6RF" name="value" keyPath="objectValue.title" id="gwE-AT-mHf"/>
                                                             </connections>
                                                         </textField>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4L9-LC-Fhj">
@@ -112,8 +123,8 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <connections>
-                                                                <binding destination="w8S-hW-6RF" name="value" keyPath="objectValue.subtitle" id="FMD-6g-rmH"/>
                                                                 <binding destination="w8S-hW-6RF" name="toolTip" keyPath="objectValue.info.path" id="WY2-Aq-ZGd"/>
+                                                                <binding destination="w8S-hW-6RF" name="value" keyPath="objectValue.subtitle" id="FMD-6g-rmH"/>
                                                             </connections>
                                                         </textField>
                                                     </subviews>
@@ -283,14 +294,16 @@
                     </scrollView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="fM8-Sj-vDY" secondAttribute="bottom" constant="21" id="8th-TN-fNa"/>
+                    <constraint firstAttribute="bottom" secondItem="oxF-H1-vK6" secondAttribute="bottom" constant="20" id="6XY-1S-22Z"/>
+                    <constraint firstAttribute="bottom" secondItem="fM8-Sj-vDY" secondAttribute="bottom" constant="21" id="Bdx-Z7-cwm"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="Cbc-zS-zmO"/>
+                    <constraint firstAttribute="trailing" secondItem="rKJ-n6-Rat" secondAttribute="trailing" constant="20" id="EOD-VG-9es"/>
+                    <constraint firstItem="rKJ-n6-Rat" firstAttribute="leading" secondItem="fM8-Sj-vDY" secondAttribute="trailing" constant="8" id="M3F-gA-VPp"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="height" secondItem="EiT-Mj-1SZ" secondAttribute="height" constant="-62" id="NRa-Qx-0iI"/>
-                    <constraint firstAttribute="trailing" secondItem="fM8-Sj-vDY" secondAttribute="trailing" constant="20" id="bHP-Mo-hGW"/>
+                    <constraint firstAttribute="bottom" secondItem="rKJ-n6-Rat" secondAttribute="bottom" constant="22" id="d5d-Fh-rsK"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" constant="-31" id="get-eX-2uS"/>
-                    <constraint firstItem="oxF-H1-vK6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="kTN-ED-Kyl"/>
-                    <constraint firstAttribute="bottom" secondItem="oxF-H1-vK6" secondAttribute="bottom" constant="20" id="qRd-vR-FMo"/>
-                    <constraint firstItem="fM8-Sj-vDY" firstAttribute="leading" secondItem="oxF-H1-vK6" secondAttribute="trailing" constant="8" id="wte-a0-uyl"/>
+                    <constraint firstItem="oxF-H1-vK6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="sVs-1p-ez0"/>
+                    <constraint firstItem="fM8-Sj-vDY" firstAttribute="leading" secondItem="oxF-H1-vK6" secondAttribute="trailing" constant="8" id="v9n-3S-3rT"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="width" secondItem="EiT-Mj-1SZ" secondAttribute="width" id="xbA-FZ-xhw"/>
                 </constraints>
             </view>
@@ -305,5 +318,6 @@
     </objects>
     <resources>
         <image name="Framework" width="128" height="128"/>
+        <image name="NSInfo" width="32" height="32"/>
     </resources>
 </document>

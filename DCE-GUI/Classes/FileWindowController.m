@@ -23,17 +23,17 @@
  ******************************************************************************/
 
 /*!
- * @file        MainWindowController.m
+ * @file        FileWindowController.m
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#import "MainWindowController.h"
+#import "FileWindowController.h"
 #import "ImageItem.h"
 #import <DCE/Objective-C/DCECacheFile.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MainWindowController()
+@interface FileWindowController()
 
 @property( atomic, readwrite, strong )          NSURL                  * url;
 @property( atomic, readwrite, strong )          DCECacheFile           * file;
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-@implementation MainWindowController
+@implementation FileWindowController
 
 - ( instancetype )init
 {
@@ -93,6 +93,11 @@ NS_ASSUME_NONNULL_END
         {
             [ self.arrayController addObject: item ];
         }
+    }
+    
+    if( self.items.count )
+    {
+        self.window.title = [ NSString stringWithFormat: @"%@ - %llu files", self.url.path.lastPathComponent, ( unsigned long long )( self.items.count ) ];
     }
     
     self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
