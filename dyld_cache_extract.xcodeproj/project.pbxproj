@@ -84,10 +84,21 @@
 		05CC18AD1DEF13720044BCED /* LoadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC18611DEF13720044BCED /* LoadCommand.cpp */; };
 		05CC18AE1DEF13720044BCED /* MappingInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC18621DEF13720044BCED /* MappingInfo.cpp */; };
 		05CC18B11DEF13C20044BCED /* Arguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC18AF1DEF13C20044BCED /* Arguments.cpp */; };
+		05CC18BD1DEF14FC0044BCED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC18BC1DEF14FC0044BCED /* main.m */; };
+		05CC18C91DEF152C0044BCED /* libDCE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CC17661DEF10C50044BCED /* libDCE.a */; };
+		05CC18D11DEF15A80044BCED /* ApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC18CD1DEF15A80044BCED /* ApplicationDelegate.m */; };
+		05CC18D21DEF15A80044BCED /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CC18CF1DEF15A80044BCED /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		05CC180C1DEF126F0044BCED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05144B0E1DCBBDF40074B01E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 05CC17651DEF10C50044BCED;
+			remoteInfo = DCE;
+		};
+		05CC18C71DEF15290044BCED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 05144B0E1DCBBDF40074B01E /* Project object */;
 			proxyType = 1;
@@ -190,6 +201,12 @@
 		05CC18621DEF13720044BCED /* MappingInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MappingInfo.cpp; sourceTree = "<group>"; };
 		05CC18AF1DEF13C20044BCED /* Arguments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arguments.cpp; sourceTree = "<group>"; };
 		05CC18B01DEF13C20044BCED /* Arguments.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Arguments.hpp; sourceTree = "<group>"; };
+		05CC18B61DEF14FC0044BCED /* DCE-GUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCE-GUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05CC18BC1DEF14FC0044BCED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		05CC18CA1DEF15610044BCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		05CC18CC1DEF15A80044BCED /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelegate.h; sourceTree = "<group>"; };
+		05CC18CD1DEF15A80044BCED /* ApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDelegate.m; sourceTree = "<group>"; };
+		05CC18D01DEF15A80044BCED /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +225,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05CC18B31DEF14FC0044BCED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05CC18C91DEF152C0044BCED /* libDCE.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -217,6 +242,7 @@
 				05144B221DCBC78D0074B01E /* README.md */,
 				05CC180F1DEF13720044BCED /* DCE */,
 				05144B181DCBBDF40074B01E /* dyld_cache_extract */,
+				05CC18B71DEF14FC0044BCED /* DCE-GUI */,
 				05144B171DCBBDF40074B01E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -226,6 +252,7 @@
 			children = (
 				05144B161DCBBDF40074B01E /* dyld_cache_extract */,
 				05CC17661DEF10C50044BCED /* libDCE.a */,
+				05CC18B61DEF14FC0044BCED /* DCE-GUI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -378,6 +405,42 @@
 			path = Commands;
 			sourceTree = "<group>";
 		};
+		05CC18B71DEF14FC0044BCED /* DCE-GUI */ = {
+			isa = PBXGroup;
+			children = (
+				05CC18CB1DEF15A80044BCED /* Classes */,
+				05CC18CE1DEF15A80044BCED /* Interface */,
+				05CC18BB1DEF14FC0044BCED /* Supporting Files */,
+			);
+			path = "DCE-GUI";
+			sourceTree = "<group>";
+		};
+		05CC18BB1DEF14FC0044BCED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				05CC18CA1DEF15610044BCED /* Info.plist */,
+				05CC18BC1DEF14FC0044BCED /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		05CC18CB1DEF15A80044BCED /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				05CC18CC1DEF15A80044BCED /* ApplicationDelegate.h */,
+				05CC18CD1DEF15A80044BCED /* ApplicationDelegate.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		05CC18CE1DEF15A80044BCED /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				05CC18CF1DEF15A80044BCED /* MainMenu.xib */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -463,6 +526,24 @@
 			productReference = 05CC17661DEF10C50044BCED /* libDCE.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		05CC18B51DEF14FC0044BCED /* DCE-GUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05CC18C41DEF14FC0044BCED /* Build configuration list for PBXNativeTarget "DCE-GUI" */;
+			buildPhases = (
+				05CC18B21DEF14FC0044BCED /* Sources */,
+				05CC18B31DEF14FC0044BCED /* Frameworks */,
+				05CC18B41DEF14FC0044BCED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				05CC18C81DEF15290044BCED /* PBXTargetDependency */,
+			);
+			name = "DCE-GUI";
+			productName = "DCE-GUI";
+			productReference = 05CC18B61DEF14FC0044BCED /* DCE-GUI.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -480,6 +561,11 @@
 						CreatedOnToolsVersion = 8.2;
 						ProvisioningStyle = Automatic;
 					};
+					05CC18B51DEF14FC0044BCED = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 326Y53CJMD;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 05144B111DCBBDF40074B01E /* Build configuration list for PBXProject "dyld_cache_extract" */;
@@ -488,6 +574,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 05144B0D1DCBBDF40074B01E;
 			productRefGroup = 05144B171DCBBDF40074B01E /* Products */;
@@ -496,9 +583,21 @@
 			targets = (
 				05144B151DCBBDF40074B01E /* dyld_cache_extract */,
 				05CC17651DEF10C50044BCED /* DCE */,
+				05CC18B51DEF14FC0044BCED /* DCE-GUI */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		05CC18B41DEF14FC0044BCED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05CC18D21DEF15A80044BCED /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		05144B121DCBBDF40074B01E /* Sources */ = {
@@ -554,6 +653,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		05CC18B21DEF14FC0044BCED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				05CC18BD1DEF14FC0044BCED /* main.m in Sources */,
+				05CC18D11DEF15A80044BCED /* ApplicationDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -562,7 +670,23 @@
 			target = 05CC17651DEF10C50044BCED /* DCE */;
 			targetProxy = 05CC180C1DEF126F0044BCED /* PBXContainerItemProxy */;
 		};
+		05CC18C81DEF15290044BCED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 05CC17651DEF10C50044BCED /* DCE */;
+			targetProxy = 05CC18C71DEF15290044BCED /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		05CC18CF1DEF15A80044BCED /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05CC18D01DEF15A80044BCED /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		05144B1B1DCBBDF40074B01E /* Debug */ = {
@@ -613,7 +737,7 @@
 				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -729,7 +853,7 @@
 				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -825,6 +949,32 @@
 			};
 			name = Release;
 		};
+		05CC18C51DEF14FC0044BCED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 326Y53CJMD;
+				INFOPLIST_FILE = "DCE-GUI/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.DCE-GUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		05CC18C61DEF14FC0044BCED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 326Y53CJMD;
+				INFOPLIST_FILE = "DCE-GUI/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.DCE-GUI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -853,6 +1003,16 @@
 				05CC17701DEF10C60044BCED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05CC18C41DEF14FC0044BCED /* Build configuration list for PBXNativeTarget "DCE-GUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05CC18C51DEF14FC0044BCED /* Debug */,
+				05CC18C61DEF14FC0044BCED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
