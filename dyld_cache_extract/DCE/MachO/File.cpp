@@ -23,11 +23,11 @@
  ******************************************************************************/
 
 /*!
- * @header      MachO-File.cpp
+ * @header      File.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "MachO-File.hpp"
+#include "File.hpp"
 #include "BinaryStream.hpp"
 
 #ifdef __clang__
@@ -44,8 +44,8 @@ class XS::PIMPL::Object< DCE::MachO::File >::IMPL
         IMPL( const IMPL & o );
         ~IMPL( void );
         
-        DCE::MachO::Header                 _header;
-        std::vector< DCE::MachO::Segment > _segments;
+        DCE::MachO::Header                                        _header;
+        std::vector< std::shared_ptr< DCE::MachO::LoadCommand > > _loadCommands;
 };
 
 #ifdef __clang__
@@ -61,9 +61,9 @@ namespace DCE
     {
         bool File::Read( BinaryStream & stream )
         {
-            Header                 header;
-            std::vector< Segment > segments;
-            uint32_t               i;
+            Header                                        header;
+            std::vector< std::shared_ptr< LoadCommand > > commands;
+            uint32_t                                      i;
             
             if( stream.IsGood() == false || stream.IsEOF() )
             {
@@ -78,19 +78,21 @@ namespace DCE
             for( i = 0; i < header.GetCommandsCount(); i++ )
             {
                 {
-                    Segment seg;
+                    std::shared_ptr< LoadCommand > command;
                     
-                    if( seg.Read( header, stream ) == false )
+                    command = LoadCommand::FromStream( header, stream );
+                    
+                    if( command == nullptr )
                     {
                         return false;
                     }
                     
-                    segments.push_back( seg );
+                    commands.push_back( command );
                 }
             }
             
-            this->impl->_header   = header;
-            this->impl->_segments = segments;
+            this->impl->_header       = header;
+            this->impl->_loadCommands = commands;
             
             return true;
         }
@@ -100,9 +102,9 @@ namespace DCE
             return this->impl->_header;
         }
         
-        std::vector< Segment > File::GetSegments( void ) const
+        std::vector< std::shared_ptr< LoadCommand > > File::GetLoadCommands( void ) const
         {
-            return this->impl->_segments;
+            return this->impl->_loadCommands;
         }
     }
 }
@@ -112,7 +114,7 @@ XS::PIMPL::Object< DCE::MachO::File >::IMPL::IMPL( void )
 
 XS::PIMPL::Object< DCE::MachO::File >::IMPL::IMPL( const IMPL & o ):
     _header( o._header ),
-    _segments( o._segments )
+    _loadCommands( o._loadCommands )
 {}
 
 XS::PIMPL::Object< DCE::MachO::File >::IMPL::~IMPL( void )

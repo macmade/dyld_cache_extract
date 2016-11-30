@@ -36,7 +36,7 @@
 #include <vector>
 #include "ImageInfo.hpp"
 #include "MappingInfo.hpp"
-#include "MachO-File.hpp"
+#include "MachO/File.hpp"
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE

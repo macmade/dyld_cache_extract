@@ -14,9 +14,9 @@
 		05144B6C1DCCCD120074B01E /* BinaryStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B6A1DCCCD120074B01E /* BinaryStream.cpp */; };
 		05144B6F1DCCD8A90074B01E /* ImageInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B6D1DCCD8A90074B01E /* ImageInfo.cpp */; };
 		05144B721DCE1D220074B01E /* MappingInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B701DCE1D220074B01E /* MappingInfo.cpp */; };
-		05BBE1F11DEE203D007B3BA6 /* MachO-File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05BBE1EB1DEE203D007B3BA6 /* MachO-File.cpp */; };
-		05BBE1F81DEE21CD007B3BA6 /* MachO-Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05BBE1F41DEE21CD007B3BA6 /* MachO-Header.cpp */; };
-		05BBE1F91DEE21CD007B3BA6 /* MachO-Segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05BBE1F61DEE21CD007B3BA6 /* MachO-Segment.cpp */; };
+		05CC16AB1DEF04B00044BCED /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC16A51DEF04B00044BCED /* File.cpp */; };
+		05CC16AC1DEF04B00044BCED /* Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC16A71DEF04B00044BCED /* Header.cpp */; };
+		05CC16AD1DEF04B00044BCED /* LoadCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC16A91DEF04B00044BCED /* LoadCommand.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,12 +48,12 @@
 		05144B6E1DCCD8A90074B01E /* ImageInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ImageInfo.hpp; sourceTree = "<group>"; };
 		05144B701DCE1D220074B01E /* MappingInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MappingInfo.cpp; sourceTree = "<group>"; };
 		05144B711DCE1D220074B01E /* MappingInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MappingInfo.hpp; sourceTree = "<group>"; };
-		05BBE1EB1DEE203D007B3BA6 /* MachO-File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "MachO-File.cpp"; sourceTree = "<group>"; };
-		05BBE1EC1DEE203D007B3BA6 /* MachO-File.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "MachO-File.hpp"; sourceTree = "<group>"; };
-		05BBE1F41DEE21CD007B3BA6 /* MachO-Header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "MachO-Header.cpp"; sourceTree = "<group>"; };
-		05BBE1F51DEE21CD007B3BA6 /* MachO-Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "MachO-Header.hpp"; sourceTree = "<group>"; };
-		05BBE1F61DEE21CD007B3BA6 /* MachO-Segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "MachO-Segment.cpp"; sourceTree = "<group>"; };
-		05BBE1F71DEE21CD007B3BA6 /* MachO-Segment.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "MachO-Segment.hpp"; sourceTree = "<group>"; };
+		05CC16A51DEF04B00044BCED /* File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = File.cpp; sourceTree = "<group>"; };
+		05CC16A61DEF04B00044BCED /* File.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = File.hpp; sourceTree = "<group>"; };
+		05CC16A71DEF04B00044BCED /* Header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Header.cpp; sourceTree = "<group>"; };
+		05CC16A81DEF04B00044BCED /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
+		05CC16A91DEF04B00044BCED /* LoadCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadCommand.cpp; sourceTree = "<group>"; };
+		05CC16AA1DEF04B00044BCED /* LoadCommand.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LoadCommand.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,16 +107,32 @@
 				05144B571DCCC88E0074B01E /* CacheFile.hpp */,
 				05144B6D1DCCD8A90074B01E /* ImageInfo.cpp */,
 				05144B6E1DCCD8A90074B01E /* ImageInfo.hpp */,
-				05BBE1EB1DEE203D007B3BA6 /* MachO-File.cpp */,
-				05BBE1EC1DEE203D007B3BA6 /* MachO-File.hpp */,
-				05BBE1F41DEE21CD007B3BA6 /* MachO-Header.cpp */,
-				05BBE1F51DEE21CD007B3BA6 /* MachO-Header.hpp */,
-				05BBE1F61DEE21CD007B3BA6 /* MachO-Segment.cpp */,
-				05BBE1F71DEE21CD007B3BA6 /* MachO-Segment.hpp */,
+				05CC16A31DEF04B00044BCED /* MachO */,
 				05144B701DCE1D220074B01E /* MappingInfo.cpp */,
 				05144B711DCE1D220074B01E /* MappingInfo.hpp */,
 			);
 			path = DCE;
+			sourceTree = "<group>";
+		};
+		05CC16A31DEF04B00044BCED /* MachO */ = {
+			isa = PBXGroup;
+			children = (
+				05CC16A41DEF04B00044BCED /* Commands */,
+				05CC16A51DEF04B00044BCED /* File.cpp */,
+				05CC16A61DEF04B00044BCED /* File.hpp */,
+				05CC16A71DEF04B00044BCED /* Header.cpp */,
+				05CC16A81DEF04B00044BCED /* Header.hpp */,
+				05CC16A91DEF04B00044BCED /* LoadCommand.cpp */,
+				05CC16AA1DEF04B00044BCED /* LoadCommand.hpp */,
+			);
+			path = MachO;
+			sourceTree = "<group>";
+		};
+		05CC16A41DEF04B00044BCED /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Commands;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,15 +192,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05CC16AC1DEF04B00044BCED /* Header.cpp in Sources */,
 				05144B721DCE1D220074B01E /* MappingInfo.cpp in Sources */,
 				05144B6F1DCCD8A90074B01E /* ImageInfo.cpp in Sources */,
-				05BBE1F91DEE21CD007B3BA6 /* MachO-Segment.cpp in Sources */,
 				05144B261DCBC9370074B01E /* DCE.cpp in Sources */,
-				05BBE1F81DEE21CD007B3BA6 /* MachO-Header.cpp in Sources */,
 				05144B2A1DCBCC200074B01E /* Arguments.cpp in Sources */,
-				05BBE1F11DEE203D007B3BA6 /* MachO-File.cpp in Sources */,
 				05144B581DCCC88E0074B01E /* CacheFile.cpp in Sources */,
 				05144B6C1DCCCD120074B01E /* BinaryStream.cpp in Sources */,
+				05CC16AD1DEF04B00044BCED /* LoadCommand.cpp in Sources */,
+				05CC16AB1DEF04B00044BCED /* File.cpp in Sources */,
 				05144B211DCBBF3E0074B01E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

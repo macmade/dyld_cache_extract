@@ -23,12 +23,12 @@
  ******************************************************************************/
 
 /*!
- * @header      MachO-Segment.hpp
+ * @header      LoadCommand.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef DCE_MACH_O_SEGMENT_H
-#define DCE_MACH_O_SEGMENT_H
+#ifndef DCE_MACH_O_LOAD_COMMAND_H
+#define DCE_MACH_O_LOAD_COMMAND_H
 
 #include <cstdint>
 #include <string>
@@ -42,27 +42,20 @@ namespace DCE
     {
         class Header;
         
-        class Segment: public XS::PIMPL::Object< Segment >
+        class LoadCommand: public XS::PIMPL::Object< LoadCommand >
         {
             public:
                 
-                using XS::PIMPL::Object< Segment >::impl;
+                using XS::PIMPL::Object< LoadCommand >::impl;
                 
-                bool Read( const Header & header, BinaryStream & stream );
+                static std::shared_ptr< LoadCommand > FromStream( const Header & header, BinaryStream & stream );
                 
-                uint32_t    GetCommand( void )       const;
-                uint32_t    GetCommandSize( void )   const;
-                std::string GetName( void )          const;
-                uint64_t    GetVMAddress( void )     const;
-                uint64_t    GetVMSize( void )        const;
-                uint64_t    GetFileOffset( void )    const;
-                uint64_t    GetFileSize( void )      const;
-                uint32_t    GetMaxProt( void )       const;
-                uint32_t    GetInitProt( void )      const;
-                uint32_t    GetSectionsCount( void ) const;
-                uint32_t    GetFlags( void )         const;
+                virtual bool Read( const Header & header, BinaryStream & stream );
+                
+                uint32_t GetCommand( void )     const;
+                uint32_t GetCommandSize( void ) const;
         };
     }
 }
 
-#endif /* DCE_MACH_O_SEGMENT_H */
+#endif /* DCE_MACH_O_LOAD_COMMAND_H */

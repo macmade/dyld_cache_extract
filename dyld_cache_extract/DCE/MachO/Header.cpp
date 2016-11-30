@@ -23,11 +23,11 @@
  ******************************************************************************/
 
 /*!
- * @header      MachO-Header.cpp
+ * @header      Header.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "MachO-Header.hpp"
+#include "Header.hpp"
 #include "BinaryStream.hpp"
 
 #ifdef __clang__

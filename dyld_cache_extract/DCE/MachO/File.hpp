@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @header      MachO-File.hpp
+ * @header      File.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
@@ -33,9 +33,10 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <memory>
 #include <XS/PIMPL/Object.hpp>
-#include "MachO-Header.hpp"
-#include "MachO-Segment.hpp"
+#include "Header.hpp"
+#include "LoadCommand.hpp"
 
 namespace DCE
 {
@@ -51,8 +52,8 @@ namespace DCE
                 
                 bool Read( BinaryStream & stream );
                 
-                Header                 GetHeader( void )   const;
-                std::vector< Segment > GetSegments( void ) const;
+                Header                                        GetHeader( void )       const;
+                std::vector< std::shared_ptr< LoadCommand > > GetLoadCommands( void ) const;
         };
     }
 }

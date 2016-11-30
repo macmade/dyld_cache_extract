@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @header      MachO-Header.hpp
+ * @header      Header.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
