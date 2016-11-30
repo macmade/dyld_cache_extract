@@ -84,7 +84,7 @@
                                                                 <constraint firstAttribute="width" constant="32" id="CV9-W7-eQ3"/>
                                                                 <constraint firstAttribute="height" constant="32" id="dpE-Rs-cTg"/>
                                                             </constraints>
-                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="1z1-gt-fV6"/>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Framework" id="1z1-gt-fV6"/>
                                                             <connections>
                                                                 <binding destination="w8S-hW-6RF" name="value" keyPath="objectValue.icon" id="ajl-iz-PH2"/>
                                                             </connections>
@@ -298,4 +298,7 @@
             </connections>
         </arrayController>
     </objects>
+    <resources>
+        <image name="Framework" width="128" height="128"/>
+    </resources>
 </document>
