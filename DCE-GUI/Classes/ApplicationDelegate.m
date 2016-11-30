@@ -28,12 +28,14 @@
  */
 
 #import "ApplicationDelegate.h"
+#import "MainWindowController.h"
 #import "FileWindowController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate()
 
+@property( atomic, readwrite, strong ) MainWindowController                     * mainWindowController;
 @property( atomic, readwrite, strong ) NSMutableArray< FileWindowController * > * windowControllers;
 
 - ( void )windowWillClose: ( NSNotification * )notification;
@@ -49,9 +51,11 @@ NS_ASSUME_NONNULL_END
 {
     ( void )notification;
     
-    self.windowControllers = [ NSMutableArray new ];
+    self.windowControllers    = [ NSMutableArray new ];
+    self.mainWindowController = [ MainWindowController new ];
     
-    [ NSApp sendAction: @selector( openDocument: ) to: nil from: nil ];
+    [ self.mainWindowController.window center ];
+    [ self.mainWindowController.window makeKeyAndOrderFront: nil ];
 }
 
 - ( void )windowWillClose: ( NSNotification * )notification
@@ -85,7 +89,6 @@ NS_ASSUME_NONNULL_END
     panel.canSelectHiddenExtension        = YES;
     panel.showsHiddenFiles                = YES;
     panel.treatsFilePackagesAsDirectories = YES;
-    panel.directoryURL                    = [ NSURL fileURLWithPath: @"/var/db/dyld/" ];
     panel.allowsMultipleSelection         = NO;
     
     if( [ panel runModal ] != NSFileHandlingPanelOKButton || panel.URL == nil )

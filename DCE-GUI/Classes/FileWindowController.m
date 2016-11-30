@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_END
     ImageItem    * item;
     DCEImageInfo * info;
     
+    [ super windowDidLoad ];
+    
     self.window.title = self.url.path.lastPathComponent;
     
     if( self.file.exists == NO || self.file.isValid == NO )
