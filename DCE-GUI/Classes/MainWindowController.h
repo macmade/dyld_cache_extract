@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @header      ApplicationDelegate.h
+ * @header      MainWindowController.h
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
@@ -31,7 +31,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ApplicationDelegate: NSObject < NSApplicationDelegate >
+@interface MainWindowController: NSWindowController
+
+- ( instancetype )initWithURL: ( NSURL * )url;
 
 @end
 

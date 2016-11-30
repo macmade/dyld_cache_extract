@@ -28,17 +28,87 @@
  */
 
 #import "ApplicationDelegate.h"
+#import "MainWindowController.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate()
 
+@property( atomic, readwrite, strong ) NSMutableArray< MainWindowController * > * windowControllers;
+
+- ( void )windowWillClose: ( NSNotification * )notification;
+- ( IBAction )openDocument: ( nullable id )sender;
+
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation ApplicationDelegate
 
 - ( void )applicationDidFinishLaunching: ( NSNotification * )notification
 {
     ( void )notification;
+    
+    self.windowControllers = [ NSMutableArray new ];
+    
+    [ NSApp sendAction: @selector( openDocument: ) to: nil from: nil ];
 }
 
+- ( void )windowWillClose: ( NSNotification * )notification
+{
+    NSWindow * window;
+    
+    window = notification.object;
+    
+    if( window == nil )
+    {
+        return;
+    }
+    
+    [ [ NSNotificationCenter defaultCenter ] removeObserver: self name: NSWindowWillCloseNotification object: window ];
+    [ self.windowControllers removeObject: window.windowController ];
+}
+
+- ( IBAction )openDocument: ( nullable id )sender
+{
+    NSOpenPanel          * panel;
+    MainWindowController * controller;
+    NSPoint                origin;
+    
+    ( void )sender;
+    
+    panel = [ NSOpenPanel openPanel ];
+    
+    panel.canChooseFiles                  = YES;
+    panel.canChooseDirectories            = NO;
+    panel.canCreateDirectories            = NO;
+    panel.canSelectHiddenExtension        = YES;
+    panel.showsHiddenFiles                = YES;
+    panel.treatsFilePackagesAsDirectories = YES;
+    panel.directoryURL                    = [ NSURL fileURLWithPath: @"/var/db/dyld/" ];
+    panel.allowsMultipleSelection         = NO;
+    
+    if( [ panel runModal ] != NSFileHandlingPanelOKButton || panel.URL == nil )
+    {
+        return;
+    }
+    
+    controller = [ [ MainWindowController alloc ] initWithURL: panel.URL ];
+    
+    if( self.windowControllers.count == 0 )
+    {
+        [ controller.window center ];
+    }
+    else
+    {
+        origin = [ controller.window cascadeTopLeftFromPoint: self.windowControllers.lastObject.window.frame.origin ];
+        
+        [ controller.window setFrameOrigin: origin ];
+    }
+    
+    [ [ NSNotificationCenter defaultCenter ] addObserver: self selector: @selector( windowWillClose: ) name: NSWindowWillCloseNotification object: controller.window ];
+    [ controller.window makeKeyAndOrderFront: nil ];
+    [ self.windowControllers addObject: controller ];
+}
 
 @end

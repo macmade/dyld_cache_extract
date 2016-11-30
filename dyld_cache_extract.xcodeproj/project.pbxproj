@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		05144B211DCBBF3E0074B01E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B201DCBBF3E0074B01E /* main.cpp */; };
+		054829611DEF1C060076C9E4 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054829601DEF1C060076C9E4 /* MainWindowController.m */; };
+		054829641DEF1CD30076C9E4 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054829621DEF1CD30076C9E4 /* MainWindowController.xib */; };
 		05CC180E1DEF12730044BCED /* libDCE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CC17661DEF10C50044BCED /* libDCE.a */; };
 		05CC18641DEF13720044BCED /* BinaryStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18131DEF13720044BCED /* BinaryStream.hpp */; };
 		05CC18651DEF13720044BCED /* CacheFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18141DEF13720044BCED /* CacheFile.hpp */; };
@@ -124,6 +126,9 @@
 		05144B201DCBBF3E0074B01E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05144B221DCBC78D0074B01E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		05144B2B1DCBCCEE0074B01E /* DCE.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCE.pch; sourceTree = "<group>"; };
+		0548295F1DEF1C060076C9E4 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		054829601DEF1C060076C9E4 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		054829631DEF1CD30076C9E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
 		05CC17661DEF10C50044BCED /* libDCE.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDCE.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		05CC18131DEF13720044BCED /* BinaryStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BinaryStream.hpp; sourceTree = "<group>"; };
 		05CC18141DEF13720044BCED /* CacheFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CacheFile.hpp; sourceTree = "<group>"; };
@@ -429,6 +434,8 @@
 			children = (
 				05CC18CC1DEF15A80044BCED /* ApplicationDelegate.h */,
 				05CC18CD1DEF15A80044BCED /* ApplicationDelegate.m */,
+				0548295F1DEF1C060076C9E4 /* MainWindowController.h */,
+				054829601DEF1C060076C9E4 /* MainWindowController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -437,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				05CC18CF1DEF15A80044BCED /* MainMenu.xib */,
+				054829621DEF1CD30076C9E4 /* MainWindowController.xib */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -593,6 +601,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054829641DEF1CD30076C9E4 /* MainWindowController.xib in Resources */,
 				05CC18D21DEF15A80044BCED /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				054829611DEF1C060076C9E4 /* MainWindowController.m in Sources */,
 				05CC18BD1DEF14FC0044BCED /* main.m in Sources */,
 				05CC18D11DEF15A80044BCED /* ApplicationDelegate.m in Sources */,
 			);
@@ -678,6 +688,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		054829621DEF1CD30076C9E4 /* MainWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				054829631DEF1CD30076C9E4 /* en */,
+			);
+			name = MainWindowController.xib;
+			sourceTree = "<group>";
+		};
 		05CC18CF1DEF15A80044BCED /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

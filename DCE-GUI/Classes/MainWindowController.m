@@ -23,16 +23,37 @@
  ******************************************************************************/
 
 /*!
- * @header      ApplicationDelegate.h
+ * @file        MainWindowController.m
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-@import Cocoa;
+#import "MainWindowController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ApplicationDelegate: NSObject < NSApplicationDelegate >
+@interface MainWindowController()
+
+@property( atomic, readwrite, strong ) NSURL * url;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+@implementation MainWindowController
+
+- ( instancetype )init
+{
+    return [ self initWithWindowNibName: NSStringFromClass( [ self class ] ) ];
+}
+
+- ( instancetype )initWithURL: ( NSURL * )url
+{
+    if( ( self = [ self init ] ) )
+    {
+        self.url = url;
+    }
+    
+    return self;
+}
+
+@end
