@@ -29,6 +29,7 @@
 
 #import "FileWindowController.h"
 #import "ImageItem.h"
+#import "Preferences.h"
 #import <DCE/Objective-C/DCECacheFile.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -96,6 +97,8 @@ NS_ASSUME_NONNULL_END
         
         return;
     }
+    
+    [ [ Preferences sharedInstance ] addRecentFile: self.file.path ];
     
     for( info in self.file.imageInfos )
     {

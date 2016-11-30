@@ -30,6 +30,7 @@
 #import "MainWindowController.h"
 #import "ApplicationDelegate.h"
 #import "FileItem.h"
+#import "Preferences.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property( atomic, readwrite, strong ) IBOutlet NSArrayController     * arrayController;
 
 - ( IBAction )openSelectedFile: ( nullable id )sender;
+- ( void )loadFiles;
 
 @end
 
@@ -65,42 +67,15 @@ NS_ASSUME_NONNULL_END
 - ( void )dealloc
 {
     [ self.arrayController removeObserver: self forKeyPath: @"selectionIndexes" ];
+    [ [ NSNotificationCenter defaultCenter ] removeObserver: self ];
 }
 
 - ( void )windowDidLoad
 {
-    NSString * path;
-    BOOL       isDir;
-    FileItem * item;
-    
     [ super windowDidLoad ];
-    
     [ self.arrayController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
-    
-    for( path in [ [ NSFileManager defaultManager ] contentsOfDirectoryAtPath: @"/var/db/dyld/" error: NULL ] )
-    {
-        path = [ @"/var/db/dyld/" stringByAppendingPathComponent: path ];
-        
-        if( path.pathExtension.length )
-        {
-            continue;
-        }
-        
-        if( [ [ NSFileManager defaultManager ] fileExistsAtPath: path isDirectory: &isDir ] && isDir )
-        {
-            continue;
-        }
-        
-        item          = [ FileItem new ];
-        item.path     = path;
-        item.title    = path.lastPathComponent;
-        item.subtitle = [ path stringByDeletingLastPathComponent ];
-        item.icon     = [ NSImage imageNamed: @"Library" ];
-        
-        [ self.arrayController addObject: item ];
-    }
-    
-    self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
+    [ self loadFiles ];
+    [ [ NSNotificationCenter defaultCenter ] addObserver: self selector: @selector( loadFiles ) name: PreferencesNotificationDefaultsChanged object: nil ];
 }
 
 - ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
@@ -132,6 +107,53 @@ NS_ASSUME_NONNULL_END
     url = [ NSURL fileURLWithPath: item.path ];
     
     [ ( ApplicationDelegate * )( NSApp.delegate ) openURL: url ];
+}
+
+- ( void )loadFiles
+{
+    NSMutableArray * paths;
+    NSString       * path;
+    BOOL             isDir;
+    FileItem       * item;
+    
+    [ self.arrayController removeObjects: self.items ];
+    
+    paths = [ [ Preferences sharedInstance ].recentFiles mutableCopy ];
+    
+    for( path in [ [ NSFileManager defaultManager ] contentsOfDirectoryAtPath: @"/var/db/dyld/" error: NULL ] )
+    {
+        path = [ @"/var/db/dyld/" stringByAppendingPathComponent: path ];
+        
+        if( path.pathExtension.length )
+        {
+            continue;
+        }
+        
+        if( [ [ NSFileManager defaultManager ] fileExistsAtPath: path isDirectory: &isDir ] && isDir )
+        {
+            continue;
+        }
+        
+        [ paths addObject: path ];
+    }
+    
+    for( path in paths )
+    {
+        if( [ [ NSFileManager defaultManager ] fileExistsAtPath: path isDirectory: &isDir ] == NO || isDir )
+        {
+            continue;
+        }
+        
+        item          = [ FileItem new ];
+        item.path     = path;
+        item.title    = path.lastPathComponent;
+        item.subtitle = [ path stringByDeletingLastPathComponent ];
+        item.icon     = [ NSImage imageNamed: @"Library" ];
+        
+        [ self.arrayController addObject: item ];
+    }
+    
+    self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
 }
 
 @end

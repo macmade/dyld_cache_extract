@@ -156,6 +156,11 @@ NS_ASSUME_NONNULL_END
             return;
         }
         
+        if( [ [ path stringByDeletingLastPathComponent ] isEqualToString: @"/var/db/dyld" ] )
+        {
+            return;
+        }
+        
         files = [ self.recentFiles mutableCopy ];
         
         if( [ files containsObject: path ] )

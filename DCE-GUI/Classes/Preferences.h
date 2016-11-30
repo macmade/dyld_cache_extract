@@ -31,8 +31,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString * const PreferencesNotificationDefaultsChanged;
-NSString * const PreferencesKeyRecentFiles;
+FOUNDATION_EXPORT NSString * const PreferencesNotificationDefaultsChanged;
+FOUNDATION_EXPORT NSString * const PreferencesKeyRecentFiles;
 
 @interface Preferences: NSObject
 
