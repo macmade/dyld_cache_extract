@@ -97,7 +97,34 @@ NS_ASSUME_NONNULL_END
             dispatch_get_main_queue(),
             ^( void )
             {
-                [ self close ];
+                NSString * title;
+                NSString * message;
+                NSAlert  * alert;
+                
+                if( self.file.exists == NO )
+                {
+                    title   = NSLocalizedString( @"Missing File", nil );
+                    message = [ NSString stringWithFormat: @"The file \"%@\" does not exist.", self.file.path.lastPathComponent ];
+                }
+                else
+                {
+                    title   = NSLocalizedString( @"Invalid File", nil );
+                    message = [ NSString stringWithFormat: @"The file \"%@\" is not a valid DYLD shared cache file.", self.file.path.lastPathComponent ];
+                }
+                
+                alert = [ NSAlert new ];
+                
+                alert.messageText     = title;
+                alert.informativeText = message;
+                
+                [ alert addButtonWithTitle: NSLocalizedString( @"Close", nil ) ];
+                [ alert beginSheetModalForWindow: self.window completionHandler: ^( NSModalResponse response )
+                    {
+                        ( void )response;
+                        
+                        [ self close ];
+                    }
+                ];
             }
         );
         
