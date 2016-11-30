@@ -23,6 +23,9 @@
 		056B95481DEF557D0038641A /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B95471DEF557D0038641A /* MainWindowController.m */; };
 		056B954B1DEF55E70038641A /* FileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B954A1DEF55E70038641A /* FileItem.m */; };
 		056B954E1DEF567D0038641A /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056B954C1DEF567D0038641A /* MainWindowController.xib */; };
+		056B95501DEF5AE10038641A /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056B954F1DEF5AE10038641A /* Icon.icns */; };
+		056B95531DEF5B290038641A /* AboutWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056B95511DEF5B290038641A /* AboutWindowController.xib */; };
+		056B95561DEF5B310038641A /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B95551DEF5B310038641A /* AboutWindowController.m */; };
 		05C33B821DEF38A4000AC35E /* Bundle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B7F1DEF38A4000AC35E /* Bundle.png */; };
 		05C33B831DEF38A4000AC35E /* Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B801DEF38A4000AC35E /* Framework.png */; };
 		05C33B841DEF38A4000AC35E /* Library.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B811DEF38A4000AC35E /* Library.png */; };
@@ -163,6 +166,10 @@
 		056B95491DEF55E70038641A /* FileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItem.h; sourceTree = "<group>"; };
 		056B954A1DEF55E70038641A /* FileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItem.m; sourceTree = "<group>"; };
 		056B954D1DEF567D0038641A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindowController.xib; sourceTree = "<group>"; };
+		056B954F1DEF5AE10038641A /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		056B95521DEF5B290038641A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AboutWindowController.xib; sourceTree = "<group>"; };
+		056B95541DEF5B310038641A /* AboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindowController.h; sourceTree = "<group>"; };
+		056B95551DEF5B310038641A /* AboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutWindowController.m; sourceTree = "<group>"; };
 		05C33B7F1DEF38A4000AC35E /* Bundle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bundle.png; sourceTree = "<group>"; };
 		05C33B801DEF38A4000AC35E /* Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Framework.png; sourceTree = "<group>"; };
 		05C33B811DEF38A4000AC35E /* Library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Library.png; sourceTree = "<group>"; };
@@ -247,7 +254,7 @@
 		05CC18621DEF13720044BCED /* MappingInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MappingInfo.cpp; sourceTree = "<group>"; };
 		05CC18AF1DEF13C20044BCED /* Arguments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arguments.cpp; sourceTree = "<group>"; };
 		05CC18B01DEF13C20044BCED /* Arguments.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Arguments.hpp; sourceTree = "<group>"; };
-		05CC18B61DEF14FC0044BCED /* DCE-GUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCE-GUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		05CC18B61DEF14FC0044BCED /* Dyld Cache Extractor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dyld Cache Extractor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		05CC18BC1DEF14FC0044BCED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05CC18CA1DEF15610044BCED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05CC18CC1DEF15A80044BCED /* ApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDelegate.h; sourceTree = "<group>"; };
@@ -300,7 +307,7 @@
 			children = (
 				05144B161DCBBDF40074B01E /* dyld_cache_extract */,
 				05CC17661DEF10C50044BCED /* libDCE.a */,
-				05CC18B61DEF14FC0044BCED /* DCE-GUI.app */,
+				05CC18B61DEF14FC0044BCED /* Dyld Cache Extractor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,6 +358,7 @@
 			children = (
 				05C33B7F1DEF38A4000AC35E /* Bundle.png */,
 				05C33B801DEF38A4000AC35E /* Framework.png */,
+				056B954F1DEF5AE10038641A /* Icon.icns */,
 				05C33B811DEF38A4000AC35E /* Library.png */,
 			);
 			path = Images;
@@ -517,6 +525,8 @@
 		05CC18CB1DEF15A80044BCED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				056B95541DEF5B310038641A /* AboutWindowController.h */,
+				056B95551DEF5B310038641A /* AboutWindowController.m */,
 				05CC18CC1DEF15A80044BCED /* ApplicationDelegate.h */,
 				05CC18CD1DEF15A80044BCED /* ApplicationDelegate.m */,
 				056B95491DEF55E70038641A /* FileItem.h */,
@@ -539,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				05C33B7E1DEF38A4000AC35E /* Images */,
+				056B95511DEF5B290038641A /* AboutWindowController.xib */,
 				05CC18CF1DEF15A80044BCED /* MainMenu.xib */,
 				054829621DEF1CD30076C9E4 /* FileWindowController.xib */,
 				056B954C1DEF567D0038641A /* MainWindowController.xib */,
@@ -650,7 +661,7 @@
 			);
 			name = "DCE-GUI";
 			productName = "DCE-GUI";
-			productReference = 05CC18B61DEF14FC0044BCED /* DCE-GUI.app */;
+			productReference = 05CC18B61DEF14FC0044BCED /* Dyld Cache Extractor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -703,9 +714,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				054829641DEF1CD30076C9E4 /* FileWindowController.xib in Resources */,
+				056B95531DEF5B290038641A /* AboutWindowController.xib in Resources */,
 				05C33B841DEF38A4000AC35E /* Library.png in Resources */,
 				05CC18D21DEF15A80044BCED /* MainMenu.xib in Resources */,
 				05C33B831DEF38A4000AC35E /* Framework.png in Resources */,
+				056B95501DEF5AE10038641A /* Icon.icns in Resources */,
 				056B954E1DEF567D0038641A /* MainWindowController.xib in Resources */,
 				05C33B821DEF38A4000AC35E /* Bundle.png in Resources */,
 			);
@@ -783,6 +796,7 @@
 				05CC18BD1DEF14FC0044BCED /* main.m in Sources */,
 				05CC18D11DEF15A80044BCED /* ApplicationDelegate.m in Sources */,
 				05C33B871DEF4510000AC35E /* HexNumberFormatter.m in Sources */,
+				056B95561DEF5B310038641A /* AboutWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +830,14 @@
 				056B954D1DEF567D0038641A /* en */,
 			);
 			name = MainWindowController.xib;
+			sourceTree = "<group>";
+		};
+		056B95511DEF5B290038641A /* AboutWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				056B95521DEF5B290038641A /* en */,
+			);
+			name = AboutWindowController.xib;
 			sourceTree = "<group>";
 		};
 		05CC18CF1DEF15A80044BCED /* MainMenu.xib */ = {
@@ -1099,7 +1121,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.DCE-GUI";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dyld Cache Extractor";
 			};
 			name = Debug;
 		};
@@ -1113,7 +1135,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xs-labs.DCE-GUI";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dyld Cache Extractor";
 			};
 			name = Release;
 		};

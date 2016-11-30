@@ -28,6 +28,7 @@
  */
 
 #import "ApplicationDelegate.h"
+#import "AboutWindowController.h"
 #import "MainWindowController.h"
 #import "FileWindowController.h"
 
@@ -35,11 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate()
 
+@property( atomic, readwrite, strong ) AboutWindowController                    * aboutWindowController;
 @property( atomic, readwrite, strong ) MainWindowController                     * mainWindowController;
 @property( atomic, readwrite, strong ) NSMutableArray< FileWindowController * > * windowControllers;
 
 - ( void )windowWillClose: ( NSNotification * )notification;
 - ( IBAction )openDocument: ( nullable id )sender;
+- ( IBAction )showAboutWindow: ( nullable id )sender;
 
 @end
 
@@ -112,6 +115,21 @@ NS_ASSUME_NONNULL_END
     [ [ NSNotificationCenter defaultCenter ] addObserver: self selector: @selector( windowWillClose: ) name: NSWindowWillCloseNotification object: controller.window ];
     [ controller.window makeKeyAndOrderFront: nil ];
     [ self.windowControllers addObject: controller ];
+}
+
+- ( IBAction )showAboutWindow: ( nullable id )sender
+{
+    if( self.aboutWindowController == nil )
+    {
+        self.aboutWindowController = [ AboutWindowController new ];
+        
+        [ self.aboutWindowController.window makeKeyAndOrderFront: sender ];
+        [ self.aboutWindowController.window center ];
+    }
+    else
+    {
+        [ self.aboutWindowController.window makeKeyAndOrderFront: sender ];
+    }
 }
 
 @end
