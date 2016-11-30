@@ -203,8 +203,6 @@ NS_ASSUME_NONNULL_END
     [ self.infoPopover showRelativeToRect: NSZeroRect ofView: view preferredEdge: NSMinYEdge ];
 }
 
-
-
 #pragma mark - NSTableViewDataSource
 
 - ( BOOL )tableView: ( NSTableView * )tableView writeRowsWithIndexes: ( NSIndexSet * )rowIndexes toPasteboard: ( NSPasteboard * )pasteboard
