@@ -27,7 +27,7 @@
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include <DCE/Arguments.hpp>
+#include "Arguments.hpp"
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -35,7 +35,7 @@
 #endif
 
 template<>
-class XS::PIMPL::Object< DCE::Arguments >::IMPL
+class XS::PIMPL::Object< Arguments >::IMPL
 {
     public:
         
@@ -58,49 +58,46 @@ class XS::PIMPL::Object< DCE::Arguments >::IMPL
 #pragma clang diagnostic pop
 #endif
 
-#define XS_PIMPL_CLASS DCE::Arguments
+#define XS_PIMPL_CLASS Arguments
 #include <XS/PIMPL/Object-IMPL.hpp>
 
-namespace DCE
+Arguments::Arguments( void ): XS::PIMPL::Object< Arguments >()
+{}
+
+Arguments::Arguments( int argc, const char ** argv ): XS::PIMPL::Object< Arguments >( argc, argv )
+{}
+
+bool Arguments::ShowUsage( void ) const
 {
-    Arguments::Arguments( void ): XS::PIMPL::Object< Arguments >()
-    {}
-    
-    Arguments::Arguments( int argc, const char ** argv ): XS::PIMPL::Object< Arguments >( argc, argv )
-    {}
-    
-    bool Arguments::ShowUsage( void ) const
-    {
-        return this->impl->_showUsage;
-    }
-    
-    bool Arguments::PrintInfo( void ) const
-    {
-        return this->impl->_printInfo;
-    }
-    
-    bool Arguments::Extract( void ) const
-    {
-        return this->impl->_extract;
-    }
-    
-    std::string Arguments::GetCacheFile( void ) const
-    {
-        return this->impl->_cacheFile;
-    }
-    
-    std::string Arguments::GetOutputDirectory( void ) const
-    {
-        return this->impl->_outDir;
-    }
-    
-    std::string Arguments::GetLibraryName( void ) const
-    {
-        return this->impl->_library;
-    }
+    return this->impl->_showUsage;
 }
 
-XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( void ):
+bool Arguments::PrintInfo( void ) const
+{
+    return this->impl->_printInfo;
+}
+
+bool Arguments::Extract( void ) const
+{
+    return this->impl->_extract;
+}
+
+std::string Arguments::GetCacheFile( void ) const
+{
+    return this->impl->_cacheFile;
+}
+
+std::string Arguments::GetOutputDirectory( void ) const
+{
+    return this->impl->_outDir;
+}
+
+std::string Arguments::GetLibraryName( void ) const
+{
+    return this->impl->_library;
+}
+
+XS::PIMPL::Object< Arguments >::IMPL::IMPL( void ):
     _argc( 0 ),
     _argv( NULL ),
     _showUsage( true ),
@@ -108,7 +105,7 @@ XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( void ):
     _extract( false )
 {}
 
-XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( int argc, const char ** argv ):
+XS::PIMPL::Object< Arguments >::IMPL::IMPL( int argc, const char ** argv ):
     _argc( argc ),
     _argv( argv ),
     _showUsage( false ),
@@ -184,7 +181,7 @@ XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( int argc, const char ** argv ):
     }
 }
 
-XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( const IMPL & o ):
+XS::PIMPL::Object< Arguments >::IMPL::IMPL( const IMPL & o ):
     _argc( o._argc ),
     _argv( o._argv ),
     _showUsage( o._showUsage ),
@@ -195,5 +192,5 @@ XS::PIMPL::Object< DCE::Arguments >::IMPL::IMPL( const IMPL & o ):
     _library( o._library )
 {}
 
-XS::PIMPL::Object< DCE::Arguments >::IMPL::~IMPL( void )
+XS::PIMPL::Object< Arguments >::IMPL::~IMPL( void )
 {}

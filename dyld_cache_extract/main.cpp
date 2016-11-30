@@ -27,18 +27,19 @@
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include <DCE.hpp>
-#include <DCE/Arguments.hpp>
+#include "Arguments.hpp"
 #include <DCE/CacheFile.hpp>
+
+static void PrintUsage( void );
 
 int main( int argc, const char * argv[] )
 {
-    DCE::Arguments args( argc, argv );
+    Arguments      args( argc, argv );
     DCE::CacheFile file;
     
     if( args.ShowUsage() )
     {
-        DCE::PrintUsage();
+        PrintUsage();
         
         return 0;
     }
@@ -69,4 +70,23 @@ int main( int argc, const char * argv[] )
     }
     
     return 0;
+}
+
+void PrintUsage( void )
+{
+    std::cout << "dyld_cache_extract - Extractor for DYLD shared cache"
+              << std::endl
+              << std::endl
+              << "Available options:"
+              << std::endl
+              << std::endl
+              << "    --help                            Shows this help dialog."
+              << std::endl
+              << "    --info [PATH]                     Displays informations about a dyld_shared_cache file."
+              << std::endl
+              << "    --extract-all [PATH] [OUT_DIR]    Extracts all libraries from a dyld_shared_cache file."
+              << std::endl
+              << "    --extract [LIB] [PATH] [OUT_DIR]  Extracts a specific library from a dyld_shared_cache file."
+              << std::endl
+              << std::endl;
 }

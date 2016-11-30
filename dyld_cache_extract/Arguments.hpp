@@ -23,16 +23,31 @@
  ******************************************************************************/
 
 /*!
- * @header      DCE.hpp
+ * @header      Arguments.hpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef DCE_H
-#define DCE_H
+#ifndef ARGUMENTS_H
+#define ARGUMENTS_H
 
-namespace DCE
+#include <string>
+#include <XS/PIMPL/Object.hpp>
+
+class Arguments: public XS::PIMPL::Object< Arguments >
 {
-    void PrintUsage( void );
-}
+    public:
+        
+        using XS::PIMPL::Object< Arguments >::impl;
+        
+        Arguments( void );
+        Arguments( int argc, const char ** argv );
+        
+        bool        ShowUsage( void )           const;
+        bool        PrintInfo( void )           const;
+        bool        Extract( void )             const;
+        std::string GetCacheFile( void )        const;
+        std::string GetOutputDirectory( void )  const;
+        std::string GetLibraryName( void )      const;
+};
 
-#endif /* DCE_H */
+#endif /* ARGUMENTS_H */
