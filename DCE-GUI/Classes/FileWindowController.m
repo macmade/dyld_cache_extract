@@ -41,8 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property( atomic, readwrite, strong )          DCECacheFile           * file;
 @property( atomic, readwrite, strong )          NSArray< ImageItem * > * items;
 @property( atomic, readwrite, strong ) IBOutlet NSArrayController      * arrayController;
+@property( atomic, readwrite, strong ) IBOutlet NSPopover              * infoPopover;
 
 - ( IBAction )exportSelection: ( nullable id )sender;
+- ( IBAction )showInfo: ( id )sender;
 
 @end
 
@@ -133,6 +135,29 @@ NS_ASSUME_NONNULL_END
 - ( IBAction )exportSelection: ( nullable id )sender
 {
     ( void )sender;
+}
+
+- ( IBAction )showInfo: ( id )sender
+{
+    NSView * view;
+    
+    if( self.infoPopover.isShown )
+    {
+        [ self.infoPopover performClose: sender ];
+        
+        return;
+    }
+    
+    if( [ sender isKindOfClass: [ NSView class ] ] )
+    {
+        view = ( NSView * )sender;
+    }
+    else
+    {
+        return;
+    }
+    
+    [ self.infoPopover showRelativeToRect: NSZeroRect ofView: view preferredEdge: NSMinYEdge ];
 }
 
 @end

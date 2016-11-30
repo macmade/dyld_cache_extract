@@ -10,6 +10,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FileWindowController">
             <connections>
                 <outlet property="arrayController" destination="q7A-n8-AVB" id="goy-yr-kaP"/>
+                <outlet property="infoPopover" destination="qPa-K0-kJe" id="sR1-H6-jTx"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="wir-9t-lLg"/>
             </connections>
         </customObject>
@@ -62,6 +63,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="showInfo:" target="-2" id="9Ib-LD-lr1"/>
+                        </connections>
                     </button>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="40" horizontalPageScroll="10" verticalLineScroll="40" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7T-Kt-IeK">
                         <rect key="frame" x="0.0" y="62" width="800" height="538"/>
@@ -319,6 +323,21 @@
                 <binding destination="-2" name="contentArray" keyPath="items" id="EBY-Di-3Hg"/>
             </connections>
         </arrayController>
+        <viewController id="iVv-JF-J5e" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="7by-2x-1yc" id="x1B-yD-D7J"/>
+            </connections>
+        </viewController>
+        <popover behavior="t" id="qPa-K0-kJe">
+            <connections>
+                <outlet property="contentViewController" destination="iVv-JF-J5e" id="rzT-R8-fIE"/>
+            </connections>
+        </popover>
+        <customView id="7by-2x-1yc">
+            <rect key="frame" x="0.0" y="0.0" width="442" height="257"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-214" y="-733.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="Framework" width="128" height="128"/>
