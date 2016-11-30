@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate: NSObject < NSApplicationDelegate >
 
+- ( void )openURL: ( NSURL * )url;
+
 @end
 
 NS_ASSUME_NONNULL_END

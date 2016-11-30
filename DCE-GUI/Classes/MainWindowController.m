@@ -28,14 +28,18 @@
  */
 
 #import "MainWindowController.h"
+#import "ApplicationDelegate.h"
 #import "FileItem.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MainWindowController()
 
+@property( atomic, readwrite, assign ) BOOL                             hasSelection;
 @property( atomic, readwrite, strong )          NSArray< FileItem * > * items;
-@property( atomic, readwrite, strong ) IBOutlet NSArrayController      * arrayController;
+@property( atomic, readwrite, strong ) IBOutlet NSArrayController     * arrayController;
+
+- ( IBAction )openSelectedFile: ( nullable id )sender;
 
 @end
 
@@ -48,9 +52,86 @@ NS_ASSUME_NONNULL_END
     return [ self initWithWindowNibName: NSStringFromClass( [ self class ] ) ];
 }
 
+- ( instancetype )initWithWindowNibName: ( NSString * )name
+{
+    if( ( self = [ super initWithWindowNibName: name ] ) )
+    {
+        self.items = @[];
+    }
+    
+    return self;
+}
+
+- ( void )dealloc
+{
+    [ self.arrayController removeObserver: self forKeyPath: @"selectionIndexes" ];
+}
+
 - ( void )windowDidLoad
 {
+    NSString * path;
+    BOOL       isDir;
+    FileItem * item;
+    
     [ super windowDidLoad ];
+    
+    [ self.arrayController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
+    
+    for( path in [ [ NSFileManager defaultManager ] contentsOfDirectoryAtPath: @"/var/db/dyld/" error: NULL ] )
+    {
+        path = [ @"/var/db/dyld/" stringByAppendingPathComponent: path ];
+        
+        if( path.pathExtension.length )
+        {
+            continue;
+        }
+        
+        if( [ [ NSFileManager defaultManager ] fileExistsAtPath: path isDirectory: &isDir ] && isDir )
+        {
+            continue;
+        }
+        
+        item          = [ FileItem new ];
+        item.path     = path;
+        item.title    = path.lastPathComponent;
+        item.subtitle = [ path stringByDeletingLastPathComponent ];
+        item.icon     = [ NSImage imageNamed: @"Library" ];
+        
+        [ self.arrayController addObject: item ];
+    }
+    
+    self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
+}
+
+- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
+{
+    if( object == self.arrayController && [ keyPath isEqualToString: @"selectionIndexes" ] )
+    {
+        self.hasSelection = self.arrayController.selectedObjects.count > 0;
+    }
+    else
+    {
+        [ super observeValueForKeyPath: keyPath ofObject: object change: change context: context ];
+    }
+}
+
+- ( IBAction )openSelectedFile: ( nullable id )sender
+{
+    FileItem * item;
+    NSURL    * url;
+    
+    ( void )sender;
+    
+    item = self.arrayController.selectedObjects.firstObject;
+    
+    if( item == nil )
+    {
+        return;
+    }
+    
+    url = [ NSURL fileURLWithPath: item.path ];
+    
+    [ ( ApplicationDelegate * )( NSApp.delegate ) openURL: url ];
 }
 
 @end

@@ -78,9 +78,7 @@ NS_ASSUME_NONNULL_END
 
 - ( IBAction )openDocument: ( nullable id )sender
 {
-    NSOpenPanel          * panel;
-    FileWindowController * controller;
-    NSPoint                origin;
+    NSOpenPanel * panel;
     
     ( void )sender;
     
@@ -99,7 +97,20 @@ NS_ASSUME_NONNULL_END
         return;
     }
     
-    controller = [ [ FileWindowController alloc ] initWithURL: panel.URL ];
+    [ self openURL: panel.URL ];
+}
+
+- ( void )openURL: ( NSURL * )url
+{
+    FileWindowController * controller;
+    NSPoint                origin;
+    
+    if( url == nil )
+    {
+        return;
+    }
+    
+    controller = [ [ FileWindowController alloc ] initWithURL: url ];
     
     if( self.windowControllers.count == 0 )
     {
