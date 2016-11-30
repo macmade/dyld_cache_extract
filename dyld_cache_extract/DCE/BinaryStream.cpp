@@ -23,13 +23,13 @@
  ******************************************************************************/
 
 /*!
- * @header      BinaryStream.cpp
+ * @file        BinaryStream.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
 #include <fstream>
 #include <cmath>
-#include "BinaryStream.hpp"
+#include <DCE/BinaryStream.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push

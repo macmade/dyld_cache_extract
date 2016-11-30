@@ -23,12 +23,12 @@
  ******************************************************************************/
 
 /*!
- * @header      File.cpp
+ * @file        File.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "File.hpp"
-#include "BinaryStream.hpp"
+#include <DCE/MachO/File.hpp>
+#include <DCE/BinaryStream.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push

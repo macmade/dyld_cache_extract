@@ -23,11 +23,11 @@
  ******************************************************************************/
 
 /*!
- * @header      DCE.cpp
+ * @file        DCE.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "DCE.hpp"
+#include <DCE.hpp>
 #include <iostream>
 
 namespace DCE

@@ -23,11 +23,11 @@
  ******************************************************************************/
 
 /*!
- * @header      ImageInfo.cpp
+ * @file        ImageInfo.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "ImageInfo.hpp"
+#include <DCE/ImageInfo.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push

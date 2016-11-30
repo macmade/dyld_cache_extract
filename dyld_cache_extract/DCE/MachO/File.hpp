@@ -35,8 +35,8 @@
 #include <vector>
 #include <memory>
 #include <XS/PIMPL/Object.hpp>
-#include "Header.hpp"
-#include "LoadCommand.hpp"
+#include <DCE/MachO/Header.hpp>
+#include <DCE/MachO/LoadCommand.hpp>
 
 namespace DCE
 {

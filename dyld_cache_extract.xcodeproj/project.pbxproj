@@ -430,6 +430,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dyld_cache_extract/DCE.pch;
 				HEADER_SEARCH_PATHS = (
+					dyld_cache_extract,
 					Submodules/PIMPL/PIMPL/include,
 					Submodules/SeriousCode,
 				);
@@ -443,6 +444,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = dyld_cache_extract/DCE.pch;
 				HEADER_SEARCH_PATHS = (
+					dyld_cache_extract,
 					Submodules/PIMPL/PIMPL/include,
 					Submodules/SeriousCode,
 				);

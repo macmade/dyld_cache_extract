@@ -23,11 +23,11 @@
  ******************************************************************************/
 
 /*!
- * @header      MappingInfo.cpp
+ * @file        MappingInfo.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "MappingInfo.hpp"
+#include <DCE/MappingInfo.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push

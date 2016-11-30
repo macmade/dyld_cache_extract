@@ -23,13 +23,46 @@
  ******************************************************************************/
 
 /*!
- * @header      LoadCommand.cpp
+ * @file        LoadCommand.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "LoadCommand.hpp"
-#include "Header.hpp"
-#include "BinaryStream.hpp"
+#include <DCE/MachO/LoadCommand.hpp>
+#include <DCE/MachO/Header.hpp>
+#include <DCE/BinaryStream.hpp>
+
+/*
+#include <DCE/MachO/Commands/DyldInfoCommand.hpp>
+#include <DCE/MachO/Commands/DyLibCommand.hpp>
+#include <DCE/MachO/Commands/DyLinkerCommand.hpp>
+#include <DCE/MachO/Commands/DySymTabCommand.hpp>
+#include <DCE/MachO/Commands/EncryptionInfoCommand.hpp>
+#include <DCE/MachO/Commands/EncryptionInfoCommand64.hpp>
+#include <DCE/MachO/Commands/EntryPointCommand.hpp>
+#include <DCE/MachO/Commands/FVMFileCommand.hpp>
+#include <DCE/MachO/Commands/FVMLibCommand.hpp>
+#include <DCE/MachO/Commands/IdentCommand.hpp>
+#include <DCE/MachO/Commands/LinkEditDataCommand.hpp>
+#include <DCE/MachO/Commands/LinkerOptionCommand.hpp>
+#include <DCE/MachO/Commands/PrebindCKSumCommand.hpp>
+#include <DCE/MachO/Commands/PreboundDyLibCommand.hpp>
+#include <DCE/MachO/Commands/RoutinesCommand.hpp>
+#include <DCE/MachO/Commands/RoutinesCommand64.hpp>
+#include <DCE/MachO/Commands/RPathCommand.hpp>
+#include <DCE/MachO/Commands/SegmentCommand.hpp>
+#include <DCE/MachO/Commands/SegmentCommand64.hpp>
+#include <DCE/MachO/Commands/SourceVersionCommand.hpp>
+#include <DCE/MachO/Commands/SubClientCommand.hpp>
+#include <DCE/MachO/Commands/SubFrameworkCommand.hpp>
+#include <DCE/MachO/Commands/SubLibraryCommand.hpp>
+#include <DCE/MachO/Commands/SubUmbrellaCommand.hpp>
+#include <DCE/MachO/Commands/SymSegCommand.hpp>
+#include <DCE/MachO/Commands/SymTabCommand.hpp>
+#include <DCE/MachO/Commands/ThreadCommand.hpp>
+#include <DCE/MachO/Commands/TwoLevelHintsCommand.hpp>
+#include <DCE/MachO/Commands/UUIDCommand.hpp>
+#include <DCE/MachO/Commands/VersionMinCommand.hpp>
+*/
 
 #ifdef __clang__
 #pragma clang diagnostic push

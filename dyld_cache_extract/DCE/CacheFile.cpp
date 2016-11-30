@@ -23,15 +23,15 @@
  ******************************************************************************/
 
 /*!
- * @header      CacheFile.cpp
+ * @file        CacheFile.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
 #include <ios>
 #include <iomanip>
 #include <memory>
-#include "CacheFile.hpp"
-#include "BinaryStream.hpp"
+#include <DCE/CacheFile.hpp>
+#include <DCE/BinaryStream.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push

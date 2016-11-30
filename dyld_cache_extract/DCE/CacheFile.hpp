@@ -34,9 +34,9 @@
 #include <iostream>
 #include <cstdint>
 #include <vector>
-#include "ImageInfo.hpp"
-#include "MappingInfo.hpp"
-#include "MachO/File.hpp"
+#include <DCE/ImageInfo.hpp>
+#include <DCE/MappingInfo.hpp>
+#include <DCE/MachO/File.hpp>
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE

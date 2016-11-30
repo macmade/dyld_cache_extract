@@ -23,13 +23,13 @@
  ******************************************************************************/
 
 /*!
- * @header      main.cpp
+ * @file        main.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
 
-#include "DCE.hpp"
-#include "DCE/Arguments.hpp"
-#include "DCE/CacheFile.hpp"
+#include <DCE.hpp>
+#include <DCE/Arguments.hpp>
+#include <DCE/CacheFile.hpp>
 
 int main( int argc, const char * argv[] )
 {
