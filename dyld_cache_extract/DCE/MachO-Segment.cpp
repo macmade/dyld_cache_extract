@@ -88,8 +88,6 @@ namespace DCE
                 return false;
             }
             
-            std::cerr << this->GetName() << std::endl;
-            
             if( header.Is64Bits() )
             {
                 this->impl->_vmAddress  = stream.ReadUnsignedLong();
