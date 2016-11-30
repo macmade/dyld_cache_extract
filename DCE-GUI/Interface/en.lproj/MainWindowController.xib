@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11760" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11760"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -165,7 +165,7 @@ DQ
             <contentBorderThickness minY="61"/>
             <point key="canvasLocation" x="41" y="-101"/>
         </window>
-        <arrayController objectClassName="FileItem" automaticallyPreparesContent="YES" preservesSelection="NO" selectsInsertedObjects="NO" id="P62-k2-dKj">
+        <arrayController objectClassName="FileItem" automaticallyPreparesContent="YES" preservesSelection="NO" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="P62-k2-dKj">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="items" id="Rvt-Q1-vby"/>
             </connections>

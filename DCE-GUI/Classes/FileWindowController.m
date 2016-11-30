@@ -29,6 +29,7 @@
 
 #import "FileWindowController.h"
 #import "ImageItem.h"
+#import "ObjectPair.h"
 #import "Preferences.h"
 #import <DCE/Objective-C/DCECacheFile.h>
 
@@ -36,12 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileWindowController()
 
-@property( atomic, readwrite, assign )          BOOL                     hasSelection;
-@property( atomic, readwrite, strong )          NSURL                  * url;
-@property( atomic, readwrite, strong )          DCECacheFile           * file;
-@property( atomic, readwrite, strong )          NSArray< ImageItem * > * items;
-@property( atomic, readwrite, strong ) IBOutlet NSArrayController      * arrayController;
-@property( atomic, readwrite, strong ) IBOutlet NSPopover              * infoPopover;
+@property( atomic, readwrite, assign )          BOOL                      hasSelection;
+@property( atomic, readwrite, strong )          NSURL                   * url;
+@property( atomic, readwrite, strong )          DCECacheFile            * file;
+@property( atomic, readwrite, strong )          NSArray< ImageItem * >  * items;
+@property( atomic, readwrite, strong ) IBOutlet NSArrayController       * itemsController;
+@property( atomic, readwrite, strong )          NSArray< ObjectPair * > * infos;
+@property( atomic, readwrite, strong ) IBOutlet NSArrayController       * infosController;
+@property( atomic, readwrite, strong ) IBOutlet NSPopover               * infoPopover;
 
 - ( IBAction )exportSelection: ( nullable id )sender;
 - ( IBAction )showInfo: ( id )sender;
@@ -64,6 +67,7 @@ NS_ASSUME_NONNULL_END
         self.url   = url;
         self.file  = [ [ DCECacheFile alloc ] initWithURL: url ];
         self.items = @[];
+        self.infos = @[];
     }
     
     return self;
@@ -71,7 +75,7 @@ NS_ASSUME_NONNULL_END
 
 - ( void )dealloc
 {
-    [ self.arrayController removeObserver: self forKeyPath: @"selectionIndexes" ];
+    [ self.itemsController removeObserver: self forKeyPath: @"selectionIndexes" ];
 }
 
 - ( void )windowDidLoad
@@ -81,7 +85,7 @@ NS_ASSUME_NONNULL_END
     
     [ super windowDidLoad ];
     
-    [ self.arrayController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
+    [ self.itemsController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
     
     self.window.title = self.url.path.lastPathComponent;
     
@@ -108,7 +112,7 @@ NS_ASSUME_NONNULL_END
         
         if( item )
         {
-            [ self.arrayController addObject: item ];
+            [ self.itemsController addObject: item ];
         }
     }
     
@@ -117,14 +121,26 @@ NS_ASSUME_NONNULL_END
         self.window.title = [ NSString stringWithFormat: @"%@ - %llu files", self.url.path.lastPathComponent, ( unsigned long long )( self.items.count ) ];
     }
     
-    self.arrayController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
+    {
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"File:"                second: self.file.path.lastPathComponent ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Path:"                second: [ self.file.path stringByDeletingLastPathComponent ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Version:"             second: self.file.version ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Architecture:"        second: self.file.architecture ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Mapping Offset:"      second: [ NSString stringWithFormat: @"0x%X", self.file.mappingOffset ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Mapping Count:"       second: [ NSString stringWithFormat: @"%u", self.file.mappingCount ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Image Offset:"        second: [ NSString stringWithFormat: @"0x%X", self.file.imagesOffset ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Image Count:"         second: [ NSString stringWithFormat: @"%u", self.file.imagesCount ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Dyld Base Address:"   second: [ NSString stringWithFormat: @"0x%llX", self.file.dyldBaseAddress ] ] ];
+    }
+    
+    self.itemsController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
 }
 
 - ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
 {
-    if( object == self.arrayController && [ keyPath isEqualToString: @"selectionIndexes" ] )
+    if( object == self.itemsController && [ keyPath isEqualToString: @"selectionIndexes" ] )
     {
-        self.hasSelection = self.arrayController.selectedObjects.count > 0;
+        self.hasSelection = self.itemsController.selectedObjects.count > 0;
     }
     else
     {

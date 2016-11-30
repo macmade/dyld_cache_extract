@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05144B211DCBBF3E0074B01E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05144B201DCBBF3E0074B01E /* main.cpp */; };
+		0528A8061DEF7AC500C9D525 /* ObjectPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0528A8051DEF7AC500C9D525 /* ObjectPair.m */; };
 		054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054829601DEF1C060076C9E4 /* FileWindowController.m */; };
 		054829641DEF1CD30076C9E4 /* FileWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054829621DEF1CD30076C9E4 /* FileWindowController.xib */; };
 		054829681DEF24A10076C9E4 /* DCECacheFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 054829671DEF24A10076C9E4 /* DCECacheFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,6 +150,8 @@
 		05144B201DCBBF3E0074B01E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		05144B221DCBC78D0074B01E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		05144B2B1DCBCCEE0074B01E /* DCE.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCE.pch; sourceTree = "<group>"; };
+		0528A8041DEF7AC500C9D525 /* ObjectPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectPair.h; sourceTree = "<group>"; };
+		0528A8051DEF7AC500C9D525 /* ObjectPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectPair.m; sourceTree = "<group>"; };
 		0548295F1DEF1C060076C9E4 /* FileWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWindowController.h; sourceTree = "<group>"; };
 		054829601DEF1C060076C9E4 /* FileWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileWindowController.m; sourceTree = "<group>"; };
 		054829631DEF1CD30076C9E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FileWindowController.xib; sourceTree = "<group>"; };
@@ -545,6 +548,8 @@
 				0548297B1DEF2C040076C9E4 /* ImageItem.m */,
 				056B95461DEF557D0038641A /* MainWindowController.h */,
 				056B95471DEF557D0038641A /* MainWindowController.m */,
+				0528A8041DEF7AC500C9D525 /* ObjectPair.h */,
+				0528A8051DEF7AC500C9D525 /* ObjectPair.m */,
 				056B95571DEF668E0038641A /* Preferences.h */,
 				056B95581DEF668E0038641A /* Preferences.m */,
 				05C33B9A1DEF49B1000AC35E /* UnsignedNumberFormatter.h */,
@@ -798,6 +803,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0548297C1DEF2C040076C9E4 /* ImageItem.m in Sources */,
+				0528A8061DEF7AC500C9D525 /* ObjectPair.m in Sources */,
 				054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */,
 				05C33B9C1DEF49B1000AC35E /* UnsignedNumberFormatter.m in Sources */,
 				056B95481DEF557D0038641A /* MainWindowController.m in Sources */,
