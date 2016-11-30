@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FileWindowController()
+@interface FileWindowController() < NSTableViewDelegate, NSTableViewDataSource >
 
 @property( atomic, readwrite, assign )          BOOL                      hasSelection;
 @property( atomic, readwrite, strong )          NSURL                   * url;
@@ -201,6 +201,53 @@ NS_ASSUME_NONNULL_END
     }
     
     [ self.infoPopover showRelativeToRect: NSZeroRect ofView: view preferredEdge: NSMinYEdge ];
+}
+
+
+
+#pragma mark - NSTableViewDataSource
+
+- ( BOOL )tableView: ( NSTableView * )tableView writeRowsWithIndexes: ( NSIndexSet * )rowIndexes toPasteboard: ( NSPasteboard * )pasteboard
+{
+    NSString                     * ext;
+    ImageItem                    * item;
+    NSArray< ImageItem * >       * items;
+    NSMutableArray< NSString * > * extensions;
+    
+    [ tableView setDraggingSourceOperationMask: NSDragOperationCopy forLocal: NO ];
+    
+    items      = [ self.itemsController.arrangedObjects objectsAtIndexes: rowIndexes ];
+    extensions = [ NSMutableArray new ];
+    
+    for( item in items )
+    {
+        ext = item.info.path.pathExtension;
+        
+        if( ext == nil )
+        {
+            ext = @"";
+        }
+        
+        [ extensions addObject: ext ];
+    }
+    
+    if( extensions.count )
+    {
+        [ pasteboard setPropertyList: extensions forType: NSFilesPromisePboardType ];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
+- ( NSArray< NSString * > * )tableView: ( NSTableView * )tableView namesOfPromisedFilesDroppedAtDestination: ( NSURL * )dropDestination forDraggedRowsWithIndexes: ( NSIndexSet * )indexSet
+{
+    ( void )tableView;
+    ( void )dropDestination;
+    ( void )indexSet;
+    
+    return @[];
 }
 
 @end

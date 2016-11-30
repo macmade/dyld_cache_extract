@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11760" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16C48b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11760"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -284,6 +284,8 @@
                                         <binding destination="q7A-n8-AVB" name="content" keyPath="arrangedObjects" id="Nyc-Ib-T1i"/>
                                         <binding destination="q7A-n8-AVB" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="Nyc-Ib-T1i" id="jus-5p-1Fz"/>
                                         <binding destination="q7A-n8-AVB" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="jus-5p-1Fz" id="RNK-as-VpV"/>
+                                        <outlet property="dataSource" destination="-2" id="XZs-bc-fjC"/>
+                                        <outlet property="delegate" destination="-2" id="sfe-9K-oZR"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -358,7 +360,7 @@
                                                 <rect key="frame" x="1" y="1" width="130" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4K-Fd-PIR">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B4K-Fd-PIR">
                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="1fa-yH-IEr">
@@ -394,7 +396,7 @@
                                                 <rect key="frame" x="134" y="1" width="324" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbj-Ap-2v0">
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gbj-Ap-2v0">
                                                         <rect key="frame" x="0.0" y="0.0" width="324" height="17"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="L5w-NY-qUX">
