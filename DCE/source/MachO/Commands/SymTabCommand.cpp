@@ -44,6 +44,13 @@ class XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL
         IMPL( void );
         IMPL( const IMPL & o );
         ~IMPL( void );
+        
+        uint32_t _command;
+        uint32_t _commandSize;
+        uint32_t _symbolsOffset;
+        uint32_t _symbolsCount;
+        uint32_t _stringsOffset;
+        uint32_t _stringsSize;
 };
 
 #ifdef __clang__
@@ -56,16 +63,85 @@ class XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL
 namespace DCE
 {
     namespace MachO
-    {}
+    {
+        namespace Commands
+        {
+            bool SymTabCommand::Read( const Header & header, BinaryStream & stream )
+            {
+                ( void )header;
+                
+                if( stream.IsGood() == false || stream.IsEOF() )
+                {
+                    return false;
+                }
+                
+                this->impl->_command        = stream.ReadUnsignedInteger();
+                this->impl->_commandSize    = stream.ReadUnsignedInteger();
+                this->impl->_symbolsOffset  = stream.ReadUnsignedInteger();
+                this->impl->_symbolsCount   = stream.ReadUnsignedInteger();
+                this->impl->_stringsOffset  = stream.ReadUnsignedInteger();
+                this->impl->_stringsSize    = stream.ReadUnsignedInteger();
+                
+                stream.SeekG( this->impl->_commandSize - 24, std::ios_base::cur );
+                
+                if( stream.IsEOF() )
+                {
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            uint32_t SymTabCommand::GetCommand( void ) const
+            {
+                return this->impl->_command;
+            }
+            
+            uint32_t SymTabCommand::GetCommandSize( void ) const
+            {
+                return this->impl->_commandSize;
+            }
+            
+            uint32_t SymTabCommand::GetSymbolsOffset( void ) const
+            {
+                return this->impl->_symbolsOffset;
+            }
+            
+            uint32_t SymTabCommand::GetSymbolsCount( void ) const
+            {
+                return this->impl->_symbolsCount;
+            }
+            
+            uint32_t SymTabCommand::GetStringsOffset( void ) const
+            {
+                return this->impl->_stringsOffset;
+            }
+            
+            uint32_t SymTabCommand::GetStringsSize( void ) const
+            {
+                return this->impl->_stringsSize;
+            }
+        }
+    }
 }
 
-XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL::IMPL( void )
+XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL::IMPL( void ):
+    _command( 0 ),
+    _commandSize( 0 ),
+    _symbolsOffset( 0 ),
+    _symbolsCount( 0 ),
+    _stringsOffset( 0 ),
+    _stringsSize( 0 )
 {}
 
-XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL::IMPL( const IMPL & o )
-{
-    ( void )o;
-}
+XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL::IMPL( const IMPL & o ):
+    _command( o._command ),
+    _commandSize( o._commandSize ),
+    _symbolsOffset( o._symbolsOffset ),
+    _symbolsCount( o._symbolsCount ),
+    _stringsOffset( o._stringsOffset ),
+    _stringsSize( o._stringsSize )
+{}
 
 XS::PIMPL::Object< DCE::MachO::Commands::SymTabCommand >::IMPL::~IMPL( void )
 {}

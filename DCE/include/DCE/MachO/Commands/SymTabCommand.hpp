@@ -46,6 +46,15 @@ namespace DCE
                 public:
                     
                     using XS::PIMPL::Object< SymTabCommand >::impl;
+                    
+                    bool Read( const Header & header, BinaryStream & stream ) override;
+                    
+                    uint32_t GetCommand( void )       const override;
+                    uint32_t GetCommandSize( void )   const override;
+                    uint32_t GetSymbolsOffset( void ) const;
+                    uint32_t GetSymbolsCount( void )  const;
+                    uint32_t GetStringsOffset( void ) const;
+                    uint32_t GetStringsSize( void )   const;
             };
         }
     }

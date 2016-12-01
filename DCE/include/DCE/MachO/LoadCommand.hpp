@@ -52,8 +52,8 @@ namespace DCE
                 
                 virtual bool Read( const Header & header, BinaryStream & stream );
                 
-                uint32_t GetCommand( void )     const;
-                uint32_t GetCommandSize( void ) const;
+                virtual uint32_t GetCommand( void )     const;
+                virtual uint32_t GetCommandSize( void ) const;
         };
     }
 }

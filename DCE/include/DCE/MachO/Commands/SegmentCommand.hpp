@@ -46,6 +46,21 @@ namespace DCE
                 public:
                     
                     using XS::PIMPL::Object< SegmentCommand >::impl;
+                    
+                    bool Read( const Header & header, BinaryStream & stream ) override;
+                    
+                    uint32_t GetCommand( void )     const override;
+                    uint32_t GetCommandSize( void ) const override;
+                    
+                    std::string GetName( void )          const;
+                    uint32_t    GetVMAddress( void )     const;
+                    uint32_t    GetVMSize( void )        const;
+                    uint32_t    GetFileOffset( void )    const;
+                    uint32_t    GetFileSize( void )      const;
+                    uint32_t    GetMaxProt( void )       const;
+                    uint32_t    GetInitProt( void )      const;
+                    uint32_t    GetSectionsCount( void ) const;
+                    uint32_t    GetFlags( void )         const;
             };
         }
     }
