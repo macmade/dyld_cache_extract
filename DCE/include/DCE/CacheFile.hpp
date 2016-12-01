@@ -45,6 +45,14 @@ namespace DCE
     {
         public:
             
+            typedef enum
+            {
+                ExtractDuplicateHandlingStop        = 0,
+                ExtractDuplicateHandlingSkip        = 1,
+                ExtractDuplicateHandlingOverwrite   = 2
+            }
+            ExtractDuplicateHandling;
+            
             using XS::PIMPL::Object< CacheFile >::impl;
             
             CacheFile( void );
@@ -63,6 +71,9 @@ namespace DCE
             std::vector< DCE::ImageInfo >   GetImageInfos( void )       const;
             std::vector< DCE::MappingInfo > GetMappingInfos( void )     const;
             std::vector< DCE::MachO::File > GetMachOFiles( void )       const;
+            
+            bool ExtractImage( const std::string & imagePath, const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const;
+            bool ExtractAll( const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const;
             
             friend std::ostream & operator <<( std::ostream & os, const CacheFile & e );
     };

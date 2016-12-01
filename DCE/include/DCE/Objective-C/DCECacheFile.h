@@ -39,6 +39,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum
+{
+    DCECacheFileExtractDuplicateHandlingStop        = 0,
+    DCECacheFileExtractDuplicateHandlingSkip        = 1,
+    DCECacheFileExtractDuplicateHandlingOverwrite   = 2
+}
+DCECacheFileExtractDuplicateHandling;
+
+typedef DCECacheFileExtractDuplicateHandling ( ^ DCECacheFileExtractDuplicateHandler )( NSString *, NSString * );
+
 @interface DCECacheFile: NSObject
 
 @property( atomic, readonly ) BOOL                          exists;
@@ -57,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - ( instancetype )initWithURL:  ( NSURL    * )url;
 - ( instancetype )initWithPath: ( NSString * )path;
+
+- ( BOOL )extractImage: ( NSString * )path toDirectory: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler;
+- ( BOOL )extractAll: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler;
 
 @end
 

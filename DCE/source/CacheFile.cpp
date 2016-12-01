@@ -149,6 +149,58 @@ namespace DCE
         return this->impl->_machOFiles;
     }
     
+    bool CacheFile::ExtractImage( const std::string & imagePath, const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const
+    {
+        ImageInfo info;
+        bool      found;
+        
+        if( duplicateHandler == nullptr )
+        {
+            return false;
+        }
+        
+        found = false;
+        
+        for( const auto & i: this->GetImageInfos() )
+        {
+            if( i.GetPath() == imagePath )
+            {
+                info  = i;
+                found = true;
+                
+                break;
+            }
+        }
+        
+        if( found == false )
+        {
+            return false;
+        }
+        
+        ( void )outDirPath;
+        ( void )duplicateHandler;
+        
+        return false;
+    }
+    
+    bool CacheFile::ExtractAll( const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const
+    {
+        if( duplicateHandler == nullptr )
+        {
+            return false;
+        }
+        
+        for( const auto & i: this->GetImageInfos() )
+        {
+            if( this->ExtractImage( i.GetPath(), outDirPath, duplicateHandler ) == false )
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
     std::ostream & operator <<( std::ostream & os, const CacheFile & f )
     {
         if( f.Exists() == false || f.IsValid() == false )

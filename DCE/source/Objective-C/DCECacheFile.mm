@@ -207,4 +207,65 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- ( BOOL )extractImage: ( NSString * )path toDirectory: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler
+{
+    if( handler == NULL )
+    {
+        return NO;
+    }
+    
+    return _file.ExtractImage
+    (
+        path.UTF8String,
+        outDir.UTF8String,
+        [ = ]( const std::string & s1, const std::string & s2 )
+        {
+            DCECacheFileExtractDuplicateHandling res;
+            
+            res = handler( [ NSString stringWithUTF8String: s1.c_str() ], [ NSString stringWithUTF8String: s2.c_str() ] );
+        
+            if( res == DCECacheFileExtractDuplicateHandlingSkip )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingSkip;
+            }
+            else if( res == DCECacheFileExtractDuplicateHandlingOverwrite )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingOverwrite;
+            }
+            
+            return DCE::CacheFile::ExtractDuplicateHandlingStop;
+        }
+    );
+}
+
+- ( BOOL )extractAll: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler
+{
+    if( handler == NULL )
+    {
+        return NO;
+    }
+    
+    return _file.ExtractAll
+    (
+        outDir.UTF8String,
+        [ = ]( const std::string & s1, const std::string & s2 )
+        {
+            DCECacheFileExtractDuplicateHandling res;
+            
+            res = handler( [ NSString stringWithUTF8String: s1.c_str() ], [ NSString stringWithUTF8String: s2.c_str() ] );
+        
+            if( res == DCECacheFileExtractDuplicateHandlingSkip )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingSkip;
+            }
+            else if( res == DCECacheFileExtractDuplicateHandlingOverwrite )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingOverwrite;
+            }
+            
+            return DCE::CacheFile::ExtractDuplicateHandlingStop;
+        }
+    );
+}
+
 @end
