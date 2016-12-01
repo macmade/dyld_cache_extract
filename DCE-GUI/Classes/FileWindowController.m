@@ -211,11 +211,13 @@ NS_ASSUME_NONNULL_END
     ImageItem                    * item;
     NSArray< ImageItem * >       * items;
     NSMutableArray< NSString * > * extensions;
+    NSMutableArray< NSString * > * paths;
     
     [ tableView setDraggingSourceOperationMask: NSDragOperationCopy forLocal: NO ];
     
     items      = [ self.itemsController.arrangedObjects objectsAtIndexes: rowIndexes ];
     extensions = [ NSMutableArray new ];
+    paths      = [ NSMutableArray new ];
     
     for( item in items )
     {
@@ -227,11 +229,13 @@ NS_ASSUME_NONNULL_END
         }
         
         [ extensions addObject: ext ];
+        [ paths addObject: item.info.path ];
     }
     
     if( extensions.count )
     {
         [ pasteboard setPropertyList: extensions forType: NSFilesPromisePboardType ];
+        [ pasteboard setString: [ paths componentsJoinedByString: @"\n" ] forType: NSStringPboardType ];
         
         return YES;
     }
