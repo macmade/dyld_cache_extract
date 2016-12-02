@@ -50,11 +50,12 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         IMPL( const IMPL & o );
         ~IMPL( void );
         
-        void Parse( void );
-        bool ParseHeader( DCE::BinaryStream & s );
-        bool ParseMappingInfos( DCE::BinaryStream & s );
-        bool ParseImageInfos( DCE::BinaryStream & s );
-        bool ParseMachOFiles( DCE::BinaryStream & s );
+        void           Parse( void );
+        bool           ParseHeader( DCE::BinaryStream & s );
+        bool           ParseMappingInfos( DCE::BinaryStream & s );
+        bool           ParseImageInfos( DCE::BinaryStream & s );
+        bool           ParseMachOFiles( DCE::BinaryStream & s );
+        std::streamoff GetFileOffsetForImageInfo( const DCE::ImageInfo & info );
         
         bool                            _exists;
         bool                            _valid;
@@ -154,12 +155,14 @@ namespace DCE
     bool CacheFile::ExtractImage( const std::string & imagePath, const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const
     {
         ImageInfo                info;
+        MachO::File              macho;
         bool                     found;
         std::string              path;
         std::string              name;
         ExtractDuplicateHandling duplicateHandling;
         char                     c;
         size_t                   pos;
+        size_t                   x;
         
         if( duplicateHandler == nullptr )
         {
@@ -172,16 +175,29 @@ namespace DCE
         }
         
         found = false;
+        x     = 0;
         
         for( const auto & i: this->GetImageInfos() )
         {
             if( i.GetPath() == imagePath )
             {
                 info  = i;
+                
+                if( x < this->impl->_machOFiles.size() )
+                {
+                    macho = this->impl->_machOFiles[ x ];
+                }
+                else
+                {
+                    return false;
+                }
+                
                 found = true;
                 
                 break;
             }
+            
+            x++;
         }
         
         if( found == false )
@@ -609,6 +625,8 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseImageInfos( DCE::BinaryStre
 
 bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStream & s )
 {
+    std::streamoff offset;
+    
     if( s.IsGood() == false || s.IsEOF() )
     {
         return false;
@@ -621,28 +639,43 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStre
     
     for( const auto & i: this->_imageInfos )
     {
-        for( const auto & m: this->_mappingInfos )
+        offset = this->GetFileOffsetForImageInfo( i );
+        
+        if( offset < 0 )
         {
-            if( m.GetAddress() <= i.GetAddress() && i.GetAddress() < m.GetAddress() + m.GetSize() )
+            return false;
+        }
+        
+        {
+            DCE::MachO::File file;
+            
+            s.SeekG( static_cast< std::streamoff >( offset ), std::ios::beg );
+            
+            if( file.Read( s ) == false )
             {
-                {
-                    uint64_t         offset;
-                    DCE::MachO::File file;
-                    
-                    offset = i.GetAddress() - ( m.GetAddress() + m.GetFileOffset() );
-                    
-                    s.SeekG( static_cast< std::streamoff >( offset ), std::ios::beg );
-                    
-                    if( file.Read( s ) == false )
-                    {
-                        return false;
-                    }
-                    
-                    this->_machOFiles.push_back( file );
-                }
+                return false;
             }
+            
+            this->_machOFiles.push_back( file );
         }
     }
     
     return this->_machOFiles.size() == this->_imageInfos.size();
+}
+
+std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageInfo( const DCE::ImageInfo & info )
+{
+    uint64_t offset;
+    
+    for( const auto & m: this->_mappingInfos )
+    {
+        if( m.GetAddress() <= info.GetAddress() && info.GetAddress() < m.GetAddress() + m.GetSize() )
+        {
+            offset = info.GetAddress() - ( m.GetAddress() + m.GetFileOffset() );
+            
+            return static_cast< std::streamoff >( offset );
+        }
+    }
+    
+    return -1;
 }
