@@ -683,8 +683,24 @@ std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageI
 
 bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::SaveMachOFile( const DCE::MachO::File & file, const DCE::ImageInfo & info, const std::string & path ) const
 {
+    std::streamoff    offset;
+    DCE::BinaryStream stream;
+    
+    offset = this->GetFileOffsetForImageInfo( info );
+    
+    if( offset < 0 )
+    {
+        return -1;
+    }
+    
+    stream = DCE::BinaryStream( this->_path );
+    
+    if( stream.IsGood() == false )
+    {
+        return false;
+    }
+    
     ( void )file;
-    ( void )info;
     ( void )path;
     
     return false;
