@@ -71,6 +71,8 @@ int main( int argc, const char * argv[] )
             if( file.ExtractImage( args.GetLibraryName(), args.GetOutputDirectory(), [ = ]( const std::string &, const std::string & ) { return DCE::CacheFile::ExtractDuplicateHandlingOverwrite; } ) == false )
             {
                 std::cerr << "Error - cannot extract " << args.GetLibraryName() << " to " << args.GetOutputDirectory() << std::endl;
+                
+                return -1;
             }
         }
         else
@@ -78,6 +80,8 @@ int main( int argc, const char * argv[] )
             if( file.ExtractAll( args.GetOutputDirectory(), [ = ]( const std::string &, const std::string & ) { return DCE::CacheFile::ExtractDuplicateHandlingOverwrite; } ) == false )
             {
                 std::cerr << "Error - cannot extract to " << args.GetOutputDirectory() << std::endl;
+                
+                return -1;
             }
         }
     }
