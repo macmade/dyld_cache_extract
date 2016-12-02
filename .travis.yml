@@ -1,3 +1,5 @@
 language: objective-c
 xcode_project: dyld_cache_extract.xcodeproj
-xcode_scheme: dyld_cache_extract
+xcode_scheme:
+- dyld_cache_extract
+- DCE-GUI
