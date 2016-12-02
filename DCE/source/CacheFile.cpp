@@ -34,6 +34,8 @@
 #include <fstream>
 #include <DCE/CacheFile.hpp>
 #include <DCE/BinaryStream.hpp>
+#include <DCE/MachO/Commands/SegmentCommand.hpp>
+#include <DCE/MachO/Commands/SegmentCommand64.hpp>
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -789,10 +791,95 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::SaveMachOFile( const DCE::MachO:
         stream.Read( buf, static_cast< std::streamsize >( size ) );
         out.write( buf, static_cast< std::streamsize >( size ) );
         
-        delete buf;
+        delete[] buf;
     }
     
-    ( void )file;
+    {
+        DCE::MachO::Commands::SegmentCommand   * le;
+        DCE::MachO::Commands::SegmentCommand64 * le64;
+        uint64_t                                  leSize;
+        uint64_t                                  leOffset;
+        uint64_t                                  nullSize;
+        char                                    * buf;
+        
+        le   = nullptr;
+        le64 = nullptr;
+        
+        for( const auto & sp: file.GetLoadCommands() )
+        {
+            {
+                DCE::MachO::Commands::SegmentCommand   * seg;
+                DCE::MachO::Commands::SegmentCommand64 * seg64;
+                
+                seg   = dynamic_cast< DCE::MachO::Commands::SegmentCommand   * >( sp.get() );
+                seg64 = dynamic_cast< DCE::MachO::Commands::SegmentCommand64 * >( sp.get() );
+                
+                if( seg != nullptr && seg->GetName() == "__LINKEDIT" )
+                {
+                    le = seg;
+                    
+                    break;
+                }
+                
+                if( seg64 != nullptr && seg64->GetName() == "__LINKEDIT" )
+                {
+                    le64 = seg64;
+                    
+                    break;
+                }
+            }
+        }
+        
+        if( le != nullptr )
+        {
+            leSize   = le->GetFileSize();
+            leOffset = le->GetFileOffset();
+        }
+        else if( le64 != nullptr )
+        {
+            leSize   = le64->GetFileSize();
+            leOffset = le64->GetFileOffset();
+        }
+        else
+        {
+            return false;
+        }
+        
+        if( leSize == 0 || leOffset < static_cast< uint64_t >( offset ) + size )
+        {
+            return false;
+        }
+        
+        nullSize = leOffset - size;
+        
+        if( nullSize > 0 )
+        {
+            buf = new char[ nullSize ];
+            
+            if( buf == nullptr )
+            {
+                return false;
+            }
+            
+            memset( buf, 0, nullSize );
+            out.write( buf, static_cast< std::streamsize >( nullSize ) );
+            
+            delete[] buf;
+        }
+        
+        buf = new char[ leSize ];
+        
+        if( buf == nullptr )
+        {
+            return false;
+        }
+        
+        stream.SeekG( static_cast< std::streamsize >( leOffset ) );
+        stream.Read( buf, static_cast< std::streamsize >( leSize ) );
+        out.write( buf, static_cast< std::streamsize >( leSize ) );
+        
+        delete[] buf;
+    }
     
     return true;
 }
