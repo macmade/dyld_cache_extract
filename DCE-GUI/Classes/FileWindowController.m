@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FileWindowController() < NSTableViewDelegate, NSTableViewDataSource >
 
 @property( atomic, readwrite, assign )          BOOL                      hasSelection;
+@property( atomic, readwrite, assign )          BOOL                      extracting;
 @property( atomic, readwrite, strong )          NSURL                   * url;
 @property( atomic, readwrite, strong )          DCECacheFile            * file;
 @property( atomic, readwrite, strong )          NSArray< ImageItem * >  * items;
@@ -200,7 +201,25 @@ NS_ASSUME_NONNULL_END
                 return;
             }
             
-            [ self extract: self.itemsController.selectedObjects to: panel.URL ];
+            self.extracting = YES;
+            
+            dispatch_async
+            (
+                dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0 ),
+                ^( void )
+                {
+                    [ self extract: self.itemsController.selectedObjects to: panel.URL ];
+                    
+                    dispatch_sync
+                    (
+                        dispatch_get_main_queue(),
+                        ^( void )
+                        {
+                            self.extracting = NO;
+                        }
+                    );
+                }
+            );
         }
     ];
 }
@@ -379,7 +398,8 @@ NS_ASSUME_NONNULL_END
     
     ( void )tableView;
     
-    items = [ self.itemsController.arrangedObjects objectsAtIndexes: indexSet ];
+    items           = [ self.itemsController.arrangedObjects objectsAtIndexes: indexSet ];
+    self.extracting = YES;
     
     dispatch_async
     (
@@ -387,6 +407,15 @@ NS_ASSUME_NONNULL_END
         ^( void )
         {
             [ self extract: items to: dropDestination ];
+            
+            dispatch_sync
+            (
+                dispatch_get_main_queue(),
+                ^( void )
+                {
+                    self.extracting = NO;
+                }
+            );
         }
     );
     

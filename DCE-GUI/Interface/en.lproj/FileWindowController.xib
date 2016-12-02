@@ -35,6 +35,11 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </searchFieldCell>
                         <connections>
+                            <binding destination="-2" name="enabled" keyPath="extracting" id="Q7Z-wW-un5">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="q7A-n8-AVB" name="predicate" keyPath="filterPredicate" id="1MM-JS-eNz">
                                 <dictionary key="options">
                                     <string key="NSDisplayName">predicate</string>
@@ -51,7 +56,11 @@
                         </buttonCell>
                         <connections>
                             <action selector="exportSelection:" target="-2" id="UQD-ut-0a0"/>
-                            <binding destination="-2" name="enabled" keyPath="hasSelection" id="VjY-Bc-MzZ"/>
+                            <binding destination="-2" name="enabled" keyPath="extracting" id="qvV-55-ASA">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="rKJ-n6-Rat">
@@ -66,6 +75,11 @@
                         </buttonCell>
                         <connections>
                             <action selector="showInfo:" target="-2" id="9Ib-LD-lr1"/>
+                            <binding destination="-2" name="enabled" keyPath="extracting" id="PoT-EJ-G3u">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
                         </connections>
                     </button>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="40" horizontalPageScroll="10" verticalLineScroll="40" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7T-Kt-IeK">
@@ -302,17 +316,66 @@
                             <rect key="frame" x="0.0" y="0.0" width="800" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
+                        <connections>
+                            <binding destination="-2" name="hidden" keyPath="extracting" id="Zjl-2I-i5l"/>
+                        </connections>
                     </scrollView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z2d-5T-AVO" customClass="WhiteView">
+                        <rect key="frame" x="0.0" y="62" width="800" height="538"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JCv-LM-hS4">
+                                <rect key="frame" x="272" y="141" width="256" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="Vje-el-xdF"/>
+                                    <constraint firstAttribute="width" constant="256" id="c0x-wu-pM7"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NSApplicationIcon" id="V20-rh-XMd"/>
+                            </imageView>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="PNF-VI-f8N">
+                                <rect key="frame" x="384" y="101" width="32" height="32"/>
+                                <connections>
+                                    <binding destination="-2" name="animate" keyPath="extracting" id="iEM-ZR-g4C"/>
+                                </connections>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Azr-PO-hDv">
+                                <rect key="frame" x="301" y="74" width="198" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Extracting Files... Please Wait..." id="lXU-L9-xnD">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="PNF-VI-f8N" firstAttribute="centerX" secondItem="JCv-LM-hS4" secondAttribute="centerX" id="IB7-Se-vyo"/>
+                            <constraint firstItem="Azr-PO-hDv" firstAttribute="top" secondItem="PNF-VI-f8N" secondAttribute="bottom" constant="10" id="aJc-yK-khI"/>
+                            <constraint firstItem="Azr-PO-hDv" firstAttribute="centerX" secondItem="PNF-VI-f8N" secondAttribute="centerX" id="b0Z-LK-hFx"/>
+                            <constraint firstItem="PNF-VI-f8N" firstAttribute="top" secondItem="JCv-LM-hS4" secondAttribute="bottom" constant="8" id="ebL-76-ojE"/>
+                            <constraint firstItem="JCv-LM-hS4" firstAttribute="centerX" secondItem="Z2d-5T-AVO" secondAttribute="centerX" id="gfj-uo-sLu"/>
+                            <constraint firstItem="JCv-LM-hS4" firstAttribute="centerY" secondItem="Z2d-5T-AVO" secondAttribute="centerY" id="hui-IP-jbh"/>
+                        </constraints>
+                        <connections>
+                            <binding destination="-2" name="hidden" keyPath="extracting" id="Nl4-3K-kWf">
+                                <dictionary key="options">
+                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </customView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Z2d-5T-AVO" firstAttribute="height" secondItem="EiT-Mj-1SZ" secondAttribute="height" constant="-62" id="2pr-MZ-t8b"/>
                     <constraint firstAttribute="bottom" secondItem="oxF-H1-vK6" secondAttribute="bottom" constant="20" id="6XY-1S-22Z"/>
                     <constraint firstAttribute="bottom" secondItem="fM8-Sj-vDY" secondAttribute="bottom" constant="21" id="Bdx-Z7-cwm"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="Cbc-zS-zmO"/>
                     <constraint firstAttribute="trailing" secondItem="rKJ-n6-Rat" secondAttribute="trailing" constant="20" id="EOD-VG-9es"/>
                     <constraint firstItem="rKJ-n6-Rat" firstAttribute="leading" secondItem="fM8-Sj-vDY" secondAttribute="trailing" constant="8" id="M3F-gA-VPp"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="height" secondItem="EiT-Mj-1SZ" secondAttribute="height" constant="-62" id="NRa-Qx-0iI"/>
+                    <constraint firstItem="Z2d-5T-AVO" firstAttribute="width" secondItem="EiT-Mj-1SZ" secondAttribute="width" id="RBj-xQ-i4S"/>
+                    <constraint firstItem="Z2d-5T-AVO" firstAttribute="centerX" secondItem="EiT-Mj-1SZ" secondAttribute="centerX" id="Yig-mB-aBT"/>
                     <constraint firstAttribute="bottom" secondItem="rKJ-n6-Rat" secondAttribute="bottom" constant="22" id="d5d-Fh-rsK"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" constant="-31" id="get-eX-2uS"/>
+                    <constraint firstItem="Z2d-5T-AVO" firstAttribute="centerY" secondItem="EiT-Mj-1SZ" secondAttribute="centerY" constant="-31" id="hKL-BZ-2Ts"/>
                     <constraint firstItem="oxF-H1-vK6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="sVs-1p-ez0"/>
                     <constraint firstItem="fM8-Sj-vDY" firstAttribute="leading" secondItem="oxF-H1-vK6" secondAttribute="trailing" constant="8" id="v9n-3S-3rT"/>
                     <constraint firstItem="G7T-Kt-IeK" firstAttribute="width" secondItem="EiT-Mj-1SZ" secondAttribute="width" id="xbA-FZ-xhw"/>
@@ -463,6 +526,7 @@
     </objects>
     <resources>
         <image name="Framework" width="128" height="128"/>
+        <image name="NSApplicationIcon" width="128" height="128"/>
         <image name="NSInfo" width="32" height="32"/>
     </resources>
 </document>

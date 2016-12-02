@@ -29,6 +29,7 @@
 		056B95561DEF5B310038641A /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B95551DEF5B310038641A /* AboutWindowController.m */; };
 		056B95591DEF668E0038641A /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B95581DEF668E0038641A /* Preferences.m */; };
 		056B955B1DEF66A70038641A /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 056B955A1DEF66A70038641A /* Defaults.plist */; };
+		056B96471DF207430038641A /* WhiteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B96461DF207430038641A /* WhiteView.m */; };
 		05C33B821DEF38A4000AC35E /* Bundle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B7F1DEF38A4000AC35E /* Bundle.png */; };
 		05C33B831DEF38A4000AC35E /* Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B801DEF38A4000AC35E /* Framework.png */; };
 		05C33B841DEF38A4000AC35E /* Library.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B811DEF38A4000AC35E /* Library.png */; };
@@ -178,6 +179,8 @@
 		056B95571DEF668E0038641A /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		056B95581DEF668E0038641A /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		056B955A1DEF66A70038641A /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
+		056B96451DF207430038641A /* WhiteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteView.h; sourceTree = "<group>"; };
+		056B96461DF207430038641A /* WhiteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhiteView.m; sourceTree = "<group>"; };
 		05C33B7F1DEF38A4000AC35E /* Bundle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bundle.png; sourceTree = "<group>"; };
 		05C33B801DEF38A4000AC35E /* Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Framework.png; sourceTree = "<group>"; };
 		05C33B811DEF38A4000AC35E /* Library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Library.png; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 				056B95581DEF668E0038641A /* Preferences.m */,
 				05C33B9A1DEF49B1000AC35E /* UnsignedNumberFormatter.h */,
 				05C33B9B1DEF49B1000AC35E /* UnsignedNumberFormatter.m */,
+				056B96451DF207430038641A /* WhiteView.h */,
+				056B96461DF207430038641A /* WhiteView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -804,6 +809,7 @@
 			files = (
 				0548297C1DEF2C040076C9E4 /* ImageItem.m in Sources */,
 				0528A8061DEF7AC500C9D525 /* ObjectPair.m in Sources */,
+				056B96471DF207430038641A /* WhiteView.m in Sources */,
 				054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */,
 				05C33B9C1DEF49B1000AC35E /* UnsignedNumberFormatter.m in Sources */,
 				056B95481DEF557D0038641A /* MainWindowController.m in Sources */,
