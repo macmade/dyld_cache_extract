@@ -229,10 +229,13 @@ NS_ASSUME_NONNULL_END
 
 - ( void )extract: ( NSArray< ImageItem * > * )items to: ( NSURL * )destination
 {
-    ImageItem * item;
-    BOOL        extracted;
+    ImageItem  * item;
+    BOOL         extracted;
+    __block BOOL stop;
     
     ( void )destination;
+    
+    stop = NO;
     
     for( item in items )
     {
@@ -240,26 +243,48 @@ NS_ASSUME_NONNULL_END
                                 toDirectory:      destination.path
                                 duplicateHandler: ^ DCECacheFileExtractDuplicateHandling ( NSString * path, NSString * outDir )
             {
-                ( void )path;
-                ( void )outDir;
+                        NSAlert                            * alert;
+                __block DCECacheFileExtractDuplicateHandling handling;
                 
-                {
-                    NSAlert * alert;
-                    
-                    alert = [ NSAlert new ];
-                    
-                    alert.messageText     = NSLocalizedString( @"Duplicate file", nil );
-                    alert.informativeText = [ NSString stringWithFormat: @"A file named %@ already exists in %@. What would you like to do?", path.lastPathComponent, outDir.lastPathComponent ];
-                    
-                    [ alert addButtonWithTitle: NSLocalizedString( @"Overwrite", nil ) ];
-                    [ alert addButtonWithTitle: NSLocalizedString( @"Skip", nil ) ];
-                    [ alert addButtonWithTitle: NSLocalizedString( @"Stop", nil ) ];
-                    [ alert beginSheetModalForWindow: self.window completionHandler: NULL ];
-                }
+                alert = [ NSAlert new ];
                 
-                return DCECacheFileExtractDuplicateHandlingStop;
+                alert.messageText     = NSLocalizedString( @"Duplicate file", nil );
+                alert.informativeText = [ NSString stringWithFormat: @"A file named %@ already exists in %@. What would you like to do?", path.lastPathComponent, outDir.lastPathComponent ];
+                
+                [ alert addButtonWithTitle: NSLocalizedString( @"Overwrite", nil ) ];
+                [ alert addButtonWithTitle: NSLocalizedString( @"Skip",      nil ) ];
+                [ alert addButtonWithTitle: NSLocalizedString( @"Stop",      nil ) ];
+                
+                [ alert beginSheetModalForWindow: self.window completionHandler: ^( NSModalResponse res )
+                    {
+                        if( res == NSAlertFirstButtonReturn )
+                        {
+                            handling = DCECacheFileExtractDuplicateHandlingOverwrite;
+                        }
+                        else if( res == NSAlertSecondButtonReturn )
+                        {
+                            handling = DCECacheFileExtractDuplicateHandlingSkip;
+                        }
+                        else
+                        {
+                            handling = DCECacheFileExtractDuplicateHandlingStop;
+                            stop     = YES;
+                        }
+                        
+                        [ NSApp stopModal ];
+                    }
+                ];
+                
+                [ NSApp runModalForWindow: self.window ];
+                
+                return handling;
             }
         ];
+        
+        if( stop )
+        {
+            return;
+        }
         
         if( extracted == false )
         {

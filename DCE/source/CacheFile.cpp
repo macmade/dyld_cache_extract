@@ -30,6 +30,8 @@
 #include <ios>
 #include <iomanip>
 #include <memory>
+#include <iostream>
+#include <fstream>
 #include <DCE/CacheFile.hpp>
 #include <DCE/BinaryStream.hpp>
 
@@ -151,10 +153,20 @@ namespace DCE
     
     bool CacheFile::ExtractImage( const std::string & imagePath, const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const
     {
-        ImageInfo info;
-        bool      found;
+        ImageInfo                info;
+        bool                     found;
+        std::string              path;
+        std::string              name;
+        ExtractDuplicateHandling duplicateHandling;
+        char                     c;
+        size_t                   pos;
         
         if( duplicateHandler == nullptr )
+        {
+            return false;
+        }
+        
+        if( imagePath.length() == 0 || outDirPath.length() == 0 )
         {
             return false;
         }
@@ -177,8 +189,50 @@ namespace DCE
             return false;
         }
         
-        ( void )outDirPath;
-        ( void )duplicateHandler;
+        path = outDirPath;
+        
+        #ifdef _WIN32
+        c = '\\';
+        #else
+        c = '/';
+        #endif
+        
+        if( path.back() != c )
+        {
+            path += c;
+        }
+        
+        pos = imagePath.find_last_of( c );
+        
+        if( pos != std::string::npos )
+        {
+            name = imagePath.substr( pos + 1 );
+        }
+        else
+        {
+            name = imagePath;
+        }
+        
+        if( name.length() == 0 )
+        {
+            return false;
+        }
+        
+        path += name;
+        
+        {
+            std::ifstream fs( path );
+            
+            if( fs.good() )
+            {
+                duplicateHandling = duplicateHandler( imagePath, outDirPath );
+                
+                if( duplicateHandling == ExtractDuplicateHandlingStop || duplicateHandling == ExtractDuplicateHandlingSkip )
+                {
+                    return true;
+                }
+            }
+        }
         
         return false;
     }
