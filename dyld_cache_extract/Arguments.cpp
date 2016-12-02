@@ -161,9 +161,9 @@ XS::PIMPL::Object< Arguments >::IMPL::IMPL( int argc, const char ** argv ):
         {
             if( i < argc - 3 )
             {
-                this->_cacheFile = ( argv[ i + 1 ] ) ? argv[ i + 1 ] : "";
-                this->_outDir    = ( argv[ i + 2 ] ) ? argv[ i + 2 ] : "";
-                this->_library   = ( argv[ i + 3 ] ) ? argv[ i + 3 ] : "";
+                this->_library   = ( argv[ i + 1 ] ) ? argv[ i + 2 ] : "";
+                this->_cacheFile = ( argv[ i + 2 ] ) ? argv[ i + 1 ] : "";
+                this->_outDir    = ( argv[ i + 3 ] ) ? argv[ i + 3 ] : "";
             }
             
             if( this->_cacheFile.length() && this->_outDir.length() && this->_library.length() )

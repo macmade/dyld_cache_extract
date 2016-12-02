@@ -64,9 +64,22 @@ int main( int argc, const char * argv[] )
     {
         std::cout << file << std::endl;
     }
-    else
+    else if( args.Extract() )
     {
-        
+        if( args.GetLibraryName().length() )
+        {
+            if( file.ExtractImage( args.GetLibraryName(), args.GetOutputDirectory(), [ = ]( const std::string &, const std::string & ) { return DCE::CacheFile::ExtractDuplicateHandlingOverwrite; } ) == false )
+            {
+                std::cerr << "Error - cannot extract " << args.GetLibraryName() << " to " << args.GetOutputDirectory() << std::endl;
+            }
+        }
+        else
+        {
+            if( file.ExtractAll( args.GetOutputDirectory(), [ = ]( const std::string &, const std::string & ) { return DCE::CacheFile::ExtractDuplicateHandlingOverwrite; } ) == false )
+            {
+                std::cerr << "Error - cannot extract to " << args.GetOutputDirectory() << std::endl;
+            }
+        }
     }
     
     return 0;
