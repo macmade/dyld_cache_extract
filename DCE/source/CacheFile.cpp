@@ -644,5 +644,5 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStre
         }
     }
     
-    return true;
+    return this->_machOFiles.size() == this->_imageInfos.size();
 }
