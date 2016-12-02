@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 - ( IBAction )exportSelection: ( nullable id )sender;
 - ( IBAction )showInfo: ( id )sender;
 - ( void )extract: ( NSArray< ImageItem * > * )items to: ( NSURL * )destination;
+- ( void )showAlertOnMainThread: ( NSAlert * )alert useModalSession: ( BOOL )modalSession completion: ( void ( ^ __nullable )( NSModalResponse returnCode ) )completion;
 
 @end
 
@@ -255,7 +256,7 @@ NS_ASSUME_NONNULL_END
                 [ alert addButtonWithTitle: NSLocalizedString( @"Skip",      nil ) ];
                 [ alert addButtonWithTitle: NSLocalizedString( @"Stop",      nil ) ];
                 
-                [ alert beginSheetModalForWindow: self.window completionHandler: ^( NSModalResponse res )
+                [ self showAlertOnMainThread: alert useModalSession: YES completion: ^( NSModalResponse res )
                     {
                         if( res == NSAlertFirstButtonReturn )
                         {
@@ -274,8 +275,6 @@ NS_ASSUME_NONNULL_END
                         [ NSApp stopModal ];
                     }
                 ];
-                
-                [ NSApp runModalForWindow: self.window ];
                 
                 return handling;
             }
@@ -297,11 +296,40 @@ NS_ASSUME_NONNULL_END
                 alert.informativeText = NSLocalizedString( @"Cannot extract image files. An unknown error occured.", nil );
                 
                 [ alert addButtonWithTitle: NSLocalizedString( @"OK", nil ) ];
-                [ alert beginSheetModalForWindow: self.window completionHandler: NULL ];
+                [ self showAlertOnMainThread: alert useModalSession: NO completion: NULL ];
             }
             
             return;
         }
+    }
+}
+
+- ( void )showAlertOnMainThread: ( NSAlert * )alert useModalSession: ( BOOL )modalSession completion: ( void ( ^ __nullable )( NSModalResponse returnCode ) )completion
+{
+    if( [ NSThread isMainThread ] )
+    {
+        [ alert beginSheetModalForWindow: self.window completionHandler: completion ];
+        
+        if( modalSession )
+        {
+            [ NSApp runModalForWindow: self.window ];
+        }
+    }
+    else
+    {
+        dispatch_sync
+        (
+            dispatch_get_main_queue(),
+            ^( void )
+            {
+                [ alert beginSheetModalForWindow: self.window completionHandler: completion ];
+                
+                if( modalSession )
+                {
+                    [ NSApp runModalForWindow: self.window ];
+                }
+            }
+        );
     }
 }
 
@@ -353,7 +381,14 @@ NS_ASSUME_NONNULL_END
     
     items = [ self.itemsController.arrangedObjects objectsAtIndexes: indexSet ];
     
-    [ self extract: items to: dropDestination ];
+    dispatch_async
+    (
+        dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0 ),
+        ^( void )
+        {
+            [ self extract: items to: dropDestination ];
+        }
+    );
     
     return @[];
 }

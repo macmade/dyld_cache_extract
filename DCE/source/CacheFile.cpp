@@ -683,9 +683,16 @@ std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageI
 
 bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::SaveMachOFile( const DCE::MachO::File & file, const DCE::ImageInfo & info, const std::string & path ) const
 {
-    std::streamoff    offset;
-    DCE::BinaryStream stream;
+    size_t                        size;
+    size_t                        pos;
+    bool                          found;
+    std::streamoff                offset;
+    DCE::BinaryStream             stream;
+    std::ofstream                 out;
+    std::vector< std::streamoff > offsets;
     
+    pos    = 0;
+    found  = false;
     offset = this->GetFileOffsetForImageInfo( info );
     
     if( offset < 0 )
@@ -700,8 +707,92 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::SaveMachOFile( const DCE::MachO:
         return false;
     }
     
-    ( void )file;
-    ( void )path;
+    for( const auto & i: this->_imageInfos )
+    {
+        {
+            std::streamoff o;
+            
+            o = this->GetFileOffsetForImageInfo( i );
+            
+            if( o >= 0 )
+            {
+                offsets.push_back( o );
+            }
+        }
+    }
     
-    return false;
+    std::sort( offsets.begin(), offsets.end() );
+    
+    {
+        size_t i;
+        
+        i = 0;
+        
+        for( const auto & o: offsets )
+        {
+            if( o == offset )
+            {
+                found = true;
+                pos   = i;
+            }
+            
+            i++;
+        }
+    }
+    
+    if( found == false )
+    {
+        return false;
+    }
+    
+    if( static_cast< size_t >( pos ) == offsets.size() - 1 )
+    {
+        stream.SeekG( std::ios_base::end );
+        
+        if( stream.TellG() < offset )
+        {
+            return false;
+        }
+        
+        size = static_cast< size_t >( stream.TellG() - offsets[ pos ] );
+    }
+    else
+    {
+        size = static_cast< size_t >( offsets[ pos + 1 ] - offsets[ pos ] );
+    }
+    
+    if( size == 0 )
+    {
+        return false;
+    }
+    
+    out = std::ofstream( path, std::ofstream::out | std::ofstream::binary | std::ofstream::trunc );
+    
+    if( out.good() == false )
+    {
+        return false;
+    }
+    
+    {
+        char * buf;
+        
+        buf = new char[ size ];
+        
+        if( buf == nullptr )
+        {
+            std::remove( path.c_str() );
+            
+            return false;
+        }
+        
+        stream.SeekG( offset );
+        stream.Read( buf, static_cast< std::streamsize >( size ) );
+        out.write( buf, static_cast< std::streamsize >( size ) );
+        
+        delete buf;
+    }
+    
+    ( void )file;
+    
+    return true;
 }
