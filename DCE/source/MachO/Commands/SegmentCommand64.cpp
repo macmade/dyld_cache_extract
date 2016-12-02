@@ -116,7 +116,7 @@ namespace DCE
             
             std::string SegmentCommand64::GetName( void ) const
             {
-                return std::string( this->impl->_name, 16 );
+                return std::string( this->impl->_name );
             }
             
             uint64_t SegmentCommand64::GetVMAddress( void ) const
