@@ -55,7 +55,8 @@ class XS::PIMPL::Object< DCE::CacheFile >::IMPL
         bool           ParseMappingInfos( DCE::BinaryStream & s );
         bool           ParseImageInfos( DCE::BinaryStream & s );
         bool           ParseMachOFiles( DCE::BinaryStream & s );
-        std::streamoff GetFileOffsetForImageInfo( const DCE::ImageInfo & info );
+        std::streamoff GetFileOffsetForImageInfo( const DCE::ImageInfo & info ) const;
+        bool           SaveMachOFile( const DCE::MachO::File & file, const std::string & path ) const;
         
         bool                            _exists;
         bool                            _valid;
@@ -250,7 +251,7 @@ namespace DCE
             }
         }
         
-        return false;
+        return this->impl->SaveMachOFile( macho, path );
     }
     
     bool CacheFile::ExtractAll( const std::string & outDirPath, std::function< ExtractDuplicateHandling( const std::string &, const std::string & ) > duplicateHandler ) const
@@ -663,7 +664,7 @@ bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::ParseMachOFiles( DCE::BinaryStre
     return this->_machOFiles.size() == this->_imageInfos.size();
 }
 
-std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageInfo( const DCE::ImageInfo & info )
+std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageInfo( const DCE::ImageInfo & info ) const
 {
     uint64_t offset;
     
@@ -678,4 +679,12 @@ std::streamoff XS::PIMPL::Object< DCE::CacheFile >::IMPL::GetFileOffsetForImageI
     }
     
     return -1;
+}
+
+bool XS::PIMPL::Object< DCE::CacheFile >::IMPL::SaveMachOFile( const DCE::MachO::File & file, const std::string & path ) const
+{
+    ( void )file;
+    ( void )path;
+    
+    return false;
 }
