@@ -7,11 +7,18 @@ dyld_cache_extract
 ![License](https://img.shields.io/badge/license-mit-brightgreen.svg?style=flat)
 [![Contact](https://img.shields.io/badge/contact-@macmade-blue.svg?style=flat)](https://twitter.com/macmade)
 
-### About
+About
+-----
 
-A macOS command line tool to extract dynamic libraries from the `dyld_shared_cache` of macOS and iOS.
+A macOS utility to extract dynamic libraries from the `dyld_shared_cache` of macOS and iOS.
 
-### Usage
+The project is available as a **macOS application (with GUI)** and as a **command line tool**.
+
+![Main Window](Resources/MainWindow.png "Main Window")
+![File Window](Resources/FileWindow.png "File Window")
+
+Command line usage
+------------------
 
     dyld_cache_extract - Extractor utility for DYLD shared cache
     
@@ -21,6 +28,11 @@ A macOS command line tool to extract dynamic libraries from the `dyld_shared_cac
         --info [PATH]                     Displays informations about a dyld_shared_cache file.
         --extract-all [PATH] [OUT_DIR]    Extracts all libraries from a dyld_shared_cache file.
         --extract [LIB] [PATH] [OUT_DIR]  Extracts a specific library from a dyld_shared_cache file.
+
+DYLD Cache Format
+-----------------
+
+...
 
 License
 -------
