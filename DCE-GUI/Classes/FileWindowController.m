@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - ( IBAction )exportSelection: ( nullable id )sender;
 - ( IBAction )showInfo: ( id )sender;
+- ( void )extract: ( NSArray< ImageItem * > * )items to: ( NSURL * )destination;
 
 @end
 
@@ -177,7 +178,30 @@ NS_ASSUME_NONNULL_END
 
 - ( IBAction )exportSelection: ( nullable id )sender
 {
+    NSOpenPanel * panel;
+    
     ( void )sender;
+    
+    panel = [ NSOpenPanel openPanel ];
+    
+    panel.canChooseFiles                  = NO;
+    panel.canChooseDirectories            = YES;
+    panel.canCreateDirectories            = YES;
+    panel.canSelectHiddenExtension        = YES;
+    panel.showsHiddenFiles                = NO;
+    panel.treatsFilePackagesAsDirectories = NO;
+    panel.allowsMultipleSelection         = NO;
+    
+    [ panel beginSheetModalForWindow: self.window completionHandler: ^( NSInteger res )
+        {
+            if( res != NSFileHandlingPanelOKButton || panel.URL == nil )
+            {
+                return;
+            }
+            
+            [ self extract: self.itemsController.selectedObjects to: panel.URL ];
+        }
+    ];
 }
 
 - ( IBAction )showInfo: ( id )sender
@@ -201,6 +225,59 @@ NS_ASSUME_NONNULL_END
     }
     
     [ self.infoPopover showRelativeToRect: NSZeroRect ofView: view preferredEdge: NSMinYEdge ];
+}
+
+- ( void )extract: ( NSArray< ImageItem * > * )items to: ( NSURL * )destination
+{
+    ImageItem * item;
+    BOOL        extracted;
+    
+    ( void )destination;
+    
+    for( item in items )
+    {
+        extracted = [ self.file extractImage:     item.info.path
+                                toDirectory:      destination.path
+                                duplicateHandler: ^ DCECacheFileExtractDuplicateHandling ( NSString * path, NSString * outDir )
+            {
+                ( void )path;
+                ( void )outDir;
+                
+                {
+                    NSAlert * alert;
+                    
+                    alert = [ NSAlert new ];
+                    
+                    alert.messageText     = NSLocalizedString( @"Duplicate file", nil );
+                    alert.informativeText = [ NSString stringWithFormat: @"A file named %@ already exists in %@. What would you like to do?", path.lastPathComponent, outDir.lastPathComponent ];
+                    
+                    [ alert addButtonWithTitle: NSLocalizedString( @"Overwrite", nil ) ];
+                    [ alert addButtonWithTitle: NSLocalizedString( @"Skip", nil ) ];
+                    [ alert addButtonWithTitle: NSLocalizedString( @"Stop", nil ) ];
+                    [ alert beginSheetModalForWindow: self.window completionHandler: NULL ];
+                }
+                
+                return DCECacheFileExtractDuplicateHandlingStop;
+            }
+        ];
+        
+        if( extracted == false )
+        {
+            {
+                NSAlert * alert;
+                
+                alert = [ NSAlert new ];
+                
+                alert.messageText     = NSLocalizedString( @"Error", nil );
+                alert.informativeText = NSLocalizedString( @"Cannot extract image files. An unknown error occured.", nil );
+                
+                [ alert addButtonWithTitle: NSLocalizedString( @"OK", nil ) ];
+                [ alert beginSheetModalForWindow: self.window completionHandler: NULL ];
+            }
+            
+            return;
+        }
+    }
 }
 
 #pragma mark - NSTableViewDataSource
@@ -245,9 +322,13 @@ NS_ASSUME_NONNULL_END
 
 - ( NSArray< NSString * > * )tableView: ( NSTableView * )tableView namesOfPromisedFilesDroppedAtDestination: ( NSURL * )dropDestination forDraggedRowsWithIndexes: ( NSIndexSet * )indexSet
 {
+    NSArray< ImageItem * > * items;
+    
     ( void )tableView;
-    ( void )dropDestination;
-    ( void )indexSet;
+    
+    items = [ self.itemsController.arrangedObjects objectsAtIndexes: indexSet ];
+    
+    [ self extract: items to: dropDestination ];
     
     return @[];
 }
