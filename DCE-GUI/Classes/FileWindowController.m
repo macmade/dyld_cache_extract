@@ -166,7 +166,7 @@ NS_ASSUME_NONNULL_END
     self.itemsController.sortDescriptors = @[ [ NSSortDescriptor sortDescriptorWithKey: @"title" ascending: YES selector: @selector( localizedCaseInsensitiveCompare: ) ] ];
 }
 
-- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
+- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary * )change context: ( void * )context
 {
     if( object == self.itemsController && [ keyPath isEqualToString: @"selectionIndexes" ] )
     {

@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_END
     [ [ NSNotificationCenter defaultCenter ] addObserver: self selector: @selector( loadFiles ) name: PreferencesNotificationDefaultsChanged object: nil ];
 }
 
-- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary< NSKeyValueChangeKey, id > * )change context: ( void * )context
+- ( void )observeValueForKeyPath: ( NSString * )keyPath ofObject: ( id )object change: ( NSDictionary * )change context: ( void * )context
 {
     if( object == self.arrayController && [ keyPath isEqualToString: @"selectionIndexes" ] )
     {
