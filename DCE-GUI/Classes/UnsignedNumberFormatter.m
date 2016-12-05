@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_END
     return [ NSString stringWithFormat: @"%llu", number.unsignedLongLongValue ];
 }
 
-- ( nullable NSString * )stringForObjectValue: ( nullable id )obj
+- ( nullable NSString * )stringForObjectValue: ( id )obj
 {
     if( [ obj isKindOfClass: [ NSNumber class ] ] )
     {
