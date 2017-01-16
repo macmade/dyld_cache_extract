@@ -11,13 +11,9 @@
 		0528A8061DEF7AC500C9D525 /* ObjectPair.m in Sources */ = {isa = PBXBuildFile; fileRef = 0528A8051DEF7AC500C9D525 /* ObjectPair.m */; };
 		054829611DEF1C060076C9E4 /* FileWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 054829601DEF1C060076C9E4 /* FileWindowController.m */; };
 		054829641DEF1CD30076C9E4 /* FileWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 054829621DEF1CD30076C9E4 /* FileWindowController.xib */; };
-		054829681DEF24A10076C9E4 /* DCECacheFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 054829671DEF24A10076C9E4 /* DCECacheFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0548296A1DEF24B40076C9E4 /* DCECacheFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 054829691DEF24B40076C9E4 /* DCECacheFile.mm */; };
-		0548296D1DEF25D00076C9E4 /* DCEImageInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 0548296B1DEF25D00076C9E4 /* DCEImageInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0548296E1DEF25D00076C9E4 /* DCEMappingInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 0548296C1DEF25D00076C9E4 /* DCEMappingInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		054829711DEF25D90076C9E4 /* DCEImageInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0548296F1DEF25D90076C9E4 /* DCEImageInfo.mm */; };
 		054829721DEF25D90076C9E4 /* DCEMappingInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 054829701DEF25D90076C9E4 /* DCEMappingInfo.mm */; };
-		054829741DEF27300076C9E4 /* DCEMachOFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 054829731DEF27300076C9E4 /* DCEMachOFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		054829761DEF27470076C9E4 /* DCEMachOFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 054829751DEF27470076C9E4 /* DCEMachOFile.mm */; };
 		054829791DEF29B50076C9E4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 054829781DEF29B50076C9E4 /* libc++.tbd */; };
 		0548297C1DEF2C040076C9E4 /* ImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0548297B1DEF2C040076C9E4 /* ImageItem.m */; };
@@ -36,43 +32,6 @@
 		05C33B871DEF4510000AC35E /* HexNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C33B861DEF4510000AC35E /* HexNumberFormatter.m */; };
 		05C33B9C1DEF49B1000AC35E /* UnsignedNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C33B9B1DEF49B1000AC35E /* UnsignedNumberFormatter.m */; };
 		05CC180E1DEF12730044BCED /* libDCE.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05CC17661DEF10C50044BCED /* libDCE.a */; };
-		05CC18641DEF13720044BCED /* BinaryStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18131DEF13720044BCED /* BinaryStream.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18651DEF13720044BCED /* CacheFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18141DEF13720044BCED /* CacheFile.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18661DEF13720044BCED /* ImageInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18151DEF13720044BCED /* ImageInfo.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18671DEF13720044BCED /* DyldInfoCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18181DEF13720044BCED /* DyldInfoCommand.hpp */; };
-		05CC18681DEF13720044BCED /* DyLibCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18191DEF13720044BCED /* DyLibCommand.hpp */; };
-		05CC18691DEF13720044BCED /* DyLinkerCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181A1DEF13720044BCED /* DyLinkerCommand.hpp */; };
-		05CC186A1DEF13720044BCED /* DySymTabCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181B1DEF13720044BCED /* DySymTabCommand.hpp */; };
-		05CC186B1DEF13720044BCED /* EncryptionInfoCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181C1DEF13720044BCED /* EncryptionInfoCommand.hpp */; };
-		05CC186C1DEF13720044BCED /* EncryptionInfoCommand64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181D1DEF13720044BCED /* EncryptionInfoCommand64.hpp */; };
-		05CC186D1DEF13720044BCED /* EntryPointCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181E1DEF13720044BCED /* EntryPointCommand.hpp */; };
-		05CC186E1DEF13720044BCED /* FVMFileCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC181F1DEF13720044BCED /* FVMFileCommand.hpp */; };
-		05CC186F1DEF13720044BCED /* FVMLibCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18201DEF13720044BCED /* FVMLibCommand.hpp */; };
-		05CC18701DEF13720044BCED /* IdentCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18211DEF13720044BCED /* IdentCommand.hpp */; };
-		05CC18711DEF13720044BCED /* LinkEditDataCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18221DEF13720044BCED /* LinkEditDataCommand.hpp */; };
-		05CC18721DEF13720044BCED /* LinkerOptionCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18231DEF13720044BCED /* LinkerOptionCommand.hpp */; };
-		05CC18731DEF13720044BCED /* PrebindCKSumCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18241DEF13720044BCED /* PrebindCKSumCommand.hpp */; };
-		05CC18741DEF13720044BCED /* PreboundDyLibCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18251DEF13720044BCED /* PreboundDyLibCommand.hpp */; };
-		05CC18751DEF13720044BCED /* RoutinesCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18261DEF13720044BCED /* RoutinesCommand.hpp */; };
-		05CC18761DEF13720044BCED /* RoutinesCommand64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18271DEF13720044BCED /* RoutinesCommand64.hpp */; };
-		05CC18771DEF13720044BCED /* RPathCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18281DEF13720044BCED /* RPathCommand.hpp */; };
-		05CC18781DEF13720044BCED /* SegmentCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18291DEF13720044BCED /* SegmentCommand.hpp */; };
-		05CC18791DEF13720044BCED /* SegmentCommand64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182A1DEF13720044BCED /* SegmentCommand64.hpp */; };
-		05CC187A1DEF13720044BCED /* SourceVersionCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182B1DEF13720044BCED /* SourceVersionCommand.hpp */; };
-		05CC187B1DEF13720044BCED /* SubClientCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182C1DEF13720044BCED /* SubClientCommand.hpp */; };
-		05CC187C1DEF13720044BCED /* SubFrameworkCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182D1DEF13720044BCED /* SubFrameworkCommand.hpp */; };
-		05CC187D1DEF13720044BCED /* SubLibraryCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182E1DEF13720044BCED /* SubLibraryCommand.hpp */; };
-		05CC187E1DEF13720044BCED /* SubUmbrellaCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC182F1DEF13720044BCED /* SubUmbrellaCommand.hpp */; };
-		05CC187F1DEF13720044BCED /* SymSegCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18301DEF13720044BCED /* SymSegCommand.hpp */; };
-		05CC18801DEF13720044BCED /* SymTabCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18311DEF13720044BCED /* SymTabCommand.hpp */; };
-		05CC18811DEF13720044BCED /* ThreadCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18321DEF13720044BCED /* ThreadCommand.hpp */; };
-		05CC18821DEF13720044BCED /* TwoLevelHintsCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18331DEF13720044BCED /* TwoLevelHintsCommand.hpp */; };
-		05CC18831DEF13720044BCED /* UUIDCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18341DEF13720044BCED /* UUIDCommand.hpp */; };
-		05CC18841DEF13720044BCED /* VersionMinCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18351DEF13720044BCED /* VersionMinCommand.hpp */; };
-		05CC18851DEF13720044BCED /* File.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18361DEF13720044BCED /* File.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18861DEF13720044BCED /* Header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18371DEF13720044BCED /* Header.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18871DEF13720044BCED /* LoadCommand.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18381DEF13720044BCED /* LoadCommand.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		05CC18881DEF13720044BCED /* MappingInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 05CC18391DEF13720044BCED /* MappingInfo.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		05CC188A1DEF13720044BCED /* BinaryStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC183C1DEF13720044BCED /* BinaryStream.cpp */; };
 		05CC188B1DEF13720044BCED /* CacheFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC183D1DEF13720044BCED /* CacheFile.cpp */; };
 		05CC188C1DEF13720044BCED /* ImageInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 05CC183E1DEF13720044BCED /* ImageInfo.cpp */; };
@@ -582,47 +541,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05CC186E1DEF13720044BCED /* FVMFileCommand.hpp in Headers */,
-				05CC187E1DEF13720044BCED /* SubUmbrellaCommand.hpp in Headers */,
-				0548296E1DEF25D00076C9E4 /* DCEMappingInfo.h in Headers */,
-				05CC18651DEF13720044BCED /* CacheFile.hpp in Headers */,
-				05CC18741DEF13720044BCED /* PreboundDyLibCommand.hpp in Headers */,
-				05CC186D1DEF13720044BCED /* EntryPointCommand.hpp in Headers */,
-				05CC18821DEF13720044BCED /* TwoLevelHintsCommand.hpp in Headers */,
-				05CC187A1DEF13720044BCED /* SourceVersionCommand.hpp in Headers */,
-				05CC18831DEF13720044BCED /* UUIDCommand.hpp in Headers */,
-				05CC18811DEF13720044BCED /* ThreadCommand.hpp in Headers */,
-				05CC18781DEF13720044BCED /* SegmentCommand.hpp in Headers */,
-				05CC18871DEF13720044BCED /* LoadCommand.hpp in Headers */,
-				05CC187B1DEF13720044BCED /* SubClientCommand.hpp in Headers */,
-				05CC18681DEF13720044BCED /* DyLibCommand.hpp in Headers */,
-				05CC18761DEF13720044BCED /* RoutinesCommand64.hpp in Headers */,
-				05CC18881DEF13720044BCED /* MappingInfo.hpp in Headers */,
-				05CC186C1DEF13720044BCED /* EncryptionInfoCommand64.hpp in Headers */,
-				05CC18731DEF13720044BCED /* PrebindCKSumCommand.hpp in Headers */,
-				05CC187D1DEF13720044BCED /* SubLibraryCommand.hpp in Headers */,
-				05CC186F1DEF13720044BCED /* FVMLibCommand.hpp in Headers */,
-				05CC18701DEF13720044BCED /* IdentCommand.hpp in Headers */,
-				05CC18691DEF13720044BCED /* DyLinkerCommand.hpp in Headers */,
-				05CC18661DEF13720044BCED /* ImageInfo.hpp in Headers */,
-				0548296D1DEF25D00076C9E4 /* DCEImageInfo.h in Headers */,
-				05CC18751DEF13720044BCED /* RoutinesCommand.hpp in Headers */,
-				05CC187F1DEF13720044BCED /* SymSegCommand.hpp in Headers */,
-				054829681DEF24A10076C9E4 /* DCECacheFile.h in Headers */,
-				05CC18721DEF13720044BCED /* LinkerOptionCommand.hpp in Headers */,
-				05CC18791DEF13720044BCED /* SegmentCommand64.hpp in Headers */,
-				05CC18861DEF13720044BCED /* Header.hpp in Headers */,
-				05CC18801DEF13720044BCED /* SymTabCommand.hpp in Headers */,
-				05CC18711DEF13720044BCED /* LinkEditDataCommand.hpp in Headers */,
-				05CC186B1DEF13720044BCED /* EncryptionInfoCommand.hpp in Headers */,
-				05CC186A1DEF13720044BCED /* DySymTabCommand.hpp in Headers */,
-				054829741DEF27300076C9E4 /* DCEMachOFile.h in Headers */,
-				05CC18851DEF13720044BCED /* File.hpp in Headers */,
-				05CC18641DEF13720044BCED /* BinaryStream.hpp in Headers */,
-				05CC18671DEF13720044BCED /* DyldInfoCommand.hpp in Headers */,
-				05CC187C1DEF13720044BCED /* SubFrameworkCommand.hpp in Headers */,
-				05CC18841DEF13720044BCED /* VersionMinCommand.hpp in Headers */,
-				05CC18771DEF13720044BCED /* RPathCommand.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,6 +1040,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1130,6 +1049,7 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
