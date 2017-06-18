@@ -26,6 +26,8 @@
 		056B95591DEF668E0038641A /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B95581DEF668E0038641A /* Preferences.m */; };
 		056B955B1DEF66A70038641A /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 056B955A1DEF66A70038641A /* Defaults.plist */; };
 		056B96471DF207430038641A /* WhiteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 056B96461DF207430038641A /* WhiteView.m */; };
+		05779F191EF6CF8200AD792A /* GitHubUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05779F141EF6CF7400AD792A /* GitHubUpdates.framework */; };
+		05779F1B1EF6CF8D00AD792A /* GitHubUpdates.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05779F141EF6CF7400AD792A /* GitHubUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05C33B821DEF38A4000AC35E /* Bundle.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B7F1DEF38A4000AC35E /* Bundle.png */; };
 		05C33B831DEF38A4000AC35E /* Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B801DEF38A4000AC35E /* Framework.png */; };
 		05C33B841DEF38A4000AC35E /* Library.png in Resources */ = {isa = PBXBuildFile; fileRef = 05C33B811DEF38A4000AC35E /* Library.png */; };
@@ -77,6 +79,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		05779F131EF6CF7400AD792A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05F82B251EF32EA700EC8A93;
+			remoteInfo = GitHubUpdates;
+		};
+		05779F151EF6CF7400AD792A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0555EBA01EF3DDA10016167F;
+			remoteInfo = Relauncher;
+		};
+		05779F171EF6CF7D00AD792A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05F82B241EF32EA700EC8A93;
+			remoteInfo = GitHubUpdates;
+		};
 		05CC180C1DEF126F0044BCED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 05144B0E1DCBBDF40074B01E /* Project object */;
@@ -102,6 +125,16 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		05779F1A1EF6CF8500AD792A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				05779F1B1EF6CF8D00AD792A /* GitHubUpdates.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -140,6 +173,7 @@
 		056B955A1DEF66A70038641A /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		056B96451DF207430038641A /* WhiteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhiteView.h; sourceTree = "<group>"; };
 		056B96461DF207430038641A /* WhiteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhiteView.m; sourceTree = "<group>"; };
+		05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GitHubUpdates.xcodeproj; path = Submodules/GitHubUpdates/GitHubUpdates.xcodeproj; sourceTree = "<group>"; };
 		05C33B7F1DEF38A4000AC35E /* Bundle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bundle.png; sourceTree = "<group>"; };
 		05C33B801DEF38A4000AC35E /* Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Framework.png; sourceTree = "<group>"; };
 		05C33B811DEF38A4000AC35E /* Library.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Library.png; sourceTree = "<group>"; };
@@ -252,6 +286,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05779F191EF6CF8200AD792A /* GitHubUpdates.framework in Frameworks */,
 				054829791DEF29B50076C9E4 /* libc++.tbd in Frameworks */,
 				05CC18C91DEF152C0044BCED /* libDCE.a in Frameworks */,
 			);
@@ -263,6 +298,7 @@
 		05144B0D1DCBBDF40074B01E = {
 			isa = PBXGroup;
 			children = (
+				05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */,
 				05144B221DCBC78D0074B01E /* README.md */,
 				05CC180F1DEF13720044BCED /* DCE */,
 				05144B181DCBBDF40074B01E /* dyld_cache_extract */,
@@ -321,6 +357,15 @@
 				054829781DEF29B50076C9E4 /* libc++.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		05779F0F1EF6CF7400AD792A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				05779F141EF6CF7400AD792A /* GitHubUpdates.framework */,
+				05779F161EF6CF7400AD792A /* Relauncher */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		05C33B7E1DEF38A4000AC35E /* Images */ = {
@@ -590,10 +635,12 @@
 				05CC18B31DEF14FC0044BCED /* Frameworks */,
 				05779F0D1EF6CF0100AD792A /* ShellScript */,
 				05CC18B41DEF14FC0044BCED /* Resources */,
+				05779F1A1EF6CF8500AD792A /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				05779F181EF6CF7D00AD792A /* PBXTargetDependency */,
 				05CC18C81DEF15290044BCED /* PBXTargetDependency */,
 			);
 			name = "DCE-GUI";
@@ -636,6 +683,12 @@
 			mainGroup = 05144B0D1DCBBDF40074B01E;
 			productRefGroup = 05144B171DCBBDF40074B01E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05779F0F1EF6CF7400AD792A /* Products */;
+					ProjectRef = 05779F0E1EF6CF7400AD792A /* GitHubUpdates.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				05144B151DCBBDF40074B01E /* dyld_cache_extract */,
@@ -644,6 +697,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		05779F141EF6CF7400AD792A /* GitHubUpdates.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GitHubUpdates.framework;
+			remoteRef = 05779F131EF6CF7400AD792A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05779F161EF6CF7400AD792A /* Relauncher */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Relauncher;
+			remoteRef = 05779F151EF6CF7400AD792A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		05CC18B41DEF14FC0044BCED /* Resources */ = {
@@ -760,6 +830,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		05779F181EF6CF7D00AD792A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GitHubUpdates;
+			targetProxy = 05779F171EF6CF7D00AD792A /* PBXContainerItemProxy */;
+		};
 		05CC180D1DEF126F0044BCED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 05CC17651DEF10C50044BCED /* DCE */;

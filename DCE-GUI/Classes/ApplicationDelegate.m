@@ -32,13 +32,16 @@
 #import "MainWindowController.h"
 #import "FileWindowController.h"
 
+@import GitHubUpdates;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ApplicationDelegate()
 
-@property( atomic, readwrite, strong ) AboutWindowController                    * aboutWindowController;
-@property( atomic, readwrite, strong ) MainWindowController                     * mainWindowController;
-@property( atomic, readwrite, strong ) NSMutableArray< FileWindowController * > * windowControllers;
+@property( atomic, readwrite, strong )          AboutWindowController                    * aboutWindowController;
+@property( atomic, readwrite, strong )          MainWindowController                     * mainWindowController;
+@property( atomic, readwrite, strong )          NSMutableArray< FileWindowController * > * windowControllers;
+@property( atomic, readwrite, strong ) IBOutlet GitHubUpdater                            * updater;
 
 - ( void )windowWillClose: ( NSNotification * )notification;
 - ( IBAction )openDocument: ( nullable id )sender;
@@ -59,6 +62,7 @@ NS_ASSUME_NONNULL_END
     
     [ self.mainWindowController.window center ];
     [ self.mainWindowController.window makeKeyAndOrderFront: nil ];
+    [ self.updater checkForUpdatesInBackground ];
 }
 
 - ( void )windowWillClose: ( NSNotification * )notification

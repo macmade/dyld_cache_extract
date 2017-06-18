@@ -4,3 +4,6 @@
 [submodule "Submodules/SeriousCode"]
 	path = Submodules/SeriousCode
 	url = https://github.com/macmade/SeriousCode.git
+[submodule "Submodules/GitHubUpdates"]
+	path = Submodules/GitHubUpdates
+	url = https://github.com/macmade/GitHubUpdates.git
