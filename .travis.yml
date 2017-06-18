@@ -1,5 +1,8 @@
 language: objective-c
+osx_image: xcode8.3
 xcode_project: dyld_cache_extract.xcodeproj
 xcode_scheme:
 - dyld_cache_extract
 - DCE-GUI
+notifications:
+    slack: xs-labs:FXh1yLXNkpcVxKZhZU6icdhI
