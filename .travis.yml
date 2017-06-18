@@ -1,8 +1,9 @@
 language: objective-c
 osx_image: xcode8.3
-xcode_project: dyld_cache_extract.xcodeproj
-xcode_scheme:
-- dyld_cache_extract
-- DCE-GUI
+install:
+- gem install xcpretty
+script:
+- set -o pipefail && xcodebuild -project "dyld_cache_extract.xcodeproj" -scheme "dyld_cache_extract" build analyze | xcpretty
+- set -o pipefail && xcodebuild -project "dyld_cache_extract.xcodeproj" -scheme "DCE-GUI" build analyze | xcpretty
 notifications:
     slack: xs-labs:FXh1yLXNkpcVxKZhZU6icdhI
