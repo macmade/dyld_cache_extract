@@ -32,6 +32,7 @@
 #include <memory>
 #include <iostream>
 #include <fstream>
+#include <string.h>
 #include <DCE/CacheFile.hpp>
 #include <DCE/BinaryStream.hpp>
 #include <DCE/MachO/Commands/SegmentCommand.hpp>

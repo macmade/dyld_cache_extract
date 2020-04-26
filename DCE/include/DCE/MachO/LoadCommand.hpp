@@ -32,6 +32,7 @@
 
 #include <cstdint>
 #include <string>
+#include <memory>
 #include <XS/PIMPL/Object.hpp>
 
 namespace DCE

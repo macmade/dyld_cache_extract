@@ -35,3 +35,7 @@ xcuserdata
 *.VC.db
 *.VC.opendb
 ipch
+
+# xmake
+.xmake
+build

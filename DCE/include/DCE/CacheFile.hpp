@@ -34,6 +34,7 @@
 #include <iostream>
 #include <cstdint>
 #include <vector>
+#include <functional>
 #include <DCE/ImageInfo.hpp>
 #include <DCE/MappingInfo.hpp>
 #include <DCE/MachO/File.hpp>

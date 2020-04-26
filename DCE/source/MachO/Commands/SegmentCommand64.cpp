@@ -26,7 +26,7 @@
  * @file        SegmentCommand64.cpp
  * @copyright   (c) 2016, Jean-David Gadina - www.xs-labs.com
  */
-
+#include <string.h>
 #include <DCE/MachO/Commands/SegmentCommand64.hpp>
 #include <DCE/MachO/Header.hpp>
 #include <DCE/BinaryStream.hpp>
