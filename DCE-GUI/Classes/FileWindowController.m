@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_END
     
     [ panel beginSheetModalForWindow: self.window completionHandler: ^( NSInteger res )
         {
-            if( res != NSFileHandlingPanelOKButton || panel.URL == nil )
+            if( res != NSModalResponseOK || panel.URL == nil )
             {
                 return;
             }
@@ -392,7 +392,10 @@ NS_ASSUME_NONNULL_END
     return NO;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - ( NSArray< NSString * > * )tableView: ( NSTableView * )tableView namesOfPromisedFilesDroppedAtDestination: ( NSURL * )dropDestination forDraggedRowsWithIndexes: ( NSIndexSet * )indexSet
+#pragma clang diagnostic pop
 {
     NSArray< ImageItem * > * items;
     

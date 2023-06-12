@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_END
     panel.treatsFilePackagesAsDirectories = YES;
     panel.allowsMultipleSelection         = NO;
     
-    if( [ panel runModal ] != NSFileHandlingPanelOKButton || panel.URL == nil )
+    if( [ panel runModal ] != NSModalResponseOK || panel.URL == nil )
     {
         return;
     }
