@@ -67,17 +67,21 @@ NS_ASSUME_NONNULL_END
 
 - ( void )windowWillClose: ( NSNotification * )notification
 {
-    NSWindow * window;
-    
-    window = notification.object;
+    NSWindow * window = notification.object;
     
     if( window == nil )
     {
         return;
     }
+
+    FileWindowController * controller = window.windowController;
     
     [ [ NSNotificationCenter defaultCenter ] removeObserver: self name: NSWindowWillCloseNotification object: window ];
-    [ self.windowControllers removeObject: window.windowController ];
+
+    if( controller != nil && [ controller isKindOfClass: [ FileWindowController class ] ] )
+    {
+        [ self.windowControllers removeObject: controller ];
+    }
 }
 
 - ( IBAction )openDocument: ( nullable id )sender
@@ -96,12 +100,17 @@ NS_ASSUME_NONNULL_END
     panel.treatsFilePackagesAsDirectories = YES;
     panel.allowsMultipleSelection         = NO;
     
-    if( [ panel runModal ] != NSModalResponseOK || panel.URL == nil )
+    if( [ panel runModal ] != NSModalResponseOK )
     {
         return;
     }
-    
-    [ self openURL: panel.URL ];
+
+    NSURL * url = panel.URL;
+
+    if( url != nil )
+    {
+        [ self openURL: url ];
+    }
 }
 
 - ( void )openURL: ( NSURL * )url

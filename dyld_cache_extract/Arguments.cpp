@@ -99,7 +99,7 @@ std::string Arguments::GetLibraryName( void ) const
 
 XS::PIMPL::Object< Arguments >::IMPL::IMPL( void ):
     _argc( 0 ),
-    _argv( NULL ),
+    _argv( nullptr ),
     _showUsage( true ),
     _printInfo( false ),
     _extract( false )

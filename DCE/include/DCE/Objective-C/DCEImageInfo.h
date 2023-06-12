@@ -38,11 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DCEImageInfo: NSObject
 
-@property( atomic, readonly ) uint64_t   address;
-@property( atomic, readonly ) uint64_t   modificationTime;
-@property( atomic, readonly ) uint64_t   inode;
-@property( atomic, readonly ) NSString * path;
-@property( atomic, readonly ) NSDate   * modificationDate;
+@property( atomic, readonly )           uint64_t   address;
+@property( atomic, readonly )           uint64_t   modificationTime;
+@property( atomic, readonly )           uint64_t   inode;
+@property( atomic, readonly, nullable ) NSString * path;
+@property( atomic, readonly )           NSDate   * modificationDate;
 
 #ifdef __cplusplus
 - ( instancetype )initWithCPPObject: ( const DCE::ImageInfo & )o;

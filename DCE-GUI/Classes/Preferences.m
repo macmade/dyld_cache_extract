@@ -130,7 +130,14 @@ NS_ASSUME_NONNULL_END
 {
     @synchronized( self )
     {
-        return [ self.defaults objectForKey: PreferencesKeyRecentFiles ];
+        NSArray * files = [ self.defaults objectForKey: PreferencesKeyRecentFiles ];
+
+        if( files != nil )
+        {
+            return files;
+        }
+
+        return @[];
     }
 }
 

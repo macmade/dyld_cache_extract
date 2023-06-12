@@ -33,10 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageItem()
 
-@property( atomic, readwrite, strong ) NSString     * title;
-@property( atomic, readwrite, strong ) NSString     * subtitle;
-@property( atomic, readwrite, strong ) NSImage      * icon;
-@property( atomic, readwrite, strong ) DCEImageInfo * info;
+@property( atomic, readwrite, strong, nullable ) NSString     * title;
+@property( atomic, readwrite, strong, nullable ) NSString     * subtitle;
+@property( atomic, readwrite, strong, nullable ) NSImage      * icon;
+@property( atomic, readwrite, strong           ) DCEImageInfo * info;
 
 @end
 
@@ -64,15 +64,19 @@ NS_ASSUME_NONNULL_END
         {
             self.icon = [ NSImage imageNamed: @"Library" ];
         }
-        else if( info.path.pathExtension.length )
-        {
-            self.icon = [ [ NSWorkspace sharedWorkspace ] iconForFileType: info.path.pathExtension ];
-        }
         else
         {
-            self.icon = [ NSImage imageNamed: @"Library" ];
-        }
+            NSString * path = info.path;
 
+            if( path != nil )
+            {
+                self.icon = [ [ NSWorkspace sharedWorkspace ] iconForFile: path ];
+            }
+            else
+            {
+                self.icon = [ NSImage imageNamed: @"Library" ];
+            }
+        }
     }
     
     return self;

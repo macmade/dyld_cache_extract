@@ -43,9 +43,16 @@ NS_ASSUME_NONNULL_END
 
 @implementation DCECacheFile
 
-- ( instancetype )initWithURL: ( NSURL * )url
+- ( nullable instancetype )initWithURL: ( NSURL * )url
 {
-    return [ self initWithPath: url.path ];
+    NSString * path = url.path;
+
+    if( path == nil )
+    {
+        return nil;
+    }
+
+    return [ self initWithPath: path ];
 }
 
 - ( instancetype )initWithPath: ( NSString * )path
@@ -209,7 +216,7 @@ NS_ASSUME_NONNULL_END
 
 - ( BOOL )extractImage: ( NSString * )path toDirectory: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler
 {
-    if( handler == NULL )
+    if( handler == nullptr )
     {
         return NO;
     }
@@ -221,8 +228,15 @@ NS_ASSUME_NONNULL_END
         [ = ]( const std::string & s1, const std::string & s2 )
         {
             DCECacheFileExtractDuplicateHandling res;
-            
-            res = handler( [ NSString stringWithUTF8String: s1.c_str() ], [ NSString stringWithUTF8String: s2.c_str() ] );
+            NSString                           * ns1 = [ NSString stringWithUTF8String: s1.c_str() ];
+            NSString                           * ns2 = [ NSString stringWithUTF8String: s2.c_str() ];
+
+            if( ns1 == nil || ns2 == nil )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingStop;
+            }
+
+            res = handler( ns1, ns2 );
         
             if( res == DCECacheFileExtractDuplicateHandlingSkip )
             {
@@ -240,7 +254,7 @@ NS_ASSUME_NONNULL_END
 
 - ( BOOL )extractAll: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler
 {
-    if( handler == NULL )
+    if( handler == nullptr )
     {
         return NO;
     }
@@ -251,9 +265,16 @@ NS_ASSUME_NONNULL_END
         [ = ]( const std::string & s1, const std::string & s2 )
         {
             DCECacheFileExtractDuplicateHandling res;
-            
-            res = handler( [ NSString stringWithUTF8String: s1.c_str() ], [ NSString stringWithUTF8String: s2.c_str() ] );
-        
+            NSString                           * ns1 = [ NSString stringWithUTF8String: s1.c_str() ];
+            NSString                           * ns2 = [ NSString stringWithUTF8String: s2.c_str() ];
+
+            if( ns1 == nil || ns2 == nil )
+            {
+                return DCE::CacheFile::ExtractDuplicateHandlingStop;
+            }
+
+            res = handler( ns1, ns2 );
+
             if( res == DCECacheFileExtractDuplicateHandlingSkip )
             {
                 return DCE::CacheFile::ExtractDuplicateHandlingSkip;

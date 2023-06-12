@@ -63,12 +63,19 @@ NS_ASSUME_NONNULL_END
     return [ self initWithWindowNibName: NSStringFromClass( [ self class ] ) ];
 }
 
-- ( instancetype )initWithURL: ( NSURL * )url
+- ( nullable instancetype )initWithURL: ( NSURL * )url
 {
     if( ( self = [ self init ] ) )
     {
+        DCECacheFile * file = [ [ DCECacheFile alloc ] initWithURL: url ];
+
+        if( file == nil )
+        {
+            return nil;
+        }
+
         self.url   = url;
-        self.file  = [ [ DCECacheFile alloc ] initWithURL: url ];
+        self.file  = file;
         self.items = @[];
         self.infos = @[];
     }
@@ -89,9 +96,14 @@ NS_ASSUME_NONNULL_END
     [ super windowDidLoad ];
     
     [ self.itemsController addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context: NULL ];
-    
-    self.window.title = self.url.path.lastPathComponent;
-    
+
+    NSString * name = self.url.path.lastPathComponent;
+
+    if( name != nil )
+    {
+        self.window.title = name;
+    }
+
     if( self.file.exists == NO || self.file.isValid == NO )
     {
         dispatch_after
@@ -119,9 +131,18 @@ NS_ASSUME_NONNULL_END
                 
                 alert.messageText     = title;
                 alert.informativeText = message;
+
+                NSWindow * window = self.window;
+
+                if( window == nil )
+                {
+                    [ self close ];
+
+                    return;
+                }
                 
                 [ alert addButtonWithTitle: NSLocalizedString( @"Close", nil ) ];
-                [ alert beginSheetModalForWindow: self.window completionHandler: ^( NSModalResponse response )
+                [ alert beginSheetModalForWindow: window completionHandler: ^( NSModalResponse response )
                     {
                         ( void )response;
                         
@@ -133,9 +154,16 @@ NS_ASSUME_NONNULL_END
         
         return;
     }
-    
-    [ [ Preferences sharedInstance ] addRecentFile: self.file.path ];
-    
+
+    {
+        NSString * path = self.file.path;
+
+        if( path != nil )
+        {
+            [ [ Preferences sharedInstance ] addRecentFile: path ];
+        }
+    }
+
     for( info in self.file.imageInfos )
     {
         item = [ [ ImageItem alloc ] initWithImageInfo: info ];
@@ -150,12 +178,23 @@ NS_ASSUME_NONNULL_END
     {
         self.window.title = [ NSString stringWithFormat: @"%@ - %llu files", self.url.path.lastPathComponent, ( unsigned long long )( self.items.count ) ];
     }
+
+    NSString * path         = self.file.path;
+    NSString * version      = self.file.version;
+    NSString * architecture = self.file.architecture;
+
+    if( path == nil || version == nil || architecture == nil )
+    {
+        [ self close ];
+
+        return;
+    }
     
     {
-        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"File:"                second: self.file.path.lastPathComponent ] ];
-        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Path:"                second: [ self.file.path stringByDeletingLastPathComponent ] ] ];
-        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Version:"             second: self.file.version ] ];
-        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Architecture:"        second: self.file.architecture ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"File:"                second: path.lastPathComponent ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Path:"                second: [ path stringByDeletingLastPathComponent ] ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Version:"             second: version ] ];
+        [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Architecture:"        second: architecture ] ];
         [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Mapping Offset:"      second: [ NSString stringWithFormat: @"0x%X", self.file.mappingOffset ] ] ];
         [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Mapping Count:"       second: [ NSString stringWithFormat: @"%u", self.file.mappingCount ] ] ];
         [ self.infosController addObject: [ [ ObjectPair alloc ] initWithFirst: @"Image Offset:"        second: [ NSString stringWithFormat: @"0x%X", self.file.imagesOffset ] ] ];
@@ -181,6 +220,14 @@ NS_ASSUME_NONNULL_END
 - ( IBAction )exportSelection: ( nullable id )sender
 {
     NSOpenPanel * panel;
+    NSWindow    * window = self.window;
+
+    if( window == nil )
+    {
+        NSBeep();
+
+        return;
+    }
     
     ( void )sender;
     
@@ -194,9 +241,11 @@ NS_ASSUME_NONNULL_END
     panel.treatsFilePackagesAsDirectories = NO;
     panel.allowsMultipleSelection         = NO;
     
-    [ panel beginSheetModalForWindow: self.window completionHandler: ^( NSInteger res )
+    [ panel beginSheetModalForWindow: window completionHandler: ^( NSInteger res )
         {
-            if( res != NSModalResponseOK || panel.URL == nil )
+            NSURL * url = panel.URL;
+
+            if( res != NSModalResponseOK || url == nil )
             {
                 return;
             }
@@ -208,7 +257,7 @@ NS_ASSUME_NONNULL_END
                 dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0 ),
                 ^( void )
                 {
-                    [ self extract: self.itemsController.selectedObjects to: panel.URL ];
+                    [ self extract: self.itemsController.selectedObjects to: url ];
                     
                     dispatch_sync
                     (
@@ -259,8 +308,16 @@ NS_ASSUME_NONNULL_END
     
     for( item in items )
     {
-        extracted = [ self.file extractImage:     item.info.path
-                                toDirectory:      destination.path
+        NSString * source = item.info.path;
+        NSString * target = destination.path;
+
+        if( source == nil || destination == nil )
+        {
+            continue;
+        }
+
+        extracted = [ self.file extractImage:     source
+                                toDirectory:      target
                                 duplicateHandler: ^ DCECacheFileExtractDuplicateHandling ( NSString * path, NSString * outDir )
             {
                         NSAlert                            * alert;
@@ -325,13 +382,22 @@ NS_ASSUME_NONNULL_END
 
 - ( void )showAlertOnMainThread: ( NSAlert * )alert useModalSession: ( BOOL )modalSession completion: ( void ( ^ __nullable )( NSModalResponse returnCode ) )completion
 {
+    NSWindow * window = self.window;
+
+    if( window == nil )
+    {
+        NSBeep();
+
+        return;
+    }
+
     if( [ NSThread isMainThread ] )
     {
-        [ alert beginSheetModalForWindow: self.window completionHandler: completion ];
+        [ alert beginSheetModalForWindow: window completionHandler: completion ];
         
         if( modalSession )
         {
-            [ NSApp runModalForWindow: self.window ];
+            [ NSApp runModalForWindow: window ];
         }
     }
     else
@@ -341,11 +407,11 @@ NS_ASSUME_NONNULL_END
             dispatch_get_main_queue(),
             ^( void )
             {
-                [ alert beginSheetModalForWindow: self.window completionHandler: completion ];
+                [ alert beginSheetModalForWindow: window completionHandler: completion ];
                 
                 if( modalSession )
                 {
-                    [ NSApp runModalForWindow: self.window ];
+                    [ NSApp runModalForWindow: window ];
                 }
             }
         );
@@ -354,7 +420,10 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - NSTableViewDataSource
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 - ( BOOL )tableView: ( NSTableView * )tableView writeRowsWithIndexes: ( NSIndexSet * )rowIndexes toPasteboard: ( NSPasteboard * )pasteboard
+#pragma clang diagnostic pop
 {
     NSString                     * ext;
     ImageItem                    * item;
@@ -370,7 +439,14 @@ NS_ASSUME_NONNULL_END
     
     for( item in items )
     {
-        ext = item.info.path.pathExtension;
+        NSString * path = item.info.path;
+
+        if( path == nil )
+        {
+            continue;
+        }
+
+        ext = path.pathExtension;
         
         if( ext == nil )
         {
@@ -378,14 +454,17 @@ NS_ASSUME_NONNULL_END
         }
         
         [ extensions addObject: ext ];
-        [ paths addObject: item.info.path ];
+        [ paths addObject: path ];
     }
     
     if( extensions.count )
     {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [ pasteboard setPropertyList: extensions forType: NSFilesPromisePboardType ];
         [ pasteboard setString: [ paths componentsJoinedByString: @"\n" ] forType: NSStringPboardType ];
-        
+        #pragma clang diagnostic pop
+
         return YES;
     }
     

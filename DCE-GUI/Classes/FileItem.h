@@ -33,10 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileItem: NSObject
 
-@property( atomic, readwrite, strong ) NSString * title;
-@property( atomic, readwrite, strong ) NSString * subtitle;
-@property( atomic, readwrite, strong ) NSImage  * icon;
-@property( atomic, readwrite, strong ) NSString * path;
+@property( atomic, readwrite, strong           ) NSString * title;
+@property( atomic, readwrite, strong           ) NSString * subtitle;
+@property( atomic, readwrite, strong, nullable ) NSImage  * icon;
+@property( atomic, readwrite, strong           ) NSString * path;
 
 @end
 

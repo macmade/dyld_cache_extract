@@ -51,21 +51,21 @@ typedef DCECacheFileExtractDuplicateHandling ( ^ DCECacheFileExtractDuplicateHan
 
 @interface DCECacheFile: NSObject
 
-@property( atomic, readonly ) BOOL                          exists;
-@property( atomic, readonly ) BOOL                          isValid;
-@property( atomic, readonly ) NSString                    * path;
-@property( atomic, readonly ) NSString                    * version;
-@property( atomic, readonly ) NSString                    * architecture;
-@property( atomic, readonly ) uint32_t                      mappingOffset;
-@property( atomic, readonly ) uint32_t                      mappingCount;
-@property( atomic, readonly ) uint32_t                      imagesOffset;
-@property( atomic, readonly ) uint32_t                      imagesCount;
-@property( atomic, readonly ) uint64_t                      dyldBaseAddress;
-@property( atomic, readonly ) NSArray< DCEImageInfo   * > * imageInfos;
-@property( atomic, readonly ) NSArray< DCEMappingInfo * > * mappingInfos;
-@property( atomic, readonly ) NSArray< DCEMachOFile   * > * machOFiles;
+@property( atomic, readonly           ) BOOL                          exists;
+@property( atomic, readonly           ) BOOL                          isValid;
+@property( atomic, readonly, nullable ) NSString                    * path;
+@property( atomic, readonly, nullable ) NSString                    * version;
+@property( atomic, readonly, nullable ) NSString                    * architecture;
+@property( atomic, readonly           ) uint32_t                      mappingOffset;
+@property( atomic, readonly           ) uint32_t                      mappingCount;
+@property( atomic, readonly           ) uint32_t                      imagesOffset;
+@property( atomic, readonly           ) uint32_t                      imagesCount;
+@property( atomic, readonly           ) uint64_t                      dyldBaseAddress;
+@property( atomic, readonly           ) NSArray< DCEImageInfo   * > * imageInfos;
+@property( atomic, readonly           ) NSArray< DCEMappingInfo * > * mappingInfos;
+@property( atomic, readonly           ) NSArray< DCEMachOFile   * > * machOFiles;
 
-- ( instancetype )initWithURL:  ( NSURL    * )url;
+- ( nullable instancetype )initWithURL:  ( NSURL    * )url;
 - ( instancetype )initWithPath: ( NSString * )path;
 
 - ( BOOL )extractImage: ( NSString * )path toDirectory: ( NSString * )outDir duplicateHandler: ( DCECacheFileExtractDuplicateHandler )handler;

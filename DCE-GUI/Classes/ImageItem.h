@@ -35,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageItem: NSObject
 
-@property( atomic, readonly ) NSString     * title;
-@property( atomic, readonly ) NSString     * subtitle;
-@property( atomic, readonly ) NSImage      * icon;
-@property( atomic, readonly ) DCEImageInfo * info;
+@property( atomic, readonly, nullable ) NSString     * title;
+@property( atomic, readonly, nullable ) NSString     * subtitle;
+@property( atomic, readonly, nullable ) NSImage      * icon;
+@property( atomic, readonly           ) DCEImageInfo * info;
 
 - ( instancetype )initWithImageInfo: ( DCEImageInfo * )info;
 

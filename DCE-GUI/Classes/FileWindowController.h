@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FileWindowController: NSWindowController
 
-- ( instancetype )initWithURL: ( NSURL * )url;
+- ( nullable instancetype )initWithURL: ( NSURL * )url;
 
 @end
 
