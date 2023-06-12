@@ -11,7 +11,7 @@ dyld_cache_extract
 ### Notice
 
 This project is now obsolete.  
-Please take a look at the [dyld-cache-dump](https://github.com/macmade/dyld-cache-dump) peoject.
+Please take a look at the [dyld-cache-dump](https://github.com/macmade/dyld-cache-dump) project.
 
 ### About
 
