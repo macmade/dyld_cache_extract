@@ -6,10 +6,10 @@ jobs:
         strategy:
             matrix:
                 run-config:
-                    - { scheme: 'dyld_cache_extract', configuration: 'Debug',   project: 'dyld_cache_extract.xcodeproj.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
-                    - { scheme: 'dyld_cache_extract', configuration: 'Release', project: 'dyld_cache_extract.xcodeproj.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
-                    - { scheme: 'DCE-GUI',            configuration: 'Debug',   project: 'dyld_cache_extract.xcodeproj.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
-                    - { scheme: 'DCE-GUI',            configuration: 'Release', project: 'dyld_cache_extract.xcodeproj.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
+                    - { scheme: 'dyld_cache_extract', configuration: 'Debug',   project: 'dyld_cache_extract.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
+                    - { scheme: 'dyld_cache_extract', configuration: 'Release', project: 'dyld_cache_extract.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
+                    - { scheme: 'DCE-GUI',            configuration: 'Debug',   project: 'dyld_cache_extract.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
+                    - { scheme: 'DCE-GUI',            configuration: 'Release', project: 'dyld_cache_extract.xcodeproj', build: 1, analyze: 1, test: 0, info: 1, destination: 'platform=macOS' }
         steps:
             
             - uses: actions/checkout@v1
